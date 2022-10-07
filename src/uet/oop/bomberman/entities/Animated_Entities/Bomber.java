@@ -7,8 +7,8 @@ import uet.oop.bomberman.entities.Entity;
 public class Bomber extends AnimatedEntities {
     private KeyCode dir;
 
-    public Bomber(int x, int y, Image img) {
-        super(x, y, img);
+    public Bomber(int x, int y, Image img, int velocity) {
+        super(x, y, img, velocity);
     }
 
     @Override

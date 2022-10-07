@@ -4,16 +4,17 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.Entity;
 
 public class AnimatedEntities extends Entity {
-    protected int newX = x;
-    protected int newY = y;
+    protected int newX;
+    protected int newY;
     protected int velocity;
     protected int left = 0;
     protected int right = 0;
     protected int up = 0;
     protected int down = 0;
 
-    public AnimatedEntities(int x, int y, Image img) {
+    public AnimatedEntities(int x, int y, Image img, int velocity) {
         super(x, y, img);
+        this.velocity = velocity;
     }
 
     /**
@@ -30,16 +31,16 @@ public class AnimatedEntities extends Entity {
     }
 
     public void moveLeft(){
-        newX = x - velocity;
+        newX -= velocity;
     }
     public void moveRight(){
-        newX = x + velocity;
+        newX += velocity;
     }
     public void moveUp(){
-        newY = y + velocity;
+        newY += velocity;
     }
     public void moveDown(){
-        newY = y - velocity;
+        newY -= velocity;
     }
     public void stay(){
         newX = x;
@@ -48,7 +49,24 @@ public class AnimatedEntities extends Entity {
     public int getNewX(){
         return newX;
     }
+
+    public void setNewX(int newX) {
+        this.newX = newX;
+    }
+
     public int getNewY(){
         return newY;
+    }
+
+    public void setNewY(int newY) {
+        this.newY = newY;
+    }
+
+    public int getVelocity() {
+        return velocity;
+    }
+
+    public void setVelocity(int velocity) {
+        this.velocity = velocity;
     }
 }

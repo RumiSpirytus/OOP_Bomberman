@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
+import uet.oop.bomberman.entities.Animated_Entities.AnimatedEntities;
 import uet.oop.bomberman.entities.Animated_Entities.Bomber;
 import uet.oop.bomberman.entities.Animated_Entities.Flame;
 import uet.oop.bomberman.entities.Animated_Entities.Enemies.Balloon;
@@ -37,11 +38,15 @@ public class BombermanGame extends Application {
 
     private GraphicsContext gc;
     private Canvas canvas;
+
+    public static AnimatedEntities player;
+
     public List<Entity> entities = new ArrayList<>();
     public List<Entity> Objects = new ArrayList<>();
     public List<Flame> flames = new ArrayList<>();
     public static char[][] mapMatrix = new char[HEIGHT][WIDTH];
 
+    public static Stage mainStage = null;
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
     }
@@ -49,7 +54,7 @@ public class BombermanGame extends Application {
     @Override
     public void start(Stage stage) {
         // am thanh
-        Sound soundtrack = new Sound(Sound.soundtrack);
+        //Sound soundtrack = new Sound(Sound.soundtrack);
         // Tao Canvas
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
@@ -65,6 +70,30 @@ public class BombermanGame extends Application {
         stage.setScene(scene);
         stage.show();
 
+
+
+        //createMap();
+
+        scene.setOnKeyPressed(event -> {
+            if (player.isAlive())
+                switch (event.getCode()) {
+                    case UP:
+                        player.moveUp();
+                        break;
+                    case DOWN:
+                        player.moveDown();
+                        break;
+                    case LEFT:
+                        player.moveLeft();
+                        break;
+                    case RIGHT:
+                        player.moveRight();
+                        break;
+                }
+        });
+
+        //stage.setScene(scene);
+
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
@@ -74,13 +103,12 @@ public class BombermanGame extends Application {
         };
         timer.start();
 
-        createMap();
-
-        Entity bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
-        entities.add(bomberman);
+        player = new Bomber(1, 1, Sprite.player_right.getFxImage(), 5);
+        player.setAlive(true);
+        entities.add(player);
     }
 
-    public void createMap() {
+    /*public void createMap() {
         for (int i = 0; i < HEIGHT; i++) {
             for (int j = 0; j < WIDTH; j++) {
                 if (mapMatrix[i][j] == '#') {
@@ -120,6 +148,21 @@ public class BombermanGame extends Application {
             }
         }
         // Objects.sort(new Layer());
+    }*/
+
+    public void createMap() {
+        for (int i = 0; i < WIDTH; i++) {
+            for (int j = 0; j < HEIGHT; j++) {
+                Entity object;
+                if (j == 0 || j == HEIGHT - 1 || i == 0 || i == WIDTH - 1) {
+                    object = new Wall(i, j, Sprite.wall.getFxImage());
+                }
+                else {
+                    object = new Grass(i, j, Sprite.grass.getFxImage());
+                }
+                Objects.add(object);
+            }
+        }
     }
 
     public void update() {

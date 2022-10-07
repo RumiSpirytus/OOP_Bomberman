@@ -14,6 +14,7 @@ public abstract class Entity {
     //Tọa độ Y tính từ góc trái trên trong Canvas
     protected int y;
     protected boolean alive = true;
+
     protected Image img;
 
     //Khởi tạo đối tượng, chuyển từ tọa độ đơn vị sang tọa độ trong canvas
@@ -32,16 +33,37 @@ public abstract class Entity {
         return x;
     }
 
+    public void setX(int x) {
+        this.x = x;
+    }
+
     public int getY() {
         return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public Image getImg() {
+        return img;
+    }
+
+    public void setImg(Image img) {
+        this.img = img;
+    }
+
+    public boolean isAlive(){
+        return this.alive;
+    }
+    public void setAlive(boolean alive) {
+        this.alive = alive;
     }
 
     public void render(GraphicsContext gc) {
         gc.drawImage(img, x, y);
     }
     public abstract void update();
-    public boolean isAlive(){
-        return this.alive;
-    }
+
     public abstract boolean collide(Entity e);
 }
