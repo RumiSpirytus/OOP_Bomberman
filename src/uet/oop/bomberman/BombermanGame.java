@@ -8,6 +8,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 import uet.oop.bomberman.entities.Animated_Entities.AnimatedEntities;
+import uet.oop.bomberman.entities.Animated_Entities.Bomb;
 import uet.oop.bomberman.entities.Animated_Entities.Bomber;
 import uet.oop.bomberman.entities.Animated_Entities.Flame;
 import uet.oop.bomberman.entities.Animated_Entities.Enemies.Balloon;
@@ -23,17 +24,28 @@ import uet.oop.bomberman.entities.Static_Entities.Grass;
 import uet.oop.bomberman.entities.Static_Entities.Portal;
 import uet.oop.bomberman.entities.Static_Entities.SpeedItem;
 import uet.oop.bomberman.entities.Static_Entities.Wall;
+import uet.oop.bomberman.graphics.Map;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.Sound_Bomberman.Sound;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+import java.util.StringTokenizer;
 
 import javax.naming.event.ObjectChangeListener;
 
 public class BombermanGame extends Application {
 
-    public static final int WIDTH = 20;
-    public static final int HEIGHT = 15;
+
+
+
+    public static final int WIDTH = 25;
+    public static final int HEIGHT = 20;
     public int level = 1;
 
     private GraphicsContext gc;
@@ -45,6 +57,9 @@ public class BombermanGame extends Application {
     public List<Entity> Objects = new ArrayList<>();
     public List<Flame> flames = new ArrayList<>();
     public static char[][] mapMatrix = new char[HEIGHT][WIDTH];
+
+
+    public String newmap = new Map().toString();
 
     public static Stage mainStage = null;
     public static void main(String[] args) {
@@ -72,27 +87,23 @@ public class BombermanGame extends Application {
 
 
 
-        //createMap();
+        createMap2();
+
+        //creatBackground();
+
+        //creatEntity();
 
         scene.setOnKeyPressed(event -> {
             if (player.isAlive())
                 switch (event.getCode()) {
-                    case UP:
-                        player.moveUp();
-                        break;
-                    case DOWN:
-                        player.moveDown();
-                        break;
-                    case LEFT:
-                        player.moveLeft();
-                        break;
-                    case RIGHT:
-                        player.moveRight();
-                        break;
+                    case UP: player.moveUp(); entities.add(player); break;
+                    case DOWN: player.moveDown(); entities.add(player); break;
+                    case LEFT: player.moveLeft(); break;
+                    case RIGHT: player.moveRight();break;
                 }
         });
 
-        //stage.setScene(scene);
+        stage.setScene(scene);
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
@@ -150,6 +161,35 @@ public class BombermanGame extends Application {
         // Objects.sort(new Layer());
     }*/
 
+
+    public static int matrix[][] =
+            {{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9},
+            {9,5,8,8,8,7,7,8,8,1,8,8,8,7,8,7,8,7,8,9},
+            {9,8,9,7,9,8,9,8,9,7,9,9,7,9,7,9,7,9,8,9},
+            {9,8,8,6,7,8,8,8,7,7,8,7,8,8,1,8,8,7,8,9},
+            {9,8,9,8,9,7,9,7,9,8,9,8,9,8,9,8,9,7,7,9},
+            {9,4,8,8,8,8,8,8,8,8,8,7,8,8,7,8,8,8,1,9},
+            {9,8,9,8,8,9,8,9,7,9,8,9,7,9,8,9,8,9,8,9},
+            {9,7,8,8,7,8,8,8,8,7,8,8,8,7,8,8,8,8,8,9},
+            {9,7,9,8,9,7,9,8,9,8,9,8,8,9,8,9,8,9,8,9},
+                    {9,8,9,8,9,7,9,7,9,8,9,8,9,8,9,8,9,7,7,9},
+                    {9,4,8,8,8,8,8,8,8,8,8,7,8,8,7,8,8,8,1,9},
+                    {9,8,9,8,8,9,8,9,7,9,8,9,7,9,8,9,8,9,8,9},
+                    {9,7,8,8,7,8,8,8,8,7,8,8,8,7,8,8,8,8,8,9},
+                    {9,7,9,8,9,7,9,8,9,8,9,8,8,9,8,9,8,9,8,9},
+            {9,7,7,8,8,7,8,8,8,8,7,8,8,8,8,8,8,8,8,9},
+            {9,8,9,7,9,8,9,8,9,7,9,7,9,8,9,8,9,7,9,9},
+            {9,8,8,6,7,8,8,8,7,7,8,7,7,8,2,7,8,7,8,9},
+            {9,8,9,8,9,7,9,7,9,8,9,8,9,8,9,8,9,7,7,9},
+            {9,4,8,8,8,8,8,7,7,8,8,7,8,8,7,8,8,8,1,9},
+            {9,8,9,7,8,9,7,9,8,9,8,9,8,9,8,9,8,9,8,9},
+            {9,8,8,8,8,8,8,8,8,8,7,8,8,8,7,8,8,8,8,9},
+            {9,7,9,8,9,7,9,8,9,9,7,9,8,9,8,9,8,9,8,9},
+            {9,7,8,8,8,7,8,8,8,8,7,8,8,8,8,8,8,8,8,9},
+            {9,8,9,7,9,8,9,8,9,8,9,7,9,8,9,8,9,8,8,9},
+            {9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9}};
+
+
     public void createMap() {
         for (int i = 0; i < WIDTH; i++) {
             for (int j = 0; j < HEIGHT; j++) {
@@ -157,6 +197,7 @@ public class BombermanGame extends Application {
                 if (j == 0 || j == HEIGHT - 1 || i == 0 || i == WIDTH - 1) {
                     object = new Wall(i, j, Sprite.wall.getFxImage());
                 }
+
                 else {
                     object = new Grass(i, j, Sprite.grass.getFxImage());
                 }
@@ -165,6 +206,72 @@ public class BombermanGame extends Application {
         }
     }
 
+    public void createMap2() {
+        for (int i = 0; i < WIDTH; i++) {
+            for (int j = 0; j < HEIGHT; j++) {
+                Entity object;
+                    switch (matrix[i][j]) {
+                        case (9):
+                            object = new Wall(i, j, Sprite.wall.getFxImage());
+                            break;
+
+                        case (7):
+                            object = new Brick(i, j, Sprite.brick.getFxImage());
+                            break;
+                        case (6):
+                            object = new Portal(i, j, Sprite.portal.getFxImage());
+                            break;
+                        default:
+                            object = new Grass(i, j, Sprite.grass.getFxImage());
+                    }
+
+                Objects.add(object);
+            }
+        }
+    }
+    public void creatBackground() {
+        for (int i = 0; i < WIDTH; i++) {
+            for (int j = 0; j < HEIGHT; j++) {
+            Entity object;
+                //if (map.charAt(i) == '#') {
+                //    object = new Wall(i, j, Sprite.brick.getFxImage());
+                //}
+            }
+        }
+    }
+
+    public void creatEntity() {
+        final File fileName = new File("Level1.txt");
+        try (FileReader inputFile = new FileReader(fileName)) {
+            Scanner sc = new Scanner(inputFile);
+            String line = sc.nextLine();
+            StringTokenizer tokens = new StringTokenizer(line);
+            while (sc.hasNextLine()) {
+                for (int i = 0; i < HEIGHT; i++) {
+                    String lineTile = sc.nextLine();
+                    StringTokenizer tokenTile = new StringTokenizer(lineTile);
+                    
+                    for (int j = 0; j < WIDTH; j++) {
+                        int s = Integer.parseInt(tokenTile.nextToken());
+                        Entity object = null;
+                        switch (s) {
+                            case '*':
+                                object = new Wall(i, j, Sprite.wall.getFxImage());
+                                break;
+                        }
+                        Objects.add(object);
+                        
+                        
+                    }
+                }
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
     public void update() {
         entities.forEach(Entity::update);
     }
