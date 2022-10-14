@@ -29,6 +29,10 @@ public abstract class Entity {
         this.y = y;
     }
 
+    public Entity() {
+
+    }
+
     public int getX() {
         return x;
     }
