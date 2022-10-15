@@ -6,7 +6,7 @@ import uet.oop.bomberman.graphics.Sprite;
 
 public class Bomber extends AnimatedEntities {
 
-    KeyCode dir;
+    public KeyCode dir;
 
     public Bomber(int x, int y, Image img, int speed) {
         super(x, y, img, speed);

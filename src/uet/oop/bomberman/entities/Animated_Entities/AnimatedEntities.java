@@ -9,10 +9,10 @@ import static uet.oop.bomberman.graphics.Sprite.SCALED_SIZE;
 public abstract class AnimatedEntities extends Entity {
 
     protected int speed;
-    protected int left = 0;
-    protected int right = 0;
-    protected int up = 0;
-    protected int down = 0;
+    protected int left = 1;
+    protected int right = 2;
+    protected int up = 3;
+    protected int down = 4;
     protected final int animate = 5;
     protected boolean isLive = true;
 

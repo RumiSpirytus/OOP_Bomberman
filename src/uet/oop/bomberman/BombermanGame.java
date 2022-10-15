@@ -53,17 +53,23 @@ public class BombermanGame extends Application {
     private GraphicsContext gc;
     private Canvas canvas;
 
+
+
     public static boolean running;
 
     Stage window;
     Scene scene1, scene2;
 
     private long lastTime;
-    public static int speed = 4;
-    public static AnimatedEntities player;
+    public static int speed = 2;
+    public static Bomber player;
 
     public List<Entity> entities = new ArrayList<>();
     public List<Entity> Objects = new ArrayList<>();
+
+    public List<Entity> enemy = new ArrayList<>();
+
+
     public List<Flame> flames = new ArrayList<>();
     public static char[][] mapMatrix = new char[HEIGHT][WIDTH];
 
@@ -99,13 +105,15 @@ public class BombermanGame extends Application {
 
         scene.setOnKeyPressed(event -> {
             //if (player.isLife())
+            KeyCode direction = event.getCode();
+            player.KeyPressedEvent(direction);
                 switch (event.getCode()) {
                     case UP:
-                        player.moveUp(); player.update(); break;
+                        player.moveUp(); /*player.update();*/ break;
                     case DOWN:
-                        player.moveDown(); player.update(); break;
+                        player.moveDown(); /*player.update();*/ break;
                     case LEFT:
-                        player.moveLeft(); player.update(); break;
+                        player.moveLeft(); /*player.update();*/ break;
                     case RIGHT:
                         player.moveRight(); player.update(); break;
 
@@ -136,6 +144,8 @@ public class BombermanGame extends Application {
         timer.start();
 
         player = new Bomber(1, 1, Sprite.player_right.getFxImage(), speed);
+
+
         //player.setAlive(true);
         entities.add(player);
     }
@@ -197,7 +207,7 @@ public class BombermanGame extends Application {
                     {9,8,9,8,8,7,9,7,9,8,8,8,8,9,7,7,9},
                     {9,4,8,8,8,8,8,8,8,8,8,7,8,8,8,1,9},
                     {9,8,9,8,8,9,8,9,7,9,8,9,7,8,8,8,9},
-                    {9,7,8,8,8,8,7,8,8,8,7,8,8,8,8,8,9},
+                    {9,7,8,8,8,8,7,8,8,8,2,8,8,8,8,8,9},
                     {9,7,9,8,9,7,9,8,8,8,8,8,9,8,9,8,9},
                     {9,7,7,8,8,7,8,8,8,8,8,8,8,8,8,8,9},
                     {9,8,9,7,8,9,8,7,9,7,8,9,8,9,7,9,9},
@@ -243,6 +253,10 @@ public class BombermanGame extends Application {
                         case (6):
                             object = new Portal(i, j, Sprite.portal.getFxImage());
                             break;
+                        case (2):
+                            object = new Portal(i, j, Sprite.balloom_left1.getFxImage());
+                            object.update();
+                            break;
                         default:
                             object = new Grass(i, j, Sprite.grass.getFxImage());
                     }
@@ -259,6 +273,8 @@ public class BombermanGame extends Application {
 
     public void update() {
         entities.forEach(Entity::update);
+        Objects.forEach(Entity::update);
+        enemy.forEach(Entity::update);
 
     }
 
@@ -266,5 +282,6 @@ public class BombermanGame extends Application {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         Objects.forEach(g -> g.render(gc));
         entities.forEach(g -> g.render(gc));
+        enemy.forEach(g -> g.render(gc));
     }
 }
