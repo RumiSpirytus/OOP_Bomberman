@@ -6,7 +6,32 @@ import uet.oop.bomberman.entities.Entity;
 
 public class Oneal extends AnimatedEntities {
     public Oneal(int x, int y, Image img) {
-        super(x, y, img);
+        super(x, y, img, 3);
+    }
+
+    @Override
+    public void movePlayer() {
+
+    }
+
+    @Override
+    public void moveRight() {
+
+    }
+
+    @Override
+    public void moveLeft() {
+
+    }
+
+    @Override
+    public void moveUp() {
+
+    }
+
+    @Override
+    public void moveDown() {
+
     }
 
     @Override

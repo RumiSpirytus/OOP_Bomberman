@@ -6,7 +6,10 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import uet.oop.bomberman.entities.Animated_Entities.*;
 import uet.oop.bomberman.entities.Animated_Entities.Enemies.Balloon;
@@ -52,8 +55,11 @@ public class BombermanGame extends Application {
 
     public static boolean running;
 
+    Stage window;
+    Scene scene1, scene2;
+
     private long lastTime;
-    public static int speed = 1;
+    public static int speed = 4;
     public static AnimatedEntities player;
 
     public List<Entity> entities = new ArrayList<>();
@@ -67,10 +73,12 @@ public class BombermanGame extends Application {
     }
 
     @Override
-    public void start(Stage stage) {
+    public void start(Stage primaryStage) {
         // am thanh
         //Sound soundtrack = new Sound(Sound.soundtrack);
         // Tao Canvas
+
+
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
 
@@ -82,31 +90,27 @@ public class BombermanGame extends Application {
         Scene scene = new Scene(root);
 
         // Them scene vao stage
-        stage.setScene(scene);
-        //stage.show();
+        primaryStage.setScene(scene);
+        primaryStage.show();
 
 
 
         createMap2();
 
-        /*(scene.setOnKeyPressed(event -> {
-            if (player.isLife())
+        scene.setOnKeyPressed(event -> {
+            //if (player.isLife())
                 switch (event.getCode()) {
                     case UP:
-                        Move.up(player);
-                        break;
+                        player.moveUp(); player.update(); break;
                     case DOWN:
-                        Move.down(player);
-                        break;
+                        player.moveDown(); player.update(); break;
                     case LEFT:
-                        Move.left(player);
-                        break;
+                        player.moveLeft(); player.update(); break;
                     case RIGHT:
-                        Move.right(player);
-                        break;
+                        player.moveRight(); player.update(); break;
 
                 }
-        });*/
+        });
 
         //creatBackground();
 
@@ -114,10 +118,7 @@ public class BombermanGame extends Application {
 
 
 
-        stage.setScene(scene);
-
-        mainStage = stage;
-        mainStage.show();
+        primaryStage.setScene(scene);
 
         lastTime = System.currentTimeMillis();
 
@@ -134,8 +135,8 @@ public class BombermanGame extends Application {
         };
         timer.start();
 
-        player = new Bomber(1, 1, Sprite.player_right.getFxImage());
-        player.setAlive(true);
+        player = new Bomber(1, 1, Sprite.player_right.getFxImage(), speed);
+        //player.setAlive(true);
         entities.add(player);
     }
 
@@ -258,6 +259,7 @@ public class BombermanGame extends Application {
 
     public void update() {
         entities.forEach(Entity::update);
+
     }
 
     public void render() {

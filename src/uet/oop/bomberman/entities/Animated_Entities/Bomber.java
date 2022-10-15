@@ -2,27 +2,55 @@ package uet.oop.bomberman.entities.Animated_Entities;
 
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
-import static uet.oop.bomberman.BombermanGame.player;
-
 public class Bomber extends AnimatedEntities {
+
+    KeyCode dir;
+
+    public Bomber(int x, int y, Image img, int speed) {
+        super(x, y, img, speed);
+
+    }
+
     public static int swapKill = 1;
     private static int countKill = 0;
 
-    public Bomber(int isMove, int swap, String direction, int count, int countToRun) {
-        super(8, 1, "down", 0, 0);
+    Image []imgFrameRight;
+    Image []imgFrameLeft;
+    Image []imgFrameUp;
+    Image []imgFrameDown;
+    Image[] imgFrameDie;
+
+    @Override
+    public void movePlayer() {
+
     }
 
-    public Bomber() {
+    @Override
+    public void moveRight() {
+        //if (dir == KeyCode.RIGHT) {
+            this.x += speed;
+        //}
     }
 
-    public Bomber(int x, int y, Image img) {
-        super(x, y, img);
+    @Override
+    public void moveLeft() {
+        this.x -= speed;
     }
 
-    /*public void KeyPressedEvent(KeyCode keyCode) {
+    @Override
+    public void moveUp() {
+        this.y -= speed;
+    }
+
+    @Override
+    public void moveDown() {
+        this.y += speed;
+    }
+
+
+    public void KeyPressedEvent(KeyCode keyCode) {
         if (keyCode == KeyCode.LEFT || keyCode == KeyCode.RIGHT
                 || keyCode == KeyCode.UP || keyCode == KeyCode.DOWN) {
             dir = keyCode;
@@ -68,7 +96,7 @@ public class Bomber extends AnimatedEntities {
             img = Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1
                     , Sprite.player_down_2, down++, 20).getFxImage();
         }
-    }*/
+    }
 
     /*private void killBomber(AnimatedEntities animal) {
         if (countKill % 16 == 0) {

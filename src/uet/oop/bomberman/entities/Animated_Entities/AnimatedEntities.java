@@ -6,89 +6,42 @@ import uet.oop.bomberman.entities.Entity;
 import static uet.oop.bomberman.graphics.Sprite.DEFAULT_SIZE;
 import static uet.oop.bomberman.graphics.Sprite.SCALED_SIZE;
 
-public class AnimatedEntities extends Entity {
-    protected int isMove;      //jump with pixel
-    protected int swap;        //swap image
-    protected String direction;//direction of player
-    protected int count;       //count step of a jump
-    protected int countToRun;   //run after count frame
-    protected boolean life;     //life of enemy
+public abstract class AnimatedEntities extends Entity {
 
-    public AnimatedEntities(int xUnit, int yUnit, Image img) {
-        super(xUnit, yUnit, img);
+    protected int speed;
+    protected int left = 0;
+    protected int right = 0;
+    protected int up = 0;
+    protected int down = 0;
+    protected final int animate = 5;
+    protected boolean isLive = true;
+
+    public AnimatedEntities(int x, int y, Image img, int speed) {
+        super(x, y, img);
+        this.speed = speed;
     }
 
-    public AnimatedEntities(int isMove, int swap, String direction, int count, int countToRun) {
-        this();
+    public abstract void movePlayer();
 
-        this.isMove = isMove;
-        this.swap = swap;
-        this.direction = direction;
-        this.count = count;
-        this.countToRun = countToRun;
+    public int getSpeed() {
+        return speed;
     }
 
-    public AnimatedEntities(boolean life) {
-        this();
-        this.life = life;
+    public void setSpeed(int speed) {
+        this.speed = speed;
     }
 
-    public boolean isLife() {
-        return life;
-    }
+    public abstract void moveRight();
 
-    public void setLife(boolean life) {
-        this.life = life;
-    }
+    public abstract void moveLeft();
 
-    public int getIsMove() {
-        return isMove;
-    }
+    public abstract void moveUp();
 
-    public void setIsMove(int isMove) {
-        this.isMove = isMove;
-    }
-
-    public int getSwap() {
-        return swap;
-    }
-
-    public void setSwap(int swap) {
-        this.swap = swap;
-    }
-
-    public String getDirection() {
-        return direction;
-    }
-
-    public void setDirection(String direction) {
-        this.direction = direction;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
-
-    public int getCountToRun() {
-        return countToRun;
-    }
-
-    public void setCountToRun(int countToRun) {
-        this.countToRun = countToRun;
-    }
-
-    public AnimatedEntities() {
-        super();
-
-    }
+    public abstract void moveDown();
 
     @Override
     public void update() {
-
+        movePlayer();
     }
 
     @Override

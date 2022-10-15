@@ -4,10 +4,10 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.Animated_Entities.AnimatedEntities;
 import uet.oop.bomberman.entities.Entity;
 
-public class Doll extends AnimatedEntities {
+public abstract class Doll extends AnimatedEntities {
 
     public Doll(int x, int y, Image img) {
-        super(x, y, img);
+        super(x, y, img, 3);
     }
 
     @Override
