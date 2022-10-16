@@ -26,6 +26,7 @@ import uet.oop.bomberman.entities.Static_Entities.Portal;
 import uet.oop.bomberman.entities.Static_Entities.SpeedItem;
 import uet.oop.bomberman.entities.Static_Entities.Wall;
 
+import uet.oop.bomberman.graphics.Map;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.Sound_Bomberman.Sound;
 
@@ -100,7 +101,7 @@ public class BombermanGame extends Application {
         primaryStage.show();
 
 
-
+        Map map = new Map();
         createMap2();
 
         scene.setOnKeyPressed(event -> {
@@ -109,13 +110,13 @@ public class BombermanGame extends Application {
             player.KeyPressedEvent(direction);
                 switch (event.getCode()) {
                     case UP:
-                        player.moveUp(); /*player.update();*/ break;
+                        player.move(map, 0); /*player.update();*/ break;
                     case DOWN:
-                        player.moveDown(); /*player.update();*/ break;
+                        player.move(map, 1); /*player.update();*/ break;
                     case LEFT:
-                        player.moveLeft(); /*player.update();*/ break;
+                        player.move(map, 2); /*player.update();*/ break;
                     case RIGHT:
-                        player.moveRight(); player.update(); break;
+                        player.move(map, 3); player.update(); break;
 
                 }
         });
