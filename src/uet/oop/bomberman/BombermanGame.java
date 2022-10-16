@@ -65,6 +65,8 @@ public class BombermanGame extends Application {
     public static int speed = 7;
     public static Bomber player;
 
+    public static Balloon balom;
+
     public List<Entity> entities = new ArrayList<>();
     public List<Entity> Objects = new ArrayList<>();
 
@@ -275,7 +277,7 @@ public class BombermanGame extends Application {
     public void update() {
         entities.forEach(Entity::update);
         Objects.forEach(Entity::update);
-        enemy.forEach(Entity::update);
+        //enemy.forEach(Entity::update);
 
     }
 
