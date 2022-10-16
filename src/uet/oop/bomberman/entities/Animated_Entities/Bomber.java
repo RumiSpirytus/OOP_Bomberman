@@ -2,11 +2,19 @@ package uet.oop.bomberman.entities.Animated_Entities;
 
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.Static_Entities.Wall;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Bomber extends AnimatedEntities {
 
     public KeyCode dir;
+
+    protected int tem = 16;
+    int t_l = 0;
+    int t_r = 0;
+    int t_d = 0;
+    int t_u = 0;
 
     public Bomber(int x, int y, Image img, int speed) {
         super(x, y, img, speed);
@@ -29,23 +37,28 @@ public class Bomber extends AnimatedEntities {
 
     @Override
     public void moveRight() {
+
         //if (dir == KeyCode.RIGHT) {
+            t_r++;
             this.x += speed;
         //}
     }
 
     @Override
     public void moveLeft() {
+        t_l++;
         this.x -= speed;
     }
 
     @Override
     public void moveUp() {
+        t_u++;
         this.y -= speed;
     }
 
     @Override
     public void moveDown() {
+        t_d++;
         this.y += speed;
     }
 
@@ -59,13 +72,13 @@ public class Bomber extends AnimatedEntities {
     public void KeyReleasedEvent(KeyCode keyCode) {
         if (dir == keyCode) {
             if (dir == KeyCode.LEFT) {
-                img = Sprite.player_left.getFxImage();
+                img = Sprite.player_down.getFxImage();
             }
             if (dir == KeyCode.RIGHT) {
-                img = Sprite.player_right.getFxImage();
+                img = Sprite.player_down.getFxImage();
             }
             if (dir == KeyCode.UP) {
-                img = Sprite.player_up.getFxImage();
+                img = Sprite.player_down.getFxImage();
             }
             if (dir == KeyCode.DOWN) {
                 img = Sprite.player_down.getFxImage();
@@ -74,28 +87,55 @@ public class Bomber extends AnimatedEntities {
         dir = null;
     }
 
+
     @Override
     public void update() {
         if (dir == KeyCode.LEFT) {
             moveLeft();
+            //System.out.println(t_l);
             img = Sprite.movingSprite(Sprite.player_left, Sprite.player_left_1
                     , Sprite.player_left_2, left++, 20).getFxImage();
+
+            if (t_l % tem == 0) {
+                KeyReleasedEvent(dir);
+            }
         }
         if (dir == KeyCode.RIGHT) {
+            //System.out.println(t_r);
             moveRight();
             img = Sprite.movingSprite(Sprite.player_right, Sprite.player_right_1
                     , Sprite.player_right_2, right++, 20).getFxImage();
+            if (t_r % tem == 0) {
+                KeyReleasedEvent(dir);
+            }
         }
         if (dir == KeyCode.UP) {
             moveUp();
             img = Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1
                     , Sprite.player_up_2, up++, 20).getFxImage();
+            if (t_u % tem == 0) {
+                KeyReleasedEvent(dir);
+            }
         }
         if (dir == KeyCode.DOWN) {
             moveDown();
             img = Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1
                     , Sprite.player_down_2, down++, 20).getFxImage();
+            if (t_d % tem == 0) {
+                KeyReleasedEvent(dir);
+            }
         }
+
+    }
+
+
+    @Override
+    public boolean collide(Entity e) {
+        if (e instanceof Wall) {
+            if (x + 16 > e.getX() && y + 16 > e.getY())
+            return true;
+        }
+        return false;
     }
 
     /*private void killBomber(AnimatedEntities animal) {

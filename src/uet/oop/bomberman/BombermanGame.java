@@ -33,10 +33,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.StringTokenizer;
+import java.util.*;
 
 import javax.naming.event.ObjectChangeListener;
 
@@ -57,12 +54,13 @@ public class BombermanGame extends Application {
 
     public static boolean running;
 
-    Stage window;
-    Scene scene1, scene2;
+
 
     private long lastTime;
     public static int speed = 2;
     public static Bomber player;
+
+    public static Balloon balom;
 
     public List<Entity> entities = new ArrayList<>();
     public List<Entity> Objects = new ArrayList<>();
@@ -70,10 +68,10 @@ public class BombermanGame extends Application {
     public List<Entity> enemy = new ArrayList<>();
 
 
-    public List<Flame> flames = new ArrayList<>();
-    public static char[][] mapMatrix = new char[HEIGHT][WIDTH];
+    //public List<Flame> flames = new ArrayList<>();
+    //public static char[][] mapMatrix = new char[HEIGHT][WIDTH];
 
-    public static Stage mainStage = null;
+    //public static Stage mainStage = null;
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
     }
@@ -106,19 +104,26 @@ public class BombermanGame extends Application {
         scene.setOnKeyPressed(event -> {
             //if (player.isLife())
             KeyCode direction = event.getCode();
+
             player.KeyPressedEvent(direction);
                 switch (event.getCode()) {
                     case UP:
-                        player.moveUp(); /*player.update();*/ break;
+                        //System.out.println(player.getX() + " " + player.getY());
+                        player.moveUp(); player.update(); break;
                     case DOWN:
-                        player.moveDown(); /*player.update();*/ break;
+                        //System.out.println(player.getX() + " " + player.getY());
+                        player.moveDown(); player.update(); break;
                     case LEFT:
-                        player.moveLeft(); /*player.update();*/ break;
+                        //System.out.println(player.getX() + " " + player.getY());
+                        player.moveLeft(); player.update(); break;
                     case RIGHT:
+                        //System.out.println(player.getX() + " " + player.getY());
                         player.moveRight(); player.update(); break;
 
                 }
         });
+
+
 
         //creatBackground();
 
@@ -128,7 +133,7 @@ public class BombermanGame extends Application {
 
         primaryStage.setScene(scene);
 
-        lastTime = System.currentTimeMillis();
+        //lastTime = System.currentTimeMillis();
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
@@ -145,6 +150,8 @@ public class BombermanGame extends Application {
 
         player = new Bomber(1, 1, Sprite.player_right.getFxImage(), speed);
 
+        balom = new Balloon(10, 10, Sprite.balloom_left1.getFxImage(), 1);
+        Objects.add(balom);
 
         //player.setAlive(true);
         entities.add(player);
@@ -245,6 +252,8 @@ public class BombermanGame extends Application {
                     switch (matrix[i][j]) {
                         case (9):
                             object = new Wall(i, j, Sprite.wall.getFxImage());
+                            System.out.print(i + " " + j + " ");
+                            System.out.println(object.getX() + " " + object.getY());
                             break;
 
                         case (7):
@@ -253,10 +262,11 @@ public class BombermanGame extends Application {
                         case (6):
                             object = new Portal(i, j, Sprite.portal.getFxImage());
                             break;
-                        case (2):
+
+                        /*case (2):
                             object = new Portal(i, j, Sprite.balloom_left1.getFxImage());
                             object.update();
-                            break;
+                            break;*/
                         default:
                             object = new Grass(i, j, Sprite.grass.getFxImage());
                     }
@@ -264,6 +274,7 @@ public class BombermanGame extends Application {
                 Objects.add(object);
             }
         }
+        System.out.println(Objects.size());
     }
 
     /*public boolean isFree(int nextX, int nextY) {
@@ -274,7 +285,7 @@ public class BombermanGame extends Application {
     public void update() {
         entities.forEach(Entity::update);
         Objects.forEach(Entity::update);
-        enemy.forEach(Entity::update);
+        //enemy.forEach(Entity::update);
 
     }
 
