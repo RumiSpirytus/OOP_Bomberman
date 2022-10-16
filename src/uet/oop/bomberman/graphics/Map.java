@@ -1,5 +1,7 @@
 package uet.oop.bomberman.graphics;
 
+import uet.oop.bomberman.BombermanGame;
+
 public class Map {
     public String map =
             "###############################" +
@@ -19,8 +21,8 @@ public class Map {
     public String getMap() {
         return map;
     }
-    public static int HEIGHT = 13;
-    public static int WIDTH = 31;
+    public static int HEIGHT = 17;
+    public static int WIDTH = 41;
 
     public void setMap(String map) {
         this.map = map;
@@ -28,6 +30,6 @@ public class Map {
     public boolean getXY(int x, int y){
         int xMap = x / Sprite.SCALED_SIZE;
         int yMap = y / Sprite.SCALED_SIZE;
-        return map.charAt(yMap * WIDTH + xMap) == '#';
+        return BombermanGame.matrix[xMap][yMap] == 9;
     }
 }

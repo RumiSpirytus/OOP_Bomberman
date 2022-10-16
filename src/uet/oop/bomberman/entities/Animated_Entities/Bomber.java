@@ -5,6 +5,7 @@ import javafx.scene.input.KeyCode;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.Static_Entities.Wall;
 import javafx.scene.input.KeyEvent;
+import uet.oop.bomberman.graphics.Map;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Bomber extends AnimatedEntities {
@@ -35,6 +36,32 @@ public class Bomber extends AnimatedEntities {
     public void movePlayer() {
 
     }
+    public boolean canMove(Map map, int xMap, int yMap){
+        return !map.getXY(xMap, yMap);
+    }
+
+    public void move(Map map, int dir){
+        int xNew = x;
+        int yNew = y;
+        switch (dir){
+            case 0:
+                yNew -= speed; // up
+                break;
+            case 1:
+                yNew += speed; // down
+                break;
+            case 2:
+                xNew -= speed; // trai
+                break;
+            case 3:
+                xNew += speed; // phai
+                break;
+        }
+        if(canMove(map, xNew, yNew)){
+            x = xNew;
+            y = yNew;
+        }
+    }
 
     @Override
     public void moveRight() {
@@ -42,6 +69,7 @@ public class Bomber extends AnimatedEntities {
         //if (dir == KeyCode.RIGHT) {
             t_r++;
             this.x += speed;
+
         //}
     }
 
