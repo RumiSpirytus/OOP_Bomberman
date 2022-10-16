@@ -2,6 +2,7 @@ package uet.oop.bomberman.entities.Animated_Entities;
 
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Bomber extends AnimatedEntities {
@@ -71,31 +72,30 @@ public class Bomber extends AnimatedEntities {
                 img = Sprite.player_down.getFxImage();
             }
         }
-        dir = null;
     }
 
     @Override
     public void update() {
-        if (dir == KeyCode.LEFT) {
-            moveLeft();
-            img = Sprite.movingSprite(Sprite.player_left, Sprite.player_left_1
-                    , Sprite.player_left_2, left++, 20).getFxImage();
-        }
-        if (dir == KeyCode.RIGHT) {
-            moveRight();
-            img = Sprite.movingSprite(Sprite.player_right, Sprite.player_right_1
-                    , Sprite.player_right_2, right++, 20).getFxImage();
-        }
-        if (dir == KeyCode.UP) {
-            moveUp();
-            img = Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1
-                    , Sprite.player_up_2, up++, 20).getFxImage();
-        }
-        if (dir == KeyCode.DOWN) {
-            moveDown();
-            img = Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1
-                    , Sprite.player_down_2, down++, 20).getFxImage();
-        }
+//        if (dir == KeyCode.LEFT) {
+//            moveLeft();
+//            img = Sprite.movingSprite(Sprite.player_left, Sprite.player_left_1
+//                    , Sprite.player_left_2, left++, 20).getFxImage();
+//        }
+//        if (dir == KeyCode.RIGHT) {
+//            moveRight();
+//            img = Sprite.movingSprite(Sprite.player_right, Sprite.player_right_1
+//                    , Sprite.player_right_2, right++, 20).getFxImage();
+//        }
+//        if (dir == KeyCode.UP) {
+//            moveUp();
+//            img = Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1
+//                    , Sprite.player_up_2, up++, 20).getFxImage();
+//        }
+//        if (dir == KeyCode.DOWN) {
+//            moveDown();
+//            img = Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1
+//                    , Sprite.player_down_2, down++, 20).getFxImage();
+//        }
     }
 
     /*private void killBomber(AnimatedEntities animal) {

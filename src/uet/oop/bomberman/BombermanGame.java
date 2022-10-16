@@ -61,7 +61,7 @@ public class BombermanGame extends Application {
     Scene scene1, scene2;
 
     private long lastTime;
-    public static int speed = 2;
+    public static int speed = 7;
     public static Bomber player;
 
     public List<Entity> entities = new ArrayList<>();
