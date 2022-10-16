@@ -57,7 +57,7 @@ public class BombermanGame extends Application {
 
 
     private long lastTime;
-    public static int speed = 2;
+    public static int speed = 7;
     public static Bomber player;
 
     public static Balloon balom;

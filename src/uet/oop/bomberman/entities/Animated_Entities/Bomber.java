@@ -4,6 +4,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.Static_Entities.Wall;
+import javafx.scene.input.KeyEvent;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Bomber extends AnimatedEntities {
