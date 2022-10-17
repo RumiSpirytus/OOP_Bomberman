@@ -15,8 +15,17 @@ public class Balloon extends AnimatedEntities {
         super(x, y, img, balloon_speed);
     }
 
+    int direction = 0;
+    public void chooseDirection() {
+        Random random = new Random();
+        direction = random.nextInt(2);
+    }
+
+
     int b_l = 0;
     int b_r = 0;
+    int b_u = 0;
+    int b_d = 0;
 
     int time_ballon = 0;
     @Override
@@ -43,12 +52,18 @@ public class Balloon extends AnimatedEntities {
 
     @Override
     public void moveUp() {
-
+        if (b_u <100) {
+            b_u++;
+            this.y -= balloon_speed;
+        }
     }
 
     @Override
     public void moveDown() {
-
+        if (b_d <100) {
+            b_d++;
+            this.y -= balloon_speed;
+        }
     }
 
     @Override
@@ -59,22 +74,23 @@ public class Balloon extends AnimatedEntities {
         //if (x % 16 == 0) {
            // Random random = new Random();
             //int balom_dir = random.nextInt(300);
-
-         //  System.out.println(balom_dir);
+            //chooseDirection();
+           System.out.println(direction);
           //  if (balom_dir == 2) {
+
+            if (direction==0) {
                 moveLeft();
                 //System.out.println(b_l);
                 img = Sprite.movingSprite(Sprite.balloom_left1, Sprite.balloom_left2, Sprite.balloom_left3
-                        , left++, 20).getFxImage();
-                if (b_l==100) {
+                        , left++, 100).getFxImage();
 
-                    moveRight();
-                    img = Sprite.movingSprite(Sprite.balloom_right1, Sprite.balloom_right2, Sprite.balloom_right3
-                           , left++, 20).getFxImage();
-                    if (b_r==100) {
-                        b_l=0;
-                    }
-                }
+            }
+            if (direction==1) {
+
+                moveRight();
+                img = Sprite.movingSprite(Sprite.balloom_right1, Sprite.balloom_right2, Sprite.balloom_right3
+                          , left++, 100).getFxImage();
+            }
            //}
             //if (balom_dir == 1) {
               //  moveRight();

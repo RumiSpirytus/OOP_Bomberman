@@ -139,7 +139,7 @@ public class BombermanGame extends Application {
                // System.out.println(player.getX()/32 + " " + player.getY()/32);
                // player.getPlayermatrix();
 
-                }
+
         });
 
 
@@ -271,8 +271,8 @@ public class BombermanGame extends Application {
                     switch (matrix[i][j]) {
                         case (9):
                             object = new Wall(i, j, Sprite.wall.getFxImage());
-                            System.out.print(i + " " + j + " ");
-                            System.out.println(object.getX() + " " + object.getY());
+                            //System.out.print(i + " " + j + " ");
+                            //System.out.println(object.getX() + " " + object.getY());
                             break;
 
                         case (7):
@@ -303,7 +303,7 @@ public class BombermanGame extends Application {
 
     public void update() {
         entities.forEach(Entity::update);
-        //Objects.forEach(Entity::update);
+        Objects.forEach(Entity::update);
         //enemy.forEach(Entity::update);
 
     }
