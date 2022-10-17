@@ -5,7 +5,7 @@ import uet.oop.bomberman.entities.Entity;
 
 public abstract class AnimatedEntities extends Entity {
 
-    protected double speed;
+    protected int speed;
     protected int left = 0;
     protected int right = 0;
     protected int up = 0;
@@ -13,7 +13,7 @@ public abstract class AnimatedEntities extends Entity {
     protected final int animate = 5;
     protected boolean isLive = true;
 
-    public AnimatedEntities(int x, int y, Image img, double speed) {
+    public AnimatedEntities(int x, int y, Image img, int speed) {
         super(x, y, img);
         this.speed = speed;
     }
@@ -24,7 +24,7 @@ public abstract class AnimatedEntities extends Entity {
         return speed;
     }
 
-    public void setSpeed(double speed) {
+    public void setSpeed(int speed) {
         this.speed = speed;
     }
 
