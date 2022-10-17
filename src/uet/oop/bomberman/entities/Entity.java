@@ -13,6 +13,10 @@ public abstract class Entity {
 
     //Tọa độ Y tính từ góc trái trên trong Canvas
     protected int y;
+
+    protected int x_matrix;
+
+    protected int y_matrix;
     protected boolean alive = true;
 
     protected Image img;
@@ -63,6 +67,22 @@ public abstract class Entity {
     public void setAlive(boolean alive) {
         this.alive = alive;
     }
+
+    /*public int getX_matrix() {
+        return x_matrix;
+    }
+
+    public void setX_matrix(int x_matrix) {
+        this.x_matrix = x / 32;
+    }
+
+    public int getY_matrix() {
+        return y_matrix;
+    }
+
+    public void setY_matrix(int y_matrix) {
+        this.y_matrix = y / 32;
+    }*/
 
     public void render(GraphicsContext gc) {
         gc.drawImage(img, x, y);

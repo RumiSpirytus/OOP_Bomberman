@@ -104,23 +104,41 @@ public class BombermanGame extends Application {
         scene.setOnKeyPressed(event -> {
             //if (player.isLife())
             KeyCode direction = event.getCode();
-
+            //System.out.print(player.getX() + " &&" + player.getY() + " ");
             player.KeyPressedEvent(direction);
-                switch (event.getCode()) {
+            //if (player.getXY(player.getX(), player.getY())) {
+
+                //player.KeyReleasedEvent(direction);
+                //System.out.print(player.getX() + " " + player.getY() + " ");
+                //System.out.println(player.getX() / 32 + " " + player.getY() / 32);
+            //}
+            //
+                /*switch (event.getCode()) {
                     case UP:
-                        //System.out.println(player.getX() + " " + player.getY());
-                        player.moveUp(); player.update(); break;
+
+                        player.moveUp();
+                        player.update();
+                        break;
                     case DOWN:
                         //System.out.println(player.getX() + " " + player.getY());
-                        player.moveDown(); player.update(); break;
+                        player.moveDown();
+                        player.update();
+                        break;
                     case LEFT:
                         //System.out.println(player.getX() + " " + player.getY());
-                        player.moveLeft(); player.update(); break;
+                        player.moveLeft();
+                        player.update();
+                        break;
                     case RIGHT:
                         //System.out.println(player.getX() + " " + player.getY());
-                        player.moveRight(); player.update(); break;
+                        player.moveRight();
+                        player.update();
+                        break;
+                }*/
+                //System.out.print(player.getX() + " " + player.getY() + " ");
+               // System.out.println(player.getX()/32 + " " + player.getY()/32);
+               // player.getPlayermatrix();
 
-                }
         });
 
 
@@ -252,8 +270,8 @@ public class BombermanGame extends Application {
                     switch (matrix[i][j]) {
                         case (9):
                             object = new Wall(i, j, Sprite.wall.getFxImage());
-                            System.out.print(i + " " + j + " ");
-                            System.out.println(object.getX() + " " + object.getY());
+                            //System.out.print(i + " " + j + " ");
+                            //System.out.println(object.getX() + " " + object.getY());
                             break;
 
                         case (7):
@@ -274,7 +292,7 @@ public class BombermanGame extends Application {
                 Objects.add(object);
             }
         }
-        System.out.println(Objects.size());
+        //System.out.println(Objects.size());
     }
 
     /*public boolean isFree(int nextX, int nextY) {
@@ -284,8 +302,12 @@ public class BombermanGame extends Application {
 
     public void update() {
         entities.forEach(Entity::update);
-        Objects.forEach(Entity::update);
+        //Objects.forEach(Entity::update);
         //enemy.forEach(Entity::update);
+
+    }
+
+    public void getPlayermatrix() {
 
     }
 

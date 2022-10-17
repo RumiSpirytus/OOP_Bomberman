@@ -11,7 +11,7 @@ import java.util.Random;
 public class Balloon extends AnimatedEntities {
 
     protected double balloon_speed = 1;
-    public Balloon(int x, int y, Image img, double balloon_speed) {
+    public Balloon(int x, int y, Image img, int balloon_speed) {
         super(x, y, img, balloon_speed);
     }
 

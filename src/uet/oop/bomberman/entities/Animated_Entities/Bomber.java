@@ -2,9 +2,12 @@ package uet.oop.bomberman.entities.Animated_Entities;
 
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.Static_Entities.Wall;
 import uet.oop.bomberman.graphics.Sprite;
+
+import static uet.oop.bomberman.BombermanGame.*;
 
 public class Bomber extends AnimatedEntities {
 
@@ -32,55 +35,92 @@ public class Bomber extends AnimatedEntities {
 
     @Override
     public void movePlayer() {
-
+        this.x = x;
+        this.y = y;
     }
 
     @Override
     public void moveRight() {
 
         //if (dir == KeyCode.RIGHT) {
+        //System.out.println(x + " " + y + " ");
+            if (matrix[(x - 2 + speed*tem)/32][y/32] == 9
+            || matrix[(x - 2 + speed*tem)/32][y/32] == 7) {
+                t_r++;
+                this.x = x;
+            } else {
             t_r++;
+            //this.x = x;
             this.x += speed;
-        //}
+        }
     }
 
     @Override
     public void moveLeft() {
-        t_l++;
-        this.x -= speed;
+       // System.out.println(x + " " + y + " ");
+        if (matrix[(x + 30 - speed*tem)/32][y/32] == 9
+        || matrix[(x + 30 - speed*tem)/32][y/32] == 7) {
+            t_l++;
+            this.x = x;
+        } else {
+            t_l++;
+            this.x -= speed;
+        }
     }
 
     @Override
     public void moveUp() {
-        t_u++;
-        this.y -= speed;
+       // System.out.println(x + " " + y + " ");
+        if (matrix[x/32][(y + 30 - speed*tem) /32] == 9
+            || matrix[x/32][(y + 30 - speed*tem) /32] == 7) {
+            t_u++;
+            this.y = y;
+        } else {
+            t_u++;
+            this.y -= speed;
+        }
     }
 
     @Override
     public void moveDown() {
-        t_d++;
-        this.y += speed;
+        //System.out.println(x + " " + y + " ");
+        if (matrix[x/32][(y + speed*tem)/32] == 9
+                || matrix[x/32][(y + speed*tem)/32] == 7) {
+            t_d++;
+            this.y = y;
+        } else {
+            t_d++;
+            this.y += speed;
+        }
     }
 
 
     public void KeyPressedEvent(KeyCode keyCode) {
-        if (keyCode == KeyCode.LEFT || keyCode == KeyCode.RIGHT
-                || keyCode == KeyCode.UP || keyCode == KeyCode.DOWN) {
-            dir = keyCode;
-        }
+
+            if (keyCode == KeyCode.LEFT || keyCode == KeyCode.RIGHT
+                    || keyCode == KeyCode.UP || keyCode == KeyCode.DOWN) {
+                dir = keyCode;
+            }
+
     }
+
+
     public void KeyReleasedEvent(KeyCode keyCode) {
         if (dir == keyCode) {
             if (dir == KeyCode.LEFT) {
+                System.out.println(x + " " + y + " ");
                 img = Sprite.player_down.getFxImage();
             }
             if (dir == KeyCode.RIGHT) {
+                System.out.println(x + " " + y + " ");
                 img = Sprite.player_down.getFxImage();
             }
             if (dir == KeyCode.UP) {
+                System.out.println(x + " " + y + " ");
                 img = Sprite.player_down.getFxImage();
             }
             if (dir == KeyCode.DOWN) {
+                System.out.println(x + " " + y + " ");
                 img = Sprite.player_down.getFxImage();
             }
         }
@@ -90,6 +130,8 @@ public class Bomber extends AnimatedEntities {
 
     @Override
     public void update() {
+        //System.out.println(x + " " + y + " ");
+
         if (dir == KeyCode.LEFT) {
             moveLeft();
             //System.out.println(t_l);
@@ -99,6 +141,7 @@ public class Bomber extends AnimatedEntities {
             if (t_l % tem == 0) {
                 KeyReleasedEvent(dir);
             }
+
         }
         if (dir == KeyCode.RIGHT) {
             //System.out.println(t_r);
@@ -132,10 +175,51 @@ public class Bomber extends AnimatedEntities {
     @Override
     public boolean collide(Entity e) {
         if (e instanceof Wall) {
-            if (x + 16 > e.getX() && y + 16 > e.getY())
+            if (x + 32 > e.getX() && y + 32 > e.getY())
             return true;
         }
         return false;
+    }
+
+    public boolean isFree(int x, int y) {
+        int size = 32;
+
+        int nextX_1 = (x + size) / size; //r
+        int nextY_1 = y / size;
+
+        int nextX_2 = x - size; //l
+        int nextY_2 = y;
+
+        int nextX_3 = x;
+        int nextY_3 = y + size; //d
+
+        int nextX_4 = x;
+        int nextY_4 = y - size; //u
+
+        if (matrix[nextX_1][nextX_2]==9) {
+            return false;
+        }
+        return true;
+    }
+
+    public void getPlayermatrix() {
+        for (int i = 0; i < WIDTH; i++) {
+            for (int j = 0; j < HEIGHT; j++) {
+                if (getXY(x, y)) {
+                    System.out.println("toa do " + i + " " + j + ": " + x + " " + y);
+                    //return false;
+                }
+            }
+        }
+        //return true;
+    }
+
+
+
+    public boolean getXY(int x, int y){
+        int xMap = x / Sprite.SCALED_SIZE;
+        int yMap = y / Sprite.SCALED_SIZE;
+        return BombermanGame.matrix[xMap][yMap] == 9;
     }
 
     /*private void killBomber(AnimatedEntities animal) {
