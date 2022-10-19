@@ -52,7 +52,7 @@ public class BombermanGame extends Application {
     public static int[][] idObjects;
     private GraphicsContext gc;
     private Canvas canvas;
-
+    public static Bomber bomber;
 
 
     public static boolean running;

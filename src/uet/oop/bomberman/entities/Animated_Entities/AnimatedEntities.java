@@ -22,6 +22,10 @@ public abstract class AnimatedEntities extends Entity {
         this.speed = speed;
     }
 
+    public AnimatedEntities(int x, int y) {
+        super(x,y);
+    }
+
     public double getSpeed() {
         return speed;
     }

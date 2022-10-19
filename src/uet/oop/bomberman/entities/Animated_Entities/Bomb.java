@@ -10,6 +10,14 @@ public class Bomb extends AnimatedEntities {
     int animate = 0;
     int radius;
 
+    @Override
+    public int getX() {
+        return this.getX();
+    }
+    public int getY(){
+        return this.y;
+    }
+
     public Bomb(int x, int y, Image img) {
         super(x, y, img);
         layer = 2;
@@ -42,9 +50,8 @@ public class Bomb extends AnimatedEntities {
 
     public void explode() {
         Flame flame = new Flame(x, y, img);
-
+        flame.setRadius(radius);
+        flame.flameExplode();
         alive = false;
     }
-
-
 }

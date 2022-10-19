@@ -18,7 +18,7 @@ public class Balloon extends AnimatedEntities {
     int direction = 0;
     public void chooseDirection() {
         Random random = new Random();
-        direction = random.nextInt(2);
+        direction = random.nextInt(1);
     }
 
 
@@ -27,7 +27,7 @@ public class Balloon extends AnimatedEntities {
     int b_u = 0;
     int b_d = 0;
 
-    int time_ballon = 0;
+    int time_balloon = 0;
 
 
     @Override
