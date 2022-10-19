@@ -9,10 +9,6 @@ public class Oneal extends AnimatedEntities {
         super(x, y, img, 3);
     }
 
-    @Override
-    public void movePlayer() {
-
-    }
 
     @Override
     public void moveRight() {

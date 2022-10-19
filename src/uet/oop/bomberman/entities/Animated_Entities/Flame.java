@@ -3,7 +3,7 @@ package uet.oop.bomberman.entities.Animated_Entities;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.Entity;
 
-public class Flame extends Entity {
+public class Flame extends AnimatedEntities {
 
     @Override
     public void update() {
@@ -28,8 +28,8 @@ public class Flame extends Entity {
         super(x,y,img);
         this.direction = direction;
     }
-    public Flame(int x, int y){
-        super(x,y);
+    public Flame(int x, int y, Image img){
+        super(x, y, img);
     }
 
 }

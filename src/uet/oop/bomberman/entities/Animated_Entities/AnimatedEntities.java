@@ -4,21 +4,23 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.Entity;
 
 public abstract class AnimatedEntities extends Entity {
-
+    protected int nextX = x;
+    protected int nextY = y;
     protected int speed;
     protected int left = 0;
     protected int right = 0;
     protected int up = 0;
     protected int down = 0;
-    protected final int animate = 5;
-    protected boolean isLive = true;
+    protected int animate = 0;
+
+    public AnimatedEntities(int x, int y, Image img) {
+        super(x, y, img);
+    }
 
     public AnimatedEntities(int x, int y, Image img, int speed) {
         super(x, y, img);
         this.speed = speed;
     }
-
-    public abstract void movePlayer();
 
     public double getSpeed() {
         return speed;
@@ -28,21 +30,35 @@ public abstract class AnimatedEntities extends Entity {
         this.speed = speed;
     }
 
-    public abstract void moveRight();
-
-    public abstract void moveLeft();
-
-    public abstract void moveUp();
-
-    public abstract void moveDown();
-
-    @Override
-    public void update() {
-        movePlayer();
+    public void moveRight() {
+        nextX = x + speed;
     }
 
-    @Override
-    public boolean collide(Entity e) {
-        return false;
+    public void moveLeft() {
+        nextX = x  - speed;
+    };
+
+    public void moveUp() {
+        nextY = y - speed;
+    };
+
+    public void moveDown() {
+        nextY = y + speed;
+    };
+
+    public void move() {
+        x = nextX;
+        y = nextY;
     }
+
+    public void stay() {
+        nextX = x;
+        nextY = y;
+    }
+
+    public abstract void update();
+
+    public abstract boolean collide(Entity e);
+
+
 }

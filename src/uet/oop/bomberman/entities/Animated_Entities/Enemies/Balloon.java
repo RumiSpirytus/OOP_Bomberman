@@ -28,11 +28,7 @@ public class Balloon extends AnimatedEntities {
     int b_d = 0;
 
     int time_ballon = 0;
-    @Override
-    public void movePlayer() {
-        //this.x += balloon_speed;
-        //this.y += balloon_speed;
-    }
+
 
     @Override
     public void moveRight() {
