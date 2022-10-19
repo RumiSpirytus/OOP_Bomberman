@@ -26,7 +26,7 @@ public class Bomber extends AnimatedEntities {
     private int timeToVanish = 30;
     protected int tem = 32;
     int count = 0;
-
+    private int speed = 2;
 
 
     public Bomber(int x, int y, Image img, int speed) {
