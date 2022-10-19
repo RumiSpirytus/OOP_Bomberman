@@ -101,7 +101,6 @@ public class Bomber extends AnimatedEntities {
     public void update() {
         //System.out.println(x + " " + y + " ");
         if (alive) {
-            calculateMove();
             if (dir == KeyCode.LEFT) {
                 moveLeft();
                 //System.out.println(t_l);
@@ -151,7 +150,7 @@ public class Bomber extends AnimatedEntities {
                 placeBomb();
                 checkBomb();
             }
-
+            calculateMove();
         } else {
             if (timeToVanish > 0) {
                 timeToVanish--;
@@ -160,8 +159,8 @@ public class Bomber extends AnimatedEntities {
                 player = new Bomber(1, 1, Sprite.player_right.getFxImage(), speed);
             }
         }
-        //if (timePutBombs < -1000) timePutBombs = 0;
-        //timePutBombs--;
+        if (timePutBombs < -1000) timePutBombs = 0;
+        timePutBombs--;
         //detectPlaceBomb();
         //checkBomb();
 
@@ -196,8 +195,7 @@ public class Bomber extends AnimatedEntities {
                 this.radius++;
             }
         }
-        if (e instanceof Brick || e instanceof Wall
-                || e instanceof Portal) {
+        if (e instanceof Brick || e instanceof Wall || e instanceof Portal) {
             return e.collide(this);
         }
         return true;
@@ -212,6 +210,8 @@ public class Bomber extends AnimatedEntities {
 
     public void placeBomb() {
         if (bombRemain > 0) {
+            System.out.println(x + " " + y);
+            System.out.println(canvasToBomb(x) + " " + canvasToBomb(y));
             Bomb bomb = new Bomb(canvasToBomb(x), canvasToBomb(y), Sprite.bomb.getFxImage(), radius);
             for (Bomb b : bombs) {
                 if (canvasToBomb(x) == b.getX() && canvasToBomb(y) == b.getY()) return;
@@ -258,7 +258,7 @@ public class Bomber extends AnimatedEntities {
     }
 
     public Rectangle bound() {
-        return new Rectangle(x + 4, y + 6, 20, 21);
+        return new Rectangle(nextX, nextY, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE);
     }
 
 }

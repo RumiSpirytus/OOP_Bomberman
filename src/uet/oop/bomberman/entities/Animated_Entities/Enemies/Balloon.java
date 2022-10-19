@@ -71,7 +71,7 @@ public class Balloon extends AnimatedEntities {
            // Random random = new Random();
             //int balom_dir = random.nextInt(300);
             //chooseDirection();
-           System.out.println(direction);
+          // System.out.println(direction);
           //  if (balom_dir == 2) {
 
             if (direction==0) {
