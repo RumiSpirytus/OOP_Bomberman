@@ -14,6 +14,7 @@ public abstract class Entity {
     protected int layer;
     protected boolean alive = true;
     protected Image img;
+    protected int animate = 0;
 
     //Khởi tạo đối tượng, chuyển từ tọa độ đơn vị sang tọa độ trong canvas
     public Entity( int xUnit, int yUnit, Image img) {

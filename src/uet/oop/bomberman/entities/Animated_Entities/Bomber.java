@@ -26,7 +26,7 @@ public class Bomber extends AnimatedEntities {
     private int timeToVanish = 30;
     protected int tem = 32;
     int count = 0;
-    private int speed = 2;
+
 
 
     public Bomber(int x, int y, Image img, int speed) {
@@ -147,8 +147,10 @@ public class Bomber extends AnimatedEntities {
                 }
             }
             if (bombSet == true) {
+                //detectPlaceBomb();
                 placeBomb();
                 checkBomb();
+
             }
             calculateMove();
         } else {
@@ -201,25 +203,23 @@ public class Bomber extends AnimatedEntities {
         return true;
     }
 
-    public void detectPlaceBomb() {
-        if (bombSet && timePutBombs < 0) {
-            placeBomb();
-            timePutBombs = 50;
-        }
-    }
+
 
     public void placeBomb() {
-        if (bombRemain > 0) {
-            System.out.println(x + " " + y);
-            System.out.println(canvasToBomb(x) + " " + canvasToBomb(y));
-            Bomb bomb = new Bomb(canvasToBomb(x), canvasToBomb(y), Sprite.bomb.getFxImage(), radius);
-            for (Bomb b : bombs) {
-                if (canvasToBomb(x) == b.getX() && canvasToBomb(y) == b.getY()) return;
+        if (bombSet && timePutBombs < 0) {
+            if (bombRemain > 0) {
+                System.out.println(x + " " + y);
+                System.out.println(canvasToBomb(x) + " " + canvasToBomb(y));
+                Bomb bomb = new Bomb(canvasToBomb(x), canvasToBomb(y), Sprite.bomb.getFxImage(), radius);
+                for (Bomb b : bombs) {
+                    if (canvasToBomb(x) == b.getX() && canvasToBomb(y) == b.getY()) return;
+                }
+                //Sound placeBomb = new Sound(Sound.placeBomb);
+                //placeBomb.play();
+                bombRemain--;
+                bombs.add(bomb);
             }
-            //Sound placeBomb = new Sound(Sound.placeBomb);
-            //placeBomb.play();
-            bombRemain--;
-            bombs.add(bomb);
+            timePutBombs--;
         }
     }
 

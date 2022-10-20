@@ -56,6 +56,7 @@ public class Flame extends AnimatedEntities {
         Top();
         Down();
         createFlame();
+        System.out.println("huhu");
     }
     public boolean getWall(Rectangle r ){
         for(Entity e : BombermanGame.Objects){
@@ -120,7 +121,7 @@ public class Flame extends AnimatedEntities {
         for(int i = 0; i<BombermanGame.enemies.size(); i++){
             this.collide(BombermanGame.enemies.get(i));
         }
-        this.collide(BombermanGame.bomber);
+        this.collide(BombermanGame.player);
         for (int i = 0; i < Bomber.bombs.size(); i++) {
             this.collide((Bomber.bombs.get(i)));
         }

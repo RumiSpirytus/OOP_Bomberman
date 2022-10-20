@@ -52,7 +52,7 @@ public class BombermanGame extends Application {
     public static int[][] idObjects;
     private GraphicsContext gc;
     private Canvas canvas;
-    public static Bomber bomber;
+    //public static Bomber bomber;
 
 
     public static boolean running;
@@ -60,7 +60,7 @@ public class BombermanGame extends Application {
 
 
     private long lastTime;
-    public static int speed = 1;
+    public static int speed = 2;
     public static Bomber player;
 
     public static Balloon balom;
@@ -257,6 +257,7 @@ public class BombermanGame extends Application {
         entities.forEach(Entity::update);
         Objects.forEach(Entity::update);
         bombs.forEach(Entity::update);
+        //flames.forEach(Entity::update);
         //enemies.forEach(Entity::update);
 
     }
@@ -269,8 +270,11 @@ public class BombermanGame extends Application {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         //player.render(gc);
         Objects.forEach(g -> g.render(gc));
+
         bombs.forEach(g->g.render(gc));
+
         entities.forEach(g -> g.render(gc));
+       // flames.forEach(g -> g.render(gc));
 
         //enemies.forEach(g -> g.render(gc));
     }
