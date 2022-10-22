@@ -156,7 +156,7 @@ public class Bomber extends AnimatedEntities {
                 timeToVanish--;
                 img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, animate++, 60).getFxImage();
             } else {
-                player = new Bomber(1, 1, Sprite.player_right.getFxImage(), speed);
+                player = new Bomber(1, 1, Sprite.player_right.getFxImage());
             }
         }
         if (timePutBombs < -1000) timePutBombs = 0;

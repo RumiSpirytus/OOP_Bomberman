@@ -121,7 +121,7 @@ public class BombermanGame extends Application {
 
 
 
-        player = new Bomber(1, 1, Sprite.player_right.getFxImage(), speed);
+        player = new Bomber(1, 1, Sprite.player_right.getFxImage());
 
         entities.add(player);
     }
@@ -233,7 +233,7 @@ public class BombermanGame extends Application {
                             object = new Portal(i, j, Sprite.portal.getFxImage());
                             break;
                         case (2):
-                            entities.add(new Balloon(i, j, Sprite.balloom_left1.getFxImage(), 1));
+                            entities.add(new Balloon(i, j, Sprite.balloom_left1.getFxImage()));
                             break;
 
                     }
@@ -258,7 +258,20 @@ public class BombermanGame extends Application {
         Objects.forEach(Entity::update);
         bombs.forEach(Entity::update);
         //enemies.forEach(Entity::update);
-
+        for(int i = 0; i<Objects.size(); i++){
+            Objects.get(i).update();
+        }
+        for (int i = 0; i < enemies.size(); i++) {
+            enemies.get(i).update();
+        }
+        bomber.update();
+        List<Bomb> bombs = Bomber.getBombs();
+        for (int i = 0; i < bombs.size(); i++) {
+            bombs.get(i).update();
+        }
+        for (int i = 0; i < flames.size(); i++) {
+            flames.get(i).update();
+        }
     }
 
     public void getPlayermatrix() {
@@ -272,6 +285,9 @@ public class BombermanGame extends Application {
         bombs.forEach(g->g.render(gc));
         entities.forEach(g -> g.render(gc));
 
-        //enemies.forEach(g -> g.render(gc));
+        enemies.forEach(e -> e.render(gc));
+        for(int i = Objects.size() - 1; i>=0; i--){
+            Objects.get(i).render(gc);
+        }
     }
 }

@@ -7,7 +7,7 @@ import uet.oop.bomberman.entities.Entity;
 public class Kondoria extends AnimatedEntities {
 
     public Kondoria(int x, int y, Image img) {
-        super(x, y, img, 3);
+        super(x, y, img);
     }
 
 

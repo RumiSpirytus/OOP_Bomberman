@@ -7,7 +7,7 @@ import uet.oop.bomberman.entities.Entity;
 public abstract class Doll extends AnimatedEntities {
 
     public Doll(int x, int y, Image img) {
-        super(x, y, img, 3);
+        super(x, y, img);
     }
 
     @Override
