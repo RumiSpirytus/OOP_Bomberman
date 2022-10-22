@@ -10,13 +10,43 @@ public class Oneal extends Enemy {
     public Oneal(int x, int y, Image img) {
         super(x, y, img);
     }
+    private static int countKill = 0;
+    private static int swapKill = 1;
+    @Override
+    public void update() {
+        countKill++;
+        if(!isAlive()){
+            timeToVanish--;
+        } else
+        {
+            for (Enemy enemy : Oneal) {
+                if (enemy instanceof Oneal && isAlive()) {
+                    chooseDir();
+                }
+            }
+        }
+        if(timeToVanish == 0 ){
+            BombermanGame.enemies.remove(this);
+        }
+    }
 
     @Override
     public void chooseDir() {
-        if (BombermanGame.player.getX() / Sprite.SCALED_SIZE - x / Sprite.SCALED_SIZE < 0) dir = 0;
-        if (BombermanGame.player.getX() / Sprite.SCALED_SIZE - x / Sprite.SCALED_SIZE > 0) dir = 1;
-        if (BombermanGame.player.getY() / Sprite.SCALED_SIZE - y / Sprite.SCALED_SIZE < 0) dir = 2;
-        if (BombermanGame.player.getY() / Sprite.SCALED_SIZE - y / Sprite.SCALED_SIZE > 0) dir= 3;
+        if(countKill % 16 == 0 ){
+            if(swapKill == 1){
+                spriteLeft();
+                swapKill = 2;
+            } else if(swapKill == 2){
+                spriteRight();
+                swapKill = 3;
+            } else if(swapKill == 3){
+                spriteUp();
+                swapKill = 4;
+            } else if(swapKill == 4){
+                spriteDown();
+                swapKill = 1;
+            }
+        }
     }
 
     @Override
