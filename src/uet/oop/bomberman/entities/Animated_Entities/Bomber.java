@@ -146,12 +146,12 @@ public class Bomber extends AnimatedEntities {
                     KeyReleasedEvent(dir);
                 }
             }
-            if (bombSet == true) {
-                //detectPlaceBomb();
-                placeBomb();
-                checkBomb();
-
-            }
+//            if (bombSet == true) {
+//                //detectPlaceBomb();
+//                placeBomb();
+//                checkBomb();
+//
+//            }
             calculateMove();
         } else {
             if (timeToVanish > 0) {
@@ -163,8 +163,8 @@ public class Bomber extends AnimatedEntities {
         }
         if (timePutBombs < -1000) timePutBombs = 0;
         timePutBombs--;
-        //detectPlaceBomb();
-        //checkBomb();
+        placeBomb();
+        checkBomb();
 
     }
 
@@ -209,6 +209,7 @@ public class Bomber extends AnimatedEntities {
     public void placeBomb() {
         if (bombSet && timePutBombs < 0) {
             if (bombRemain > 0) {
+                bombRemain--;
                 //System.out.println(x + " " + y);
                 //System.out.println(canvasToBomb(x) + " " + canvasToBomb(y));
                 Bomb bomb = new Bomb(canvasToBomb(x), canvasToBomb(y), Sprite.bomb.getFxImage(), radius);
@@ -217,9 +218,9 @@ public class Bomber extends AnimatedEntities {
                 }
                 //Sound placeBomb = new Sound(Sound.placeBomb);
                 //placeBomb.play();
-                bombRemain--;
+
                 bombs.add(bomb);
-                //System.out.println(bombs.size());
+                System.out.println(bombs.size());
             }
             timePutBombs--;
         }
@@ -262,5 +263,6 @@ public class Bomber extends AnimatedEntities {
     public Rectangle bound() {
         return new Rectangle(nextX, nextY, Sprite.SCALED_SIZE - 4, Sprite.SCALED_SIZE - 2);
     }
+
 
 }

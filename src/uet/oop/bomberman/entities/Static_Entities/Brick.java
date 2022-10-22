@@ -26,9 +26,9 @@ public class Brick extends Entity {
             if (timeToVanish == 0) {
                 System.out.println("remove brick");
                 //System.out.println(BombermanGame.player.getSpeed());
-                this.x = -32;
-                this.y = -32;
-                //BombermanGame.Objects.remove(this);
+//                this.x = -32;
+//                this.y = -32;
+                BombermanGame.Objects.remove(this);
             }
             //System.out.println("hiihhi");
         }

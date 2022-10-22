@@ -94,18 +94,8 @@ public class BombermanGame extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        AnimationTimer timer = new AnimationTimer() {
-            @Override
-            public void handle(long l) {
-                //if (running) {
-                render();
-                update();
-                //time();
-                //updateMenu();
-                //}
-            }
-        };
-        timer.start();
+
+
 
         createMap2();
 
@@ -114,9 +104,29 @@ public class BombermanGame extends Application {
             KeyCode direction = event.getCode();
             //System.out.print(player.getX() + " &&" + player.getY() + " ");
             player.KeyPressedEvent(direction);
+//            if (direction == KeyCode.SPACE) {
+//                    player.placeBomb();
+//                    player.checkBomb();
+//
+//            }
 
 
         });
+
+        AnimationTimer timer = new AnimationTimer() {
+            @Override
+            public void handle(long l) {
+                //if (running) {
+                update();
+                render();
+
+                //time();
+                //updateMenu();
+                //}
+            }
+        };
+
+        timer.start();
         //scene.setOnKeyPressed(event -> player.KeyReleasedEvent(event.getCode()));
         //lastTime = System.currentTimeMillis();
 
@@ -124,7 +134,7 @@ public class BombermanGame extends Application {
 
         player = new Bomber(1, 1, Sprite.player_right.getFxImage(), speed);
 
-        entities.add(player);
+        //entities.add(player);
     }
 
     /*public void createMap() {
@@ -266,12 +276,24 @@ public class BombermanGame extends Application {
     }*/
 
     public void update() {
-        //player.update();
-        entities.forEach(Entity::update);
-        Objects.forEach(Entity::update);
-        bombs.forEach(Entity::update);
-        flames.forEach(Entity::update);
-        //enemies.forEach(Entity::update);
+        player.update();
+        //entities.forEach(Entity::update);
+        for (int i = 0; i < Objects.size(); i++) {
+            Objects.get(i).update();
+        }
+        List<Bomb> bombs = player.getBombs();
+        for (int i = 0; i < bombs.size(); i++) {
+            bombs.get(i).update();
+        }
+        for (int i = 0; i < flames.size(); i++) {
+            flames.get(i).update();
+        }
+//        List<Bomb> bombs = player.getBombs();
+//        //entities.forEach(Entity::update);
+//        Objects.forEach(Entity::update);
+//        bombs.forEach(Entity::update);
+//        flames.forEach(Entity::update);
+//        //enemies.forEach(Entity::update);
 
     }
 
@@ -286,8 +308,11 @@ public class BombermanGame extends Application {
             Objects.get(i).render(gc);
         }
         //Objects.forEach(g->g.render(gc));
+        //player.render(gc);
+        List<Bomb> bombs = player.getBombs();
         bombs.forEach(g->g.render(gc));
-        entities.forEach(g -> g.render(gc));
+        player.render(gc);
+        //entities.forEach(g -> g.render(gc));
         flames.forEach(g -> g.render(gc));
 
         //enemies.forEach(g -> g.render(gc));
