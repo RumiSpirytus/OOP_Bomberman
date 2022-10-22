@@ -154,9 +154,9 @@ public class Flame extends AnimatedEntities {
             if (direction.equals("horizontal"))
                 img = Sprite.movingSprite(Sprite.explosion_horizontal, Sprite.explosion_horizontal1, Sprite.explosion_horizontal2, animate++, 20).getFxImage();
         } else {
-            System.out.println("remove flame");
-               this.x = - 32;
-               this.y = - 32;
+           // System.out.println("remove flame");
+               this.x =  -32;
+               this.y =  -32;
             //flames.remove(this);
         }
     }

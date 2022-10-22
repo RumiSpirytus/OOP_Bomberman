@@ -174,10 +174,10 @@ public class BombermanGame extends Application {
     public static int matrix[][] =
                     {{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9},
                     {9,5,8,8,8,7,7,8,8,1,8,8,8,8,7,8,9},
-                    {9,8,9,7,8,9,8,9,7,7,9,7,9,7,9,8,9},
-                    {9,8,8,6,8,8,8,7,7,8,8,1,8,8,7,8,9},
+                    {9,3,9,7,8,9,8,9,7,7,9,7,9,7,9,8,9},
+                    {9,8,8,6,8,8,8,7,7,8,8,3,8,8,7,8,9},
                     {9,8,9,8,9,7,9,7,9,8,9,8,8,8,7,7,9},
-                    {9,4,8,8,8,8,8,8,8,8,8,7,8,8,8,1,9},
+                    {9,8,8,8,8,8,8,8,8,8,8,7,8,8,8,1,9},
                     {9,8,8,8,9,8,7,9,8,7,9,8,9,8,9,8,9},
                     {9,7,8,8,8,8,7,8,8,8,7,8,8,8,8,8,9},
                     {9,7,9,8,9,7,8,8,8,8,9,8,9,8,9,8,9},
@@ -237,7 +237,18 @@ public class BombermanGame extends Application {
                         case (2):
                             entities.add(new Balloon(i, j, Sprite.balloom_left1.getFxImage(), 1));
                             break;
-
+                        case (4):
+                            Objects.add (new SpeedItem(i, j, powerup_speed.getFxImage()));
+                            //Objects.add (new Brick(i, j, Sprite.brick.getFxImage()));
+                            break;
+                        case (1):
+                            Objects.add (new FlameItem(i, j, powerup_flames.getFxImage()));
+                            //Objects.add (new Brick(i, j, Sprite.brick.getFxImage()));
+                            break;
+                        case (3):
+                            Objects.add (new BombItem(i, j, powerup_bombs.getFxImage()));
+                            //Objects.add (new Brick(i, j, Sprite.brick.getFxImage()));
+                            break;
                     }
                 }
 

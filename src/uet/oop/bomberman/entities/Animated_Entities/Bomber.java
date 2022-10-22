@@ -187,6 +187,7 @@ public class Bomber extends AnimatedEntities {
             if (e instanceof SpeedItem) {
                 e.collide(this);
                 this.speed++;
+                //tem = tem/2;
             }
             if (e instanceof BombItem) {
                 e.collide(this);
@@ -259,7 +260,7 @@ public class Bomber extends AnimatedEntities {
     }
 
     public Rectangle bound() {
-        return new Rectangle(nextX, nextY, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE);
+        return new Rectangle(nextX, nextY, Sprite.SCALED_SIZE - 4, Sprite.SCALED_SIZE - 2);
     }
 
 }

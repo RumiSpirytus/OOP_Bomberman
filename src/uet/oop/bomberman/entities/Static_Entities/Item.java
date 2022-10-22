@@ -19,7 +19,7 @@ public class Item extends Entity {
 
     @Override
     public void update() {
-        if (!alive) {
+        if (!isAlive()) {
             BombermanGame.Objects.remove(this);
         }
     }

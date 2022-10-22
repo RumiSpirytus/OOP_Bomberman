@@ -38,6 +38,7 @@ public class Bomb extends Entity {
         if (timeToExplode < 0) {
             //Bomber.bombs.remove(this);
             explode();
+
             this.x = -32;
             this.y = -32;
         }
