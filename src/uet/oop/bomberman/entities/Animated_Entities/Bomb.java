@@ -12,13 +12,7 @@ public class Bomb extends Entity {
 
     int count = 0;
 
-    @Override
-    public int getX() {
-        return this.getX();
-    }
-    public int getY(){
-        return this.y;
-    }
+
 
     public Bomb(int x, int y, Image img) {
         super(x, y, img);
@@ -38,6 +32,7 @@ public class Bomb extends Entity {
         if (timeToExplode < 0) {
             //Bomber.bombs.remove(this);
             explode();
+
             this.x = -32;
             this.y = -32;
         }

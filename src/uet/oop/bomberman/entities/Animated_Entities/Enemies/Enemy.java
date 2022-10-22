@@ -114,7 +114,7 @@ public abstract class Enemy extends AnimatedEntities {
         y = yEnemy * Sprite.SCALED_SIZE;
     }
     public void collideCheck(){
-        this.collide(BombermanGame.bomber);
+        this.collide(BombermanGame.player);
     }
     public Rectangle bound(){
         return new Rectangle(nextX, nextY, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE);
