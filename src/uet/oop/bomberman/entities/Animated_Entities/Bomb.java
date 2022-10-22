@@ -36,12 +36,15 @@ public class Bomb extends Entity {
     public void update() {
         timeToExplode--;
         if (timeToExplode < 0) {
+            //Bomber.bombs.remove(this);
             explode();
+            this.x = -32;
+            this.y = -32;
         }
         //if (this.alive) {
-            img = Sprite.movingSprite(Sprite.bomb, Sprite.bomb_1,
+        img = Sprite.movingSprite(Sprite.bomb, Sprite.bomb_1,
                     Sprite.bomb_2, this.animate++, 60).getFxImage();
-            count++;
+
 
             //if (count % 16 == 0) {
             //    alive = false;

@@ -18,10 +18,19 @@ public class Brick extends Entity {
 
     @Override
     public void update() {
+
         if (!isAlive()) {
             timeToVanish--;
-            img = Sprite.movingSprite(Sprite.brick_exploded, Sprite.brick_exploded1, Sprite.brick_exploded2, animate++, 20).getFxImage();
-            if (timeToVanish == 0) BombermanGame.Objects.remove(this);
+            img = Sprite.movingSprite(Sprite.brick_exploded, Sprite.brick_exploded1,
+                    Sprite.brick_exploded2, animate++, 20).getFxImage();
+            if (timeToVanish == 0) {
+                System.out.println("remove brick");
+
+                this.x = 26*32;
+                this.y = 18*32;
+                //BombermanGame.Objects.remove(this);
+            }
+            //System.out.println("hiihhi");
         }
         // TODO Auto-generated method stub
 
@@ -31,7 +40,7 @@ public class Brick extends Entity {
     public boolean collide(Entity e) {
         // TODO Auto-generated method stub
         if (e instanceof Flame) this.alive = false;
-
+        //System.out.println("hiihhi");
         return false;
     }
 }

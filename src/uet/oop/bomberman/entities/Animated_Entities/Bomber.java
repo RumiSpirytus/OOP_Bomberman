@@ -157,8 +157,8 @@ public class Bomber extends AnimatedEntities {
             if (timeToVanish > 0) {
                 timeToVanish--;
                 img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, animate++, 60).getFxImage();
-            } else {
-                player = new Bomber(1, 1, Sprite.player_right.getFxImage(), speed);
+//            } else {
+//                player = new Bomber(1, 1, Sprite.player_right.getFxImage(), speed);
             }
         }
         if (timePutBombs < -1000) timePutBombs = 0;
@@ -208,8 +208,8 @@ public class Bomber extends AnimatedEntities {
     public void placeBomb() {
         if (bombSet && timePutBombs < 0) {
             if (bombRemain > 0) {
-                System.out.println(x + " " + y);
-                System.out.println(canvasToBomb(x) + " " + canvasToBomb(y));
+                //System.out.println(x + " " + y);
+                //System.out.println(canvasToBomb(x) + " " + canvasToBomb(y));
                 Bomb bomb = new Bomb(canvasToBomb(x), canvasToBomb(y), Sprite.bomb.getFxImage(), radius);
                 for (Bomb b : bombs) {
                     if (canvasToBomb(x) == b.getX() && canvasToBomb(y) == b.getY()) return;
@@ -218,13 +218,14 @@ public class Bomber extends AnimatedEntities {
                 //placeBomb.play();
                 bombRemain--;
                 bombs.add(bomb);
+                //System.out.println(bombs.size());
             }
             timePutBombs--;
         }
     }
 
     public int canvasToBomb(int a) {
-        return Math.round(a + 10) / Sprite.SCALED_SIZE;
+        return Math.round(a + 5) / Sprite.SCALED_SIZE;
     }
 
     public void checkBomb() {

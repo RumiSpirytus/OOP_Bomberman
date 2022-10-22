@@ -9,24 +9,36 @@ import uet.oop.bomberman.graphics.Sprite;
 
 import java.awt.*;
 import java.nio.channels.spi.SelectorProvider;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Flame extends AnimatedEntities {
     public Flame(int x, int y){
         super(x, y);
+        layer = 2;
     }
-
+    public Flame(int x, int y, Image img, String direction){
+        super(x,y,img);
+        this.direction = direction;
+        layer = 2;
+    }
+    public Flame(int x, int y, Image img){
+        super(x, y, img);
+        layer = 2;
+    }
     @Override
     public boolean collide(Entity e) {
         if(e.bound().intersects(this.bound())){
-            if( e instanceof Brick){
-                return e.collide(this);
-            }
-            if( e instanceof Wall){
-                return e.collide(this);
-            }
-            if( e instanceof AnimatedEntities){
-                return e.collide(this);
-            }
+//            if( e instanceof Brick){
+//                return e.collide(this);
+//            }
+//            if( e instanceof Wall){
+//                return e.collide(this);
+//            }
+//            if( e instanceof AnimatedEntities){
+//                return e.collide(this);
+//            }
+            return e.collide(this);
         }
         return true;
     }
@@ -38,15 +50,9 @@ public class Flame extends AnimatedEntities {
     private int top;
     private int down;
     private int timeToVanish = 20;
-    private int timeToAnimate = 0;
+    private int animate = 0;
+    public static List<Flame> flames = new ArrayList<>();
 
-    public Flame(int x, int y, Image img, String direction){
-        super(x,y,img);
-        this.direction = direction;
-    }
-    public Flame(int x, int y, Image img){
-        super(x, y, img);
-    }
     public void setRadius(int radius){
         this.radius = radius;
     }
@@ -56,24 +62,27 @@ public class Flame extends AnimatedEntities {
         Top();
         Down();
         createFlame();
-        System.out.println("huhu");
+        //System.out.println("huhu");
     }
     public boolean getWall(Rectangle r ){
+
         for(Entity e : BombermanGame.Objects){
             if(r.intersects(e.bound()) && e instanceof Wall) return true;
+            //System.out.println("getWall");
         }
         return false;
     }
     public boolean getBrick(Rectangle r){
         for(Entity e : BombermanGame.Objects){
             if(r.intersects(e.bound()) && e instanceof Brick) return true;
+            //System.out.println("getBrick");
         }
         return false;
     }
     public void createFlame(){
         Flame midFlame = new Flame(x,y);
         midFlame.direction = "mid";
-        BombermanGame.flames.add(midFlame);
+        flames.add(midFlame);
         for(int i = 0 ; i<right; i++){
             Flame flame = new Flame(x + Sprite.SCALED_SIZE * ( i + 1), y);
             if( i == right - 1){
@@ -81,7 +90,7 @@ public class Flame extends AnimatedEntities {
             } else {
                 flame.direction = "horizontal";
             }
-            BombermanGame.flames.add(flame);
+            flames.add(flame);
         }
 
         for (int i = 0; i < left; i++) {
@@ -91,7 +100,7 @@ public class Flame extends AnimatedEntities {
             } else {
                 flame.direction = "horizontal";
             }
-            BombermanGame.flames.add(flame);
+            flames.add(flame);
         }
 
         for (int i = 0; i < top; i++) {
@@ -101,7 +110,7 @@ public class Flame extends AnimatedEntities {
             } else {
                 flame.direction = "vertical";
             }
-            BombermanGame.flames.add(flame);
+            flames.add(flame);
         }
 
         for (int i = 0; i < down; i++) {
@@ -111,7 +120,7 @@ public class Flame extends AnimatedEntities {
             } else {
                 flame.direction = "vertical";
             }
-            BombermanGame.flames.add(flame);
+            flames.add(flame);
         }
     }
     public void collideCheck(){
@@ -145,7 +154,10 @@ public class Flame extends AnimatedEntities {
             if (direction.equals("horizontal"))
                 img = Sprite.movingSprite(Sprite.explosion_horizontal, Sprite.explosion_horizontal1, Sprite.explosion_horizontal2, animate++, 20).getFxImage();
         } else {
-            BombermanGame.flames.remove(this);
+            System.out.println("remove flame");
+               this.x = - 32;
+               this.y = - 32;
+            //flames.remove(this);
         }
     }
     private void Right() {
