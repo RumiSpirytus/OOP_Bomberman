@@ -29,12 +29,12 @@ public class Bomber extends AnimatedEntities {
 
 
 
-    public Bomber(int x, int y, Image img, int speed) {
-        super(x, y, img, speed);
+    public Bomber(int x, int y, Image img) {
+        super(x, y, img);
         layer = 1;
         bombRemain = 1;
         radius = 1;
-
+        speed = 2;
     }
 
     public static int swapKill = 1;
