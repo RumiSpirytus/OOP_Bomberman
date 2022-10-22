@@ -29,8 +29,8 @@ public class Bomber extends AnimatedEntities {
     private int speed = 2;
 
 
-    public Bomber(int x, int y, Image img, int speed) {
-        super(x, y, img, speed);
+    public Bomber(int x, int y, Image img) {
+        super(x, y, img);
         layer = 1;
         bombRemain = 1;
         radius = 1;
@@ -201,30 +201,29 @@ public class Bomber extends AnimatedEntities {
         return true;
     }
 
-    public void detectPlaceBomb() {
-        if (bombSet && timePutBombs < 0) {
-            placeBomb();
-            timePutBombs = 50;
-        }
-    }
+
 
     public void placeBomb() {
-        if (bombRemain > 0) {
-            System.out.println(x + " " + y);
-            System.out.println(canvasToBomb(x) + " " + canvasToBomb(y));
-            Bomb bomb = new Bomb(canvasToBomb(x), canvasToBomb(y), Sprite.bomb.getFxImage(), radius);
-            for (Bomb b : bombs) {
-                if (canvasToBomb(x) == b.getX() && canvasToBomb(y) == b.getY()) return;
+        if (bombSet && timePutBombs < 0) {
+            if (bombRemain > 0) {
+                //System.out.println(x + " " + y);
+                //System.out.println(canvasToBomb(x) + " " + canvasToBomb(y));
+                Bomb bomb = new Bomb(canvasToBomb(x), canvasToBomb(y), Sprite.bomb.getFxImage(), radius);
+                for (Bomb b : bombs) {
+                    if (canvasToBomb(x) == b.getX() && canvasToBomb(y) == b.getY()) return;
+                }
+                //Sound placeBomb = new Sound(Sound.placeBomb);
+                //placeBomb.play();
+                bombRemain--;
+                bombs.add(bomb);
+                //System.out.println(bombs.size());
             }
-            //Sound placeBomb = new Sound(Sound.placeBomb);
-            //placeBomb.play();
-            bombRemain--;
-            bombs.add(bomb);
+            timePutBombs--;
         }
     }
 
     public int canvasToBomb(int a) {
-        return Math.round(a + 10) / Sprite.SCALED_SIZE;
+        return Math.round(a + 5) / Sprite.SCALED_SIZE;
     }
 
     public void checkBomb() {

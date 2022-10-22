@@ -19,6 +19,7 @@ public class Brick extends Entity {
 
     @Override
     public void update() {
+
         if (!isAlive()) {
             timeToVanish--;
             img = Sprite.movingSprite(Sprite.brick_exploded, Sprite.brick_exploded1, Sprite.brick_exploded2, animate++, 20).getFxImage();
@@ -30,6 +31,7 @@ public class Brick extends Entity {
     public boolean collide(Entity e) {
         if (e instanceof Flame) this.alive = false;
         if (e instanceof Ghost) return true;
+        //System.out.println("hiihhi");
         return false;
     }
 }
