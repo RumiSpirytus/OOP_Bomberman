@@ -12,6 +12,11 @@ public class Minvo extends Enemy {
     }
 
     @Override
+    public void update() {
+
+    }
+
+    @Override
     public void chooseDir() {
 
     }

@@ -46,8 +46,8 @@ import static uet.oop.bomberman.graphics.Sprite.*;
 
 public class BombermanGame extends Application {
 
-    public static final int WIDTH = 25;
-    public static final int HEIGHT = 17;
+    public static final int WIDTH = 31;
+    public static final int HEIGHT = 13;
     public int level = 1;
 
     public static int[][] idObjects;
@@ -82,6 +82,7 @@ public class BombermanGame extends Application {
         // am thanh
         //Sound soundtrack = new Sound(Sound.soundtrack);
         // Tao Canvas
+        loadLevel(level);
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
         // Tao root container
@@ -94,10 +95,10 @@ public class BombermanGame extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        loadLevel(level);
+        //loadLevel(level);
 
 
-        createMap2();
+        //createMap2();
 
         scene.setOnKeyPressed(event -> {
             //if (player.isLife())
@@ -126,95 +127,98 @@ public class BombermanGame extends Application {
         };
         timer.start();
 
-        createMap2();
-
-        scene.setOnKeyPressed(event -> {
-            //if (player.isLife())
-            KeyCode direction = event.getCode();
-            //System.out.print(player.getX() + " &&" + player.getY() + " ");
-            player.KeyPressedEvent(direction);
+        //createMap2();
 
 
-        });
         //scene.setOnKeyPressed(event -> player.KeyReleasedEvent(event.getCode()));
         //lastTime = System.currentTimeMillis();
 
 
-        player = new Bomber(1, 1, Sprite.player_right.getFxImage());
+        player = new Bomber(1, 1, Sprite.player_right.getFxImage(), speed);
 
         //entities.add(player);
     }
 
-    /*public void createMap() {
+    public static void createMap() {
         for (int i = 0; i < HEIGHT; i++) {
             for (int j = 0; j < WIDTH; j++) {
                 if (mapMatrix[i][j] == '#') {
-                    Objects.add(new Wall(j, i, Sprite.wall.getFxImage()));
+                    Objects.add(new Wall(j, i, wall.getFxImage()));
                 } else {
-                    Objects.add(new Grass(j, i, Sprite.grass.getFxImage()));
+                    Objects.add(new Grass(j, i, grass.getFxImage()));
                     switch (mapMatrix[i][j]) {
                         case '*':
-                            Objects.add(new Brick(j, i, Sprite.brick.getFxImage()));
+                            Objects.add(new Brick(j, i, brick.getFxImage()));
                             break;
                         case 'x':
-                            Objects.add(new Portal(j, i, Sprite.portal.getFxImage()));
-                            Objects.add(new Brick(j, i, Sprite.brick.getFxImage()));
-                        case 'p':
-                            Objects.add(new Bomber(j, i, Sprite.player_right.getFxImage()));
+                            Objects.add(new Portal(j, i, portal.getFxImage()));
+                            Objects.add(new Brick(j, i, brick.getFxImage()));
+                            break;
+//                        case 'p':
+//                            bomber = new Bomber(j, i, player_right.getFxImage());
+//                            break;
                         case '1':
-                            Objects.add(new Balloon(j, i, Sprite.balloom_left1.getFxImage()));
+                            enemies.add(new Balloon(j, i, balloom_left1.getFxImage()));
+                            break;
                         case '2':
-                            Objects.add(new Oneal(j, i, Sprite.oneal_left1.getFxImage()));
+                            enemies.add(new Oneal(j, i, oneal_left1.getFxImage()));
+                            break;
+//                        case '4':
+//                            enemies.add(new Ghost(j, i, Sprite.ghost_left1.getFxImage()));
+//                            break;
                         case '3':
-                            Objects.add(new Doll(j, i, Sprite.doll_left1.getFxImage()));
-                        case '4':
-                            Objects.add(new Minvo(j, i, Sprite.minvo_left1.getFxImage()));
-                        case '5':
-                            Objects.add(new Kondoria(j, i, Sprite.kondoria_left1.getFxImage()));
+                            enemies.add(new Minvo(j, i, minvo_left1.getFxImage()));
+                            break;
+//                        case '5':
+//                            enemies.add(new Doll(j, i, Sprite.ghost_left1.getFxImage()));
+//                            break;
                         case 'b':
-                            Objects.add(new BombItem(j, i, Sprite.powerup_bombs.getFxImage()));
-                            Objects.add(new Brick(j, i, Sprite.brick.getFxImage()));
-                        case 's':
-                            Objects.add(new SpeedItem(j, i, Sprite.powerup_speed.getFxImage()));
-                            Objects.add(new Brick(j, i, Sprite.brick.getFxImage()));
+                            Objects.add(new BombItem(j,i, powerup_bombs.getFxImage()));
+                            Objects.add(new Brick(j, i, brick.getFxImage()));
+                            break;
                         case 'f':
-                            Objects.add(new FlameItem(j, i, Sprite.powerup_flames.getFxImage()));
-                            Objects.add(new Brick(j, i, Sprite.brick.getFxImage()));
+                            Objects.add(new FlameItem(j,i, powerup_flames.getFxImage()));
+                            Objects.add(new Brick(j, i, brick.getFxImage()));
+                            break;
+                        case 's':
+                            Objects.add(new SpeedItem(j,i, powerup_speed.getFxImage()));
+                            Objects.add(new Brick(j, i, brick.getFxImage()));
+                            break;
                     }
                 }
             }
         }
-        // Objects.sort(new Layer());
-    }*/
+        Objects.sort(new Layer());
+    }
 
 
-//    public static int matrix[][] =
-//            {{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
-//                    {9, 5, 8, 8, 8, 7, 7, 8, 8, 1, 8, 8, 8, 8, 7, 8, 9},
-//                    {9, 3, 9, 7, 8, 9, 8, 9, 7, 7, 9, 7, 9, 7, 9, 8, 9},
-//                    {9, 8, 8, 6, 8, 8, 8, 7, 7, 8, 8, 3, 8, 8, 7, 8, 9},
-//                    {9, 8, 9, 8, 9, 7, 9, 7, 9, 8, 9, 8, 8, 8, 7, 7, 9},
-//                    {9, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 7, 8, 8, 8, 1, 9},
-//                    {9, 8, 8, 8, 9, 8, 7, 9, 8, 7, 9, 8, 9, 8, 9, 8, 9},
-//                    {9, 7, 8, 8, 8, 8, 7, 8, 8, 8, 7, 8, 8, 8, 8, 8, 9},
-//                    {9, 7, 9, 8, 9, 7, 8, 8, 8, 8, 9, 8, 9, 8, 9, 8, 9},
-//                    {9, 8, 9, 8, 8, 7, 9, 7, 9, 8, 8, 8, 8, 9, 7, 7, 9},
-//                    {9, 4, 8, 8, 8, 8, 8, 8, 8, 8, 8, 7, 8, 8, 8, 1, 9},
-//                    {9, 8, 9, 8, 8, 9, 8, 9, 7, 9, 8, 9, 7, 8, 8, 8, 9},
-//                    {9, 7, 8, 8, 8, 8, 7, 8, 8, 8, 2, 8, 8, 8, 8, 8, 9},
-//                    {9, 7, 9, 8, 9, 7, 9, 8, 8, 8, 8, 8, 9, 8, 9, 8, 9},
-//                    {9, 7, 7, 8, 8, 7, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 9},
-//                    {9, 8, 9, 7, 8, 9, 8, 7, 9, 7, 8, 9, 8, 9, 7, 9, 9},
-//                    {9, 8, 8, 6, 7, 8, 8, 8, 7, 7, 8, 2, 7, 8, 7, 8, 9},
-//                    {9, 8, 9, 8, 9, 7, 9, 7, 8, 9, 8, 9, 8, 9, 7, 7, 9},
-//                    {9, 4, 8, 8, 8, 8, 8, 7, 7, 8, 8, 7, 8, 8, 8, 1, 9},
-//                    {9, 8, 9, 7, 8, 9, 7, 9, 8, 8, 8, 9, 8, 9, 8, 8, 9},
-//                    {9, 8, 8, 8, 8, 8, 8, 7, 8, 8, 8, 7, 8, 8, 8, 8, 9},
-//                    {9, 7, 9, 8, 9, 7, 9, 8, 7, 9, 8, 9, 8, 8, 9, 8, 9},
-//                    {9, 7, 8, 8, 8, 8, 8, 7, 8, 8, 8, 8, 8, 8, 8, 8, 9},
-//                    {9, 8, 7, 9, 8, 8, 8, 9, 7, 9, 8, 9, 8, 9, 8, 8, 9},
-//                    {9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9}};
-//
+    public static int matrix[][] =
+            {{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
+                    {9, 5, 8, 8, 8, 7, 7, 8, 8, 1, 8, 8, 8, 8, 7, 8, 9},
+                    {9, 3, 9, 7, 8, 9, 8, 9, 7, 7, 9, 7, 9, 7, 9, 8, 9},
+                    {9, 8, 8, 6, 8, 8, 8, 7, 7, 8, 8, 3, 8, 8, 7, 8, 9},
+                    {9, 8, 9, 8, 9, 7, 9, 7, 9, 8, 9, 8, 8, 8, 7, 7, 9},
+                    {9, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 7, 8, 8, 8, 1, 9},
+                    {9, 8, 8, 8, 9, 8, 7, 9, 8, 7, 9, 8, 9, 8, 9, 8, 9},
+                    {9, 7, 8, 8, 8, 8, 7, 8, 8, 8, 7, 8, 8, 8, 8, 8, 9},
+                    {9, 7, 9, 8, 9, 7, 8, 8, 8, 8, 9, 8, 9, 8, 9, 8, 9},
+                    {9, 8, 9, 8, 8, 7, 9, 7, 9, 8, 8, 8, 8, 9, 7, 7, 9},
+                    {9, 4, 8, 8, 8, 8, 8, 8, 8, 8, 8, 7, 8, 8, 8, 1, 9},
+                    {9, 8, 9, 8, 8, 9, 8, 9, 7, 9, 8, 9, 7, 8, 8, 8, 9},
+                    {9, 7, 8, 8, 8, 8, 7, 8, 8, 8, 2, 8, 8, 8, 8, 8, 9},
+                    {9, 7, 9, 8, 9, 7, 9, 8, 8, 8, 8, 8, 9, 8, 9, 8, 9},
+                    {9, 7, 7, 8, 8, 7, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 9},
+                    {9, 8, 9, 7, 8, 9, 8, 7, 9, 7, 8, 9, 8, 9, 7, 9, 9},
+                    {9, 8, 8, 6, 7, 8, 8, 8, 7, 7, 8, 2, 7, 8, 7, 8, 9},
+                    {9, 8, 9, 8, 9, 7, 9, 7, 8, 9, 8, 9, 8, 9, 7, 7, 9},
+                    {9, 4, 8, 8, 8, 8, 8, 7, 7, 8, 8, 7, 8, 8, 8, 1, 9},
+                    {9, 8, 9, 7, 8, 9, 7, 9, 8, 8, 8, 9, 8, 9, 8, 8, 9},
+                    {9, 8, 8, 8, 8, 8, 8, 7, 8, 8, 8, 7, 8, 8, 8, 8, 9},
+                    {9, 7, 9, 8, 9, 7, 9, 8, 7, 9, 8, 9, 8, 8, 9, 8, 9},
+                    {9, 7, 8, 8, 8, 8, 8, 7, 8, 8, 8, 8, 8, 8, 8, 8, 9},
+                    {9, 8, 7, 9, 8, 8, 8, 9, 7, 9, 8, 9, 8, 9, 8, 8, 9},
+                    {9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9}};
+
 
 //    public void createMap() {
 //        for (int i = 0; i < WIDTH; i++) {
@@ -234,83 +238,82 @@ public class BombermanGame extends Application {
 //    }
 
     public static void createMap2() {
-        for (int i = 0; i < HEIGHT; i++) {
-            for (int j = 0; j < WIDTH; j++) {
-                if (mapMatrix[i][j] == '#') {
-                    Objects.add(new Wall(j, i, Sprite.wall.getFxImage()));
-                } else {
-                    Objects.add(new Grass(j, i, Sprite.grass.getFxImage()));
-                    switch (mapMatrix[i][j]) {
-                        case '*':
-                            Objects.add(new Brick(j, i, Sprite.brick.getFxImage()));
-                            break;
-                        case 'x':
-                            Objects.add(new Portal(j, i, Sprite.portal.getFxImage()));
-                            Objects.add(new Brick(j, i, Sprite.brick.getFxImage()));
-                        case 'p':
-                            Objects.add(new Bomber(j, i, Sprite.player_right.getFxImage()));
-                        case '1':
-                            Objects.add(new Balloon(j, i, Sprite.balloom_left1.getFxImage()));
-                        case '2':
-                            Objects.add(new Oneal(j, i, Sprite.oneal_left1.getFxImage()));
-//                        case '3':
-//                            Objects.add(new Doll(j, i, Sprite.doll_left1.getFxImage()));
-                        case '4':
-                            Objects.add(new Minvo(j, i, Sprite.minvo_left1.getFxImage()));
-                        case '5':
-                            Objects.add(new Kondoria(j, i, Sprite.kondoria_left1.getFxImage()));
-                        case 'b':
-                            Objects.add(new BombItem(j, i, Sprite.powerup_bombs.getFxImage()));
-                            Objects.add(new Brick(j, i, Sprite.brick.getFxImage()));
-                        case 's':
-                            Objects.add(new SpeedItem(j, i, Sprite.powerup_speed.getFxImage()));
-                            Objects.add(new Brick(j, i, Sprite.brick.getFxImage()));
-                        case 'f':
-                            Objects.add(new FlameItem(j, i, Sprite.powerup_flames.getFxImage()));
-                            Objects.add(new Brick(j, i, Sprite.brick.getFxImage()));
-                    }
-                }
-            }
-        }
-//        for (int i = 0; i < WIDTH; i++) {
-//            for (int j = 0; j < HEIGHT; j++) {
-//
-//                if (matrix[i][j] == 9) {
-//
-//                    Objects.add(new Wall(i, j, Sprite.wall.getFxImage()));
-//                }
-//                else {
-//                    Objects.add(new Grass(i, j, Sprite.grass.getFxImage()));
-//                    switch (matrix[i][j]) {
-//                        case (7):
-//                            Objects.add(new Brick(i, j, Sprite.brick.getFxImage()));
+//        for (int i = 0; i < HEIGHT; i++) {
+//            for (int j = 0; j < WIDTH; j++) {
+//                if (mapMatrix[i][j] == '#') {
+//                    Objects.add(new Wall(j, i, Sprite.wall.getFxImage()));
+//                } else {
+//                    Objects.add(new Grass(j, i, Sprite.grass.getFxImage()));
+//                    switch (mapMatrix[i][j]) {
+//                        case '*':
+//                            Objects.add(new Brick(j, i, Sprite.brick.getFxImage()));
 //                            break;
-//                        case (6):
-//                            Objects.add (new Portal(i, j, Sprite.portal.getFxImage()));
-//                            Objects.add (new Brick(i, j, Sprite.brick.getFxImage()));
-//                            break;
-//                        case (2):
-//                            enemies.add(new Balloon(i, j, Sprite.balloom_left1.getFxImage()));
-//                            break;
-//                        case (4):
-//                            Objects.add (new SpeedItem(i, j, powerup_speed.getFxImage()));
-//                            //Objects.add (new Brick(i, j, Sprite.brick.getFxImage()));
-//                            break;
-//                        case (1):
-//                            Objects.add (new FlameItem(i, j, powerup_flames.getFxImage()));
-//                            //Objects.add (new Brick(i, j, Sprite.brick.getFxImage()));
-//                            break;
-//                        case (3):
-//                            Objects.add (new BombItem(i, j, powerup_bombs.getFxImage()));
-//                            //Objects.add (new Brick(i, j, Sprite.brick.getFxImage()));
-//                            break;
+//                        case 'x':
+//                            Objects.add(new Portal(j, i, Sprite.portal.getFxImage()));
+//                            Objects.add(new Brick(j, i, Sprite.brick.getFxImage()));
+////                        case 'p':
+////                            Objects.add(new Bomber(j, i, Sprite.player_right.getFxImage()));
+//                        case '1':
+//                            Objects.add(new Balloon(j, i, Sprite.balloom_left1.getFxImage()));
+//                        case '2':
+//                            Objects.add(new Oneal(j, i, Sprite.oneal_left1.getFxImage()));
+////                        case '3':
+////                            Objects.add(new Doll(j, i, Sprite.doll_left1.getFxImage()));
+//                        case '4':
+//                            Objects.add(new Minvo(j, i, Sprite.minvo_left1.getFxImage()));
+//                        case '5':
+//                            Objects.add(new Kondoria(j, i, Sprite.kondoria_left1.getFxImage()));
+//                        case 'b':
+//                            Objects.add(new BombItem(j, i, Sprite.powerup_bombs.getFxImage()));
+//                            Objects.add(new Brick(j, i, Sprite.brick.getFxImage()));
+//                        case 's':
+//                            Objects.add(new SpeedItem(j, i, Sprite.powerup_speed.getFxImage()));
+//                            Objects.add(new Brick(j, i, Sprite.brick.getFxImage()));
+//                        case 'f':
+//                            Objects.add(new FlameItem(j, i, Sprite.powerup_flames.getFxImage()));
+//                            Objects.add(new Brick(j, i, Sprite.brick.getFxImage()));
 //                    }
 //                }
-//
-//                //Objects.add(object);
-//
 //            }
 //        }
+        for (int i = 0; i < WIDTH; i++) {
+            for (int j = 0; j < HEIGHT; j++) {
+
+                if (matrix[i][j] == 9) {
+
+                    Objects.add(new Wall(i, j, Sprite.wall.getFxImage()));
+                } else {
+                    Objects.add(new Grass(i, j, Sprite.grass.getFxImage()));
+                    switch (matrix[i][j]) {
+                        case (7):
+                            Objects.add(new Brick(i, j, Sprite.brick.getFxImage()));
+                            break;
+                        case (6):
+                            Objects.add(new Portal(i, j, Sprite.portal.getFxImage()));
+                            Objects.add(new Brick(i, j, Sprite.brick.getFxImage()));
+                            break;
+                        case (2):
+                            enemies.add(new Balloon(i, j, Sprite.balloom_left1.getFxImage()));
+                            break;
+                        case (4):
+                            Objects.add(new SpeedItem(i, j, powerup_speed.getFxImage()));
+                            //Objects.add (new Brick(i, j, Sprite.brick.getFxImage()));
+                            break;
+                        case (1):
+                            Objects.add(new FlameItem(i, j, powerup_flames.getFxImage()));
+                            //Objects.add (new Brick(i, j, Sprite.brick.getFxImage()));
+                            break;
+                        case (3):
+                            Objects.add(new BombItem(i, j, powerup_bombs.getFxImage()));
+                            //Objects.add (new Brick(i, j, Sprite.brick.getFxImage()));
+                            break;
+                    }
+                }
+
+                //Objects.add(object);
+
+            }
+        }
         //System.out.println(Objects.size());
         Objects.sort(new Layer());
     }
@@ -328,16 +331,16 @@ public class BombermanGame extends Application {
             enemies.clear();
             Objects.clear();
 
-//            for (int i = 0; i < HEIGHT; i++) {
-//                String mapRow = sc.nextLine();
-//                for (int j = 0; j < WIDTH; j++) {
-//                    mapMatrix[i][j] = mapRow.charAt(j);
-//                }
-//            }
+            for (int i = 0; i < HEIGHT; i++) {
+                String mapRow = sc.nextLine();
+                for (int j = 0; j < WIDTH; j++) {
+                    mapMatrix[i][j] = mapRow.charAt(j);
+                }
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        createMap2();
+        createMap();
     }
 
     public void update() {

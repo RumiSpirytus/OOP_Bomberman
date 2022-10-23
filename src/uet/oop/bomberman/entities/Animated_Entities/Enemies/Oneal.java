@@ -7,6 +7,8 @@ import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Oneal extends Enemy {
+
+
     public Oneal(int x, int y, Image img) {
         super(x, y, img);
     }
@@ -19,11 +21,12 @@ public class Oneal extends Enemy {
             timeToVanish--;
         } else
         {
-            for (Enemy enemy : Oneal) {
-                if (enemy instanceof Oneal && isAlive()) {
-                    chooseDir();
-                }
-            }
+
+//            for (Enemy enemy : Oneal) {
+//                if (enemy instanceof Oneal && isAlive()) {
+//                    chooseDir();
+//                }
+//            }
         }
         if(timeToVanish == 0 ){
             BombermanGame.enemies.remove(this);

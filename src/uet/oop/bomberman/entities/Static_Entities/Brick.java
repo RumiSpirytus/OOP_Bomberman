@@ -24,7 +24,7 @@ public class Brick extends Entity {
             img = Sprite.movingSprite(Sprite.brick_exploded, Sprite.brick_exploded1,
                     Sprite.brick_exploded2, animate++, 20).getFxImage();
             if (timeToVanish == 0) {
-                System.out.println("remove brick");
+               // System.out.println("remove brick");
                 //System.out.println(BombermanGame.player.getSpeed());
 //                this.x = -32;
 //                this.y = -32;

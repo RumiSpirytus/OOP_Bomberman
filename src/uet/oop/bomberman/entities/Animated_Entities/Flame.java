@@ -29,15 +29,6 @@ public class Flame extends AnimatedEntities {
     @Override
     public boolean collide(Entity e) {
         if(e.bound().intersects(this.bound())){
-//            if( e instanceof Brick){
-//                return e.collide(this);
-//            }
-//            if( e instanceof Wall){
-//                return e.collide(this);
-//            }
-//            if( e instanceof AnimatedEntities){
-//                return e.collide(this);
-//            }
             return e.collide(this);
         }
         return true;

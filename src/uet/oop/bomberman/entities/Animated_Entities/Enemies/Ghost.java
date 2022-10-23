@@ -36,7 +36,7 @@ public class Ghost extends Enemy {
         }
         if (timeToVanish == 0) BombermanGame.enemies.remove(this);
     }
-}
+
 
     @Override
     public void chooseDir() {

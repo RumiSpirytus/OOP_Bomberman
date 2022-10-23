@@ -42,7 +42,7 @@ public class Balloon extends Enemy {
                 }
             }
             if(timeToVanish == 0 ) BombermanGame.enemies.remove(this);
-        }
+
     }
 
     int direction = 0;

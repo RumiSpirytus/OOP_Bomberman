@@ -20,21 +20,26 @@ public class Bomber extends AnimatedEntities {
 
     public static List<Bomb> bombs = new ArrayList<>();
     private int bombRemain;
-    private int timePutBombs;
+    private int timePutBombs = 60;
     private int radius;
     private boolean bombSet = false;
     private int timeToVanish = 30;
-    protected int tem = 32;
+    protected int tem = 16;
     int count = 0;
 
+    int t_r = 0;
+    int t_l = 0;
+    int t_u = 0;
+    int t_d = 0;
 
 
-    public Bomber(int x, int y, Image img) {
-        super(x, y, img);
+
+
+    public Bomber(int x, int y, Image img, int speed) {
+        super(x, y, img, speed);
         layer = 1;
         bombRemain = 1;
         radius = 1;
-        speed = 2;
     }
 
     public static int swapKill = 1;
@@ -42,22 +47,26 @@ public class Bomber extends AnimatedEntities {
 
     @Override
     public void moveRight() {
-        count++;
+        //count++;
+        t_r++;
         nextX = x + speed;
     }
     @Override
     public void moveLeft() {
-        count++;
+        //count++;
+        t_l++;
         nextX =  x - speed;
     };
     @Override
     public void moveUp() {
-        count++;
+        //count++;
+        t_u++;
         nextY = y - speed;
     };
     @Override
     public void moveDown() {
-        count++;
+        //count++;
+        t_d++;
         nextY = y + speed;
     };
 
@@ -106,10 +115,10 @@ public class Bomber extends AnimatedEntities {
                 //System.out.println(t_l);
                 img = Sprite.movingSprite(Sprite.player_left, Sprite.player_left_1
                         , Sprite.player_left_2, animate++, 20).getFxImage();
-                /*
-                if (count % tem == 0) {
+
+                if (t_l % tem == 0) {
                     KeyReleasedEvent(dir);
-                }*/
+                }
 
             }
             if (dir == KeyCode.RIGHT) {
@@ -117,35 +126,35 @@ public class Bomber extends AnimatedEntities {
                 moveRight();
                 img = Sprite.movingSprite(Sprite.player_right, Sprite.player_right_1
                         , Sprite.player_right_2, animate++, 20).getFxImage();
-                /*
-                if (count % tem == 0) {
+
+                if (t_r % tem == 0) {
                     KeyReleasedEvent(dir);
-                }*/
+                }
             }
             if (dir == KeyCode.UP) {
                 moveUp();
                 img = Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1
                         , Sprite.player_up_2, animate++, 20).getFxImage();
-                /*
-                if (count % tem == 0) {
+
+                if (t_u % tem == 0) {
                     KeyReleasedEvent(dir);
-                }*/
+                }
             }
             if (dir == KeyCode.DOWN) {
                 moveDown();
                 img = Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1
                         , Sprite.player_down_2, animate++, 20).getFxImage();
-                /*
-                if (count % tem == 0) {
-                    KeyReleasedEvent(dir);
-                }*/
-            }
-            if (dir != null) {
-                count++;
-                if (count % tem == 0) {
+
+                if (t_d % tem == 0) {
                     KeyReleasedEvent(dir);
                 }
             }
+//            if (dir != null) {
+//                count++;
+//                if (count % tem == 0) {
+//                    KeyReleasedEvent(dir);
+//                }
+//            }
 //            if (bombSet == true) {
 //                //detectPlaceBomb();
 //                placeBomb();
@@ -161,7 +170,7 @@ public class Bomber extends AnimatedEntities {
 //                player = new Bomber(1, 1, Sprite.player_right.getFxImage(), speed);
             }
         }
-        if (timePutBombs < -1000) timePutBombs = 0;
+        if (timePutBombs < 0) timePutBombs = 60;
         timePutBombs--;
         placeBomb();
         checkBomb();
@@ -186,7 +195,7 @@ public class Bomber extends AnimatedEntities {
         if (e instanceof Item) {
             if (e instanceof SpeedItem) {
                 e.collide(this);
-                this.speed++;
+                speed++;
                 //tem = tem/2;
             }
             if (e instanceof BombItem) {
@@ -209,8 +218,9 @@ public class Bomber extends AnimatedEntities {
     public void placeBomb() {
         if (bombSet && timePutBombs < 0) {
             if (bombRemain > 0) {
+                System.out.println(bombRemain);
                 bombRemain--;
-                //System.out.println(x + " " + y);
+
                 //System.out.println(canvasToBomb(x) + " " + canvasToBomb(y));
                 Bomb bomb = new Bomb(canvasToBomb(x), canvasToBomb(y), Sprite.bomb.getFxImage(), radius);
                 for (Bomb b : bombs) {
@@ -261,7 +271,7 @@ public class Bomber extends AnimatedEntities {
     }
 
     public Rectangle bound() {
-        return new Rectangle(nextX, nextY, Sprite.SCALED_SIZE - 4, Sprite.SCALED_SIZE - 2);
+        return new Rectangle(nextX, nextY, Sprite.SCALED_SIZE - 6, Sprite.SCALED_SIZE - 2);
     }
 
 
