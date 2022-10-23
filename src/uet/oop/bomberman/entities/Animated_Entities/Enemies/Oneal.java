@@ -29,25 +29,24 @@ public class Oneal extends Enemy {
     private static int countKill = 0;
     private static int swapKill = 1;
 
+    /**
+     * find bomber easiest.
+     */
     @Override
     public void update() {
         if (isAlive()) {
             collideCheck();
             switch (dir) {
                 case 0:
-                    super.moveLeft();
                     spriteLeft();
                     break;
                 case 1:
-                    super.moveRight();
                     spriteRight();
                     break;
                 case 2:
-                    super.moveUp();
                     spriteUp();
                     break;
                 case 3:
-                    super.moveDown();
                     spriteDown();
                     break;
             }
@@ -60,27 +59,31 @@ public class Oneal extends Enemy {
 
     @Override
     public void chooseDir() {
-        if (BombermanGame.player.getX() / Sprite.SCALED_SIZE - x / Sprite.SCALED_SIZE < 0) dir = 0;
-        if (BombermanGame.player.getX() / Sprite.SCALED_SIZE - x / Sprite.SCALED_SIZE > 0) dir = 1;
-        if (BombermanGame.player.getY() / Sprite.SCALED_SIZE - y / Sprite.SCALED_SIZE < 0) dir = 2;
-        if (BombermanGame.player.getY() / Sprite.SCALED_SIZE - y / Sprite.SCALED_SIZE > 0) dir = 3;
+        if (BombermanGame.player.getX() / Sprite.SCALED_SIZE - x / Sprite.SCALED_SIZE < 0 ) dir = 0;
+        if (BombermanGame.player.getX() / Sprite.SCALED_SIZE - x / Sprite.SCALED_SIZE > 0 ) dir = 1;
+        if (BombermanGame.player.getY() / Sprite.SCALED_SIZE - y / Sprite.SCALED_SIZE < 0 ) dir = 2;
+        if (BombermanGame.player.getY() / Sprite.SCALED_SIZE - y / Sprite.SCALED_SIZE > 0 ) dir = 3;
     }
 
 
     @Override
     public void spriteLeft() {
+        super.moveLeft();
         img = Sprite.movingSprite(Sprite.oneal_left1, Sprite.oneal_left2, Sprite.oneal_left3, animate++, 60).getFxImage();
     }
 
     public void spriteRight() {
+        super.moveRight();
         img = Sprite.movingSprite(Sprite.oneal_right1, Sprite.oneal_right2, Sprite.oneal_right3, animate++, 60).getFxImage();
     }
 
     public void spriteUp() {
+        super.moveUp();
         img = Sprite.movingSprite(Sprite.oneal_left1, Sprite.oneal_left2, Sprite.oneal_left3, animate++, 60).getFxImage();
     }
 
     public void spriteDown() {
+        super.moveDown();
         img = Sprite.movingSprite(Sprite.oneal_right1, Sprite.oneal_right2, Sprite.oneal_right3, animate++, 60).getFxImage();
     }
 
