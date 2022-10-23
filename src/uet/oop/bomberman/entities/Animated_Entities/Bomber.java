@@ -20,7 +20,6 @@ public class Bomber extends AnimatedEntities {
 
     public static List<Bomb> bombs = new ArrayList<>();
     private int bombRemain;
-    private int timePutBombs = 60;
     private int radius;
     private boolean bombSet = false;
     private int timeToVanish = 30;
@@ -37,7 +36,6 @@ public class Bomber extends AnimatedEntities {
 
     public Bomber(int x, int y, Image img, int speed) {
         super(x, y, img, speed);
-        layer = 1;
         bombRemain = 1;
         radius = 1;
     }
@@ -47,25 +45,21 @@ public class Bomber extends AnimatedEntities {
 
     @Override
     public void moveRight() {
-        //count++;
         t_r++;
         nextX = x + speed;
     }
     @Override
     public void moveLeft() {
-        //count++;
         t_l++;
         nextX =  x - speed;
     };
     @Override
     public void moveUp() {
-        //count++;
         t_u++;
         nextY = y - speed;
     };
     @Override
     public void moveDown() {
-        //count++;
         t_d++;
         nextY = y + speed;
     };
@@ -149,12 +143,7 @@ public class Bomber extends AnimatedEntities {
                     KeyReleasedEvent(dir);
                 }
             }
-//            if (dir != null) {
-//                count++;
-//                if (count % tem == 0) {
-//                    KeyReleasedEvent(dir);
-//                }
-//            }
+//
 //            if (bombSet == true) {
 //                //detectPlaceBomb();
 //                placeBomb();
@@ -170,8 +159,6 @@ public class Bomber extends AnimatedEntities {
 //                player = new Bomber(1, 1, Sprite.player_right.getFxImage(), speed);
             }
         }
-        if (timePutBombs < 0) timePutBombs = 60;
-        timePutBombs--;
         placeBomb();
         checkBomb();
 
@@ -216,7 +203,8 @@ public class Bomber extends AnimatedEntities {
 
 
     public void placeBomb() {
-        if (bombSet && timePutBombs < 0) {
+        //if (bombSet && timePutBombs > 0) {
+        if (bombSet) {
             if (bombRemain > 0) {
                 System.out.println(bombRemain);
                 bombRemain--;
@@ -232,7 +220,7 @@ public class Bomber extends AnimatedEntities {
                 bombs.add(bomb);
                 //System.out.println(bombs.size());
             }
-            timePutBombs--;
+            //timePutBombs--;
         }
     }
 
@@ -250,13 +238,13 @@ public class Bomber extends AnimatedEntities {
         }
     }
 
-    public static List<Bomb> getBombs() {
-        return bombs;
-    }
-
-    public static void setBombs(List<Bomb> bombs) {
-        Bomber.bombs = bombs;
-    }
+//    public static List<Bomb> getBombs() {
+//        return bombs;
+//    }
+//
+//    public static void setBombs(List<Bomb> bombs) {
+//        Bomber.bombs = bombs;
+//    }
 
     public void calculateMove() {
         for (int i = 0; i < BombermanGame.Objects.size(); i++) {

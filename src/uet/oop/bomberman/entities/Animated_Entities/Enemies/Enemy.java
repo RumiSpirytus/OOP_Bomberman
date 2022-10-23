@@ -23,37 +23,38 @@ public abstract class Enemy extends AnimatedEntities {
         super(x, y, img);
         xEnemy = x;
         yEnemy = y;
+
     }
 
     @Override
     public abstract void update() ;
-    //{
+    {
 //        if(!isAlive()){
 //            timeToVanish--;
 //            img = Sprite.movingSprite(Sprite.mob_dead1, Sprite.mob_dead2,
 //                    Sprite.mob_dead3, animate++, 150).getFxImage();
 //        } else {
 //            collideCheck();
-////            if (dir == 0) {
-////                moveLeft();
-////                spriteLeft();
-////            }
-////            if (dir == 1) {
-////                moveRight();
-////                spriteRight();
-////            }
-////            if (dir == 2) {
-////                moveUp();
-////                spriteUp();
-////            }
-////            if (dir == 3) {
-////                moveDown();
-////                spriteDown();
-////            }
-//            //calMove();
+//            if (dir == 0) {
+//                moveLeft();
+//                spriteLeft();
+//            }
+//            if (dir == 1) {
+//                moveRight();
+//                spriteRight();
+//            }
+//            if (dir == 2) {
+//                moveUp();
+//                spriteUp();
+//            }
+//            if (dir == 3) {
+//                moveDown();
+//                spriteDown();
+//            }
+//            calMove();
 //        }
 //        if(timeToVanish == 0 ) BombermanGame.enemies.remove(this);
- //   }
+    }
     public void calMove() {
 //        for (Enemy e : BombermanGame.enemies) {
 //            for (Bomb o : Bomber.bombs) {

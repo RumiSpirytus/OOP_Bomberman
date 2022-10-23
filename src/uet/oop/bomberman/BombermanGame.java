@@ -12,11 +12,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import uet.oop.bomberman.entities.Animated_Entities.*;
-import uet.oop.bomberman.entities.Animated_Entities.Enemies.Balloon;
-import uet.oop.bomberman.entities.Animated_Entities.Enemies.Doll;
-import uet.oop.bomberman.entities.Animated_Entities.Enemies.Kondoria;
-import uet.oop.bomberman.entities.Animated_Entities.Enemies.Minvo;
-import uet.oop.bomberman.entities.Animated_Entities.Enemies.Oneal;
+import uet.oop.bomberman.entities.Animated_Entities.Enemies.*;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.Layer;
 import uet.oop.bomberman.entities.Static_Entities.BombItem;
@@ -27,6 +23,7 @@ import uet.oop.bomberman.entities.Static_Entities.Portal;
 import uet.oop.bomberman.entities.Static_Entities.SpeedItem;
 import uet.oop.bomberman.entities.Static_Entities.Wall;
 
+import uet.oop.bomberman.graphics.CreateMap;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.Sound_Bomberman.Sound;
 
@@ -47,14 +44,14 @@ import static uet.oop.bomberman.graphics.Sprite.*;
 public class BombermanGame extends Application {
 
     public static final int WIDTH = 31;
-    public static final int HEIGHT = 13;
-    public int level = 1;
+    public static final int HEIGHT = 17;
 
+
+    public static int level = 1;
+    public static CreateMap map = new CreateMap(level);
     public static int[][] idObjects;
     private GraphicsContext gc;
     private Canvas canvas;
-    public static Bomber bomber;
-
 
     public static boolean running;
 
@@ -67,7 +64,7 @@ public class BombermanGame extends Application {
 
     public static List<Entity> entities = new ArrayList<>();
     public static List<Entity> Objects = new ArrayList<>();
-    public static List<Entity> enemies = new ArrayList<>();
+    public static List<Enemy> enemies = new ArrayList<>();
 
     public static char[][] mapMatrix = new char[HEIGHT][WIDTH];
 
@@ -82,7 +79,10 @@ public class BombermanGame extends Application {
         // am thanh
         //Sound soundtrack = new Sound(Sound.soundtrack);
         // Tao Canvas
-        loadLevel(level);
+        //loadLevel(level);
+        //map = new CreateMap();
+        map.Map();
+
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
         // Tao root container
@@ -139,224 +139,20 @@ public class BombermanGame extends Application {
         //entities.add(player);
     }
 
-    public static void createMap() {
-        for (int i = 0; i < HEIGHT; i++) {
-            for (int j = 0; j < WIDTH; j++) {
-                if (mapMatrix[i][j] == '#') {
-                    Objects.add(new Wall(j, i, wall.getFxImage()));
-                } else {
-                    Objects.add(new Grass(j, i, grass.getFxImage()));
-                    switch (mapMatrix[i][j]) {
-                        case '*':
-                            Objects.add(new Brick(j, i, brick.getFxImage()));
-                            break;
-                        case 'x':
-                            Objects.add(new Portal(j, i, portal.getFxImage()));
-                            Objects.add(new Brick(j, i, brick.getFxImage()));
-                            break;
-//                        case 'p':
-//                            bomber = new Bomber(j, i, player_right.getFxImage());
-//                            break;
-                        case '1':
-                            enemies.add(new Balloon(j, i, balloom_left1.getFxImage()));
-                            break;
-                        case '2':
-                            enemies.add(new Oneal(j, i, oneal_left1.getFxImage()));
-                            break;
-//                        case '4':
-//                            enemies.add(new Ghost(j, i, Sprite.ghost_left1.getFxImage()));
-//                            break;
-                        case '3':
-                            enemies.add(new Minvo(j, i, minvo_left1.getFxImage()));
-                            break;
-//                        case '5':
-//                            enemies.add(new Doll(j, i, Sprite.ghost_left1.getFxImage()));
-//                            break;
-                        case 'b':
-                            Objects.add(new BombItem(j,i, powerup_bombs.getFxImage()));
-                            Objects.add(new Brick(j, i, brick.getFxImage()));
-                            break;
-                        case 'f':
-                            Objects.add(new FlameItem(j,i, powerup_flames.getFxImage()));
-                            Objects.add(new Brick(j, i, brick.getFxImage()));
-                            break;
-                        case 's':
-                            Objects.add(new SpeedItem(j,i, powerup_speed.getFxImage()));
-                            Objects.add(new Brick(j, i, brick.getFxImage()));
-                            break;
-                    }
-                }
-            }
-        }
-        Objects.sort(new Layer());
-    }
-
-
-    public static int matrix[][] =
-            {{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
-                    {9, 5, 8, 8, 8, 7, 7, 8, 8, 1, 8, 8, 8, 8, 7, 8, 9},
-                    {9, 3, 9, 7, 8, 9, 8, 9, 7, 7, 9, 7, 9, 7, 9, 8, 9},
-                    {9, 8, 8, 6, 8, 8, 8, 7, 7, 8, 8, 3, 8, 8, 7, 8, 9},
-                    {9, 8, 9, 8, 9, 7, 9, 7, 9, 8, 9, 8, 8, 8, 7, 7, 9},
-                    {9, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 7, 8, 8, 8, 1, 9},
-                    {9, 8, 8, 8, 9, 8, 7, 9, 8, 7, 9, 8, 9, 8, 9, 8, 9},
-                    {9, 7, 8, 8, 8, 8, 7, 8, 8, 8, 7, 8, 8, 8, 8, 8, 9},
-                    {9, 7, 9, 8, 9, 7, 8, 8, 8, 8, 9, 8, 9, 8, 9, 8, 9},
-                    {9, 8, 9, 8, 8, 7, 9, 7, 9, 8, 8, 8, 8, 9, 7, 7, 9},
-                    {9, 4, 8, 8, 8, 8, 8, 8, 8, 8, 8, 7, 8, 8, 8, 1, 9},
-                    {9, 8, 9, 8, 8, 9, 8, 9, 7, 9, 8, 9, 7, 8, 8, 8, 9},
-                    {9, 7, 8, 8, 8, 8, 7, 8, 8, 8, 2, 8, 8, 8, 8, 8, 9},
-                    {9, 7, 9, 8, 9, 7, 9, 8, 8, 8, 8, 8, 9, 8, 9, 8, 9},
-                    {9, 7, 7, 8, 8, 7, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 9},
-                    {9, 8, 9, 7, 8, 9, 8, 7, 9, 7, 8, 9, 8, 9, 7, 9, 9},
-                    {9, 8, 8, 6, 7, 8, 8, 8, 7, 7, 8, 2, 7, 8, 7, 8, 9},
-                    {9, 8, 9, 8, 9, 7, 9, 7, 8, 9, 8, 9, 8, 9, 7, 7, 9},
-                    {9, 4, 8, 8, 8, 8, 8, 7, 7, 8, 8, 7, 8, 8, 8, 1, 9},
-                    {9, 8, 9, 7, 8, 9, 7, 9, 8, 8, 8, 9, 8, 9, 8, 8, 9},
-                    {9, 8, 8, 8, 8, 8, 8, 7, 8, 8, 8, 7, 8, 8, 8, 8, 9},
-                    {9, 7, 9, 8, 9, 7, 9, 8, 7, 9, 8, 9, 8, 8, 9, 8, 9},
-                    {9, 7, 8, 8, 8, 8, 8, 7, 8, 8, 8, 8, 8, 8, 8, 8, 9},
-                    {9, 8, 7, 9, 8, 8, 8, 9, 7, 9, 8, 9, 8, 9, 8, 8, 9},
-                    {9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9}};
-
-
-//    public void createMap() {
-//        for (int i = 0; i < WIDTH; i++) {
-//            for (int j = 0; j < HEIGHT; j++) {
-//                Entity object;
-//                Entity enemy;
-//                if (j == 0 || j == HEIGHT - 1 || i == 0 || i == WIDTH - 1) {
-//                    object = new Wall(i, j, Sprite.wall.getFxImage());
-//                }
-//
-//                else {
-//                    object = new Grass(i, j, Sprite.grass.getFxImage());
-//                }
-//                Objects.add(object);
-//            }
-//        }
-//    }
-
-    public static void createMap2() {
-//        for (int i = 0; i < HEIGHT; i++) {
-//            for (int j = 0; j < WIDTH; j++) {
-//                if (mapMatrix[i][j] == '#') {
-//                    Objects.add(new Wall(j, i, Sprite.wall.getFxImage()));
-//                } else {
-//                    Objects.add(new Grass(j, i, Sprite.grass.getFxImage()));
-//                    switch (mapMatrix[i][j]) {
-//                        case '*':
-//                            Objects.add(new Brick(j, i, Sprite.brick.getFxImage()));
-//                            break;
-//                        case 'x':
-//                            Objects.add(new Portal(j, i, Sprite.portal.getFxImage()));
-//                            Objects.add(new Brick(j, i, Sprite.brick.getFxImage()));
-////                        case 'p':
-////                            Objects.add(new Bomber(j, i, Sprite.player_right.getFxImage()));
-//                        case '1':
-//                            Objects.add(new Balloon(j, i, Sprite.balloom_left1.getFxImage()));
-//                        case '2':
-//                            Objects.add(new Oneal(j, i, Sprite.oneal_left1.getFxImage()));
-////                        case '3':
-////                            Objects.add(new Doll(j, i, Sprite.doll_left1.getFxImage()));
-//                        case '4':
-//                            Objects.add(new Minvo(j, i, Sprite.minvo_left1.getFxImage()));
-//                        case '5':
-//                            Objects.add(new Kondoria(j, i, Sprite.kondoria_left1.getFxImage()));
-//                        case 'b':
-//                            Objects.add(new BombItem(j, i, Sprite.powerup_bombs.getFxImage()));
-//                            Objects.add(new Brick(j, i, Sprite.brick.getFxImage()));
-//                        case 's':
-//                            Objects.add(new SpeedItem(j, i, Sprite.powerup_speed.getFxImage()));
-//                            Objects.add(new Brick(j, i, Sprite.brick.getFxImage()));
-//                        case 'f':
-//                            Objects.add(new FlameItem(j, i, Sprite.powerup_flames.getFxImage()));
-//                            Objects.add(new Brick(j, i, Sprite.brick.getFxImage()));
-//                    }
-//                }
-//            }
-//        }
-        for (int i = 0; i < WIDTH; i++) {
-            for (int j = 0; j < HEIGHT; j++) {
-
-                if (matrix[i][j] == 9) {
-
-                    Objects.add(new Wall(i, j, Sprite.wall.getFxImage()));
-                } else {
-                    Objects.add(new Grass(i, j, Sprite.grass.getFxImage()));
-                    switch (matrix[i][j]) {
-                        case (7):
-                            Objects.add(new Brick(i, j, Sprite.brick.getFxImage()));
-                            break;
-                        case (6):
-                            Objects.add(new Portal(i, j, Sprite.portal.getFxImage()));
-                            Objects.add(new Brick(i, j, Sprite.brick.getFxImage()));
-                            break;
-                        case (2):
-                            enemies.add(new Balloon(i, j, Sprite.balloom_left1.getFxImage()));
-                            break;
-                        case (4):
-                            Objects.add(new SpeedItem(i, j, powerup_speed.getFxImage()));
-                            //Objects.add (new Brick(i, j, Sprite.brick.getFxImage()));
-                            break;
-                        case (1):
-                            Objects.add(new FlameItem(i, j, powerup_flames.getFxImage()));
-                            //Objects.add (new Brick(i, j, Sprite.brick.getFxImage()));
-                            break;
-                        case (3):
-                            Objects.add(new BombItem(i, j, powerup_bombs.getFxImage()));
-                            //Objects.add (new Brick(i, j, Sprite.brick.getFxImage()));
-                            break;
-                    }
-                }
-
-                //Objects.add(object);
-
-            }
-        }
-        //System.out.println(Objects.size());
-        Objects.sort(new Layer());
-    }
-
-    /*public boolean isFree(int nextX, int nextY) {
-        int size = DEFAULT_SIZE;
-
-    }*/
-    public static void loadLevel(int _level) {
-        String levelPath = "res/levels/Level" + _level + ".txt";
-        try {
-            Scanner sc = new Scanner(new FileReader(levelPath));
-            sc.nextLine();
-
-            enemies.clear();
-            Objects.clear();
-
-            for (int i = 0; i < HEIGHT; i++) {
-                String mapRow = sc.nextLine();
-                for (int j = 0; j < WIDTH; j++) {
-                    mapMatrix[i][j] = mapRow.charAt(j);
-                }
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        createMap();
-    }
-
     public void update() {
         player.update();
         //entities.forEach(Entity::update);
         for (int i = 0; i < Objects.size(); i++) {
             Objects.get(i).update();
         }
-        List<Bomb> bombs = player.getBombs();
+        //List<Bomb> bombs = player.getBombs();
         for (int i = 0; i < bombs.size(); i++) {
             bombs.get(i).update();
         }
         for (int i = 0; i < flames.size(); i++) {
             flames.get(i).update();
         }
-        for (int i = 0; i < entities.size(); i++) {
+        for (int i = 0; i < enemies.size(); i++) {
             enemies.get(i).update();
         }
 //        List<Bomb> bombs = player.getBombs();
@@ -364,7 +160,7 @@ public class BombermanGame extends Application {
 //        Objects.forEach(Entity::update);
 //        bombs.forEach(Entity::update);
 //        flames.forEach(Entity::update);
-//        //enemies.forEach(Entity::update);
+//        enemies.forEach(Entity::update);
 
     }
 
@@ -380,12 +176,12 @@ public class BombermanGame extends Application {
         }
         //Objects.forEach(g->g.render(gc));
         //player.render(gc);
-        List<Bomb> bombs = player.getBombs();
+        //List<Bomb> bombs = player.getBombs();
         bombs.forEach(g -> g.render(gc));
         player.render(gc);
         //entities.forEach(g -> g.render(gc));
+        enemies.forEach(g -> g.render(gc));
         flames.forEach(g -> g.render(gc));
 
-        enemies.forEach(g -> g.render(gc));
     }
 }

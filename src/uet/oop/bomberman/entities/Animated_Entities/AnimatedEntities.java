@@ -7,11 +7,11 @@ public abstract class AnimatedEntities extends Entity {
     protected int nextX = x;
     protected int nextY = y;
     protected int speed;
-    protected int left = 0;
-    protected int right = 0;
-    protected int up = 0;
-    protected int down = 0;
-    protected int animate = 0;
+//    protected int left = 0;
+//    protected int right = 0;
+//    protected int up = 0;
+//    protected int down = 0;
+//    protected int animate = 0;
 
     public AnimatedEntities(int x, int y, Image img) {
         super(x, y, img);
