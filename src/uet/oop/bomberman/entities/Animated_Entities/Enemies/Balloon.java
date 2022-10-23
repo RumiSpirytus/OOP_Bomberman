@@ -25,49 +25,55 @@ public class Balloon extends Enemy {
 
     @Override
     public void update() {
-            if (!isAlive() ) {
-                img = Sprite.balloom_dead.getFxImage();
-                img = Sprite.movingSprite(Sprite.mob_dead1, Sprite.mob_dead2, Sprite.mob_dead3, animate, 50).getFxImage();
-                timeToVanish--;
-            } else {
+            if (isAlive() ) {
                 collideCheck();
-                if (direction == 0) {
-                    super.moveLeft();
-                    spriteLeft();
-                }
-                if (direction == 1) {
-                    super.moveRight();
-                    spriteRight();
-                }
-                if (direction == 2) {
-                    super.moveUp();
-                    spriteUp();
-                }
-                if (direction == 3) {
-                    super.moveDown();
-                    spriteDown();
+                switch (direction) {
+                    case 0:
+                        spriteLeft();
+                        break;
+                    case 1:
+                        spriteRight();
+                        break;
+                    case 2:
+                        spriteUp();
+                        break;
+                    case 3:
+                        spriteDown();
+                        break;
                 }
                 canMove();
+//            } else if(animate < 30){
+//                animate++;
+//                img = Sprite.balloom_dead.getFxImage();
+//                img = Sprite.movingSprite(Sprite.mob_dead1, Sprite.mob_dead2, Sprite.mob_dead3,
+//                        animate, 20).getFxImage();
+            } else {
+                BombermanGame.enemies.remove(this);
             }
-            if(timeToVanish == 0 ) BombermanGame.enemies.remove(this);
-
     }
 
 
     public void spriteLeft() {
+        super.moveLeft();
         img = Sprite.movingSprite(Sprite.balloom_left1, Sprite.balloom_left2, Sprite.balloom_left3, animate++, 60).getFxImage();
     }
 
     public void spriteRight() {
+        super.moveRight();
         img = Sprite.movingSprite(Sprite.balloom_right1, Sprite.balloom_right2, Sprite.balloom_right3, animate++, 60).getFxImage();
     }
 
     public void spriteUp() {
+        super.moveUp();
         img = Sprite.movingSprite(Sprite.balloom_left1, Sprite.balloom_left2, Sprite.balloom_left3, animate++, 60).getFxImage();
     }
 
     public void spriteDown() {
+        super.moveDown();
         img = Sprite.movingSprite(Sprite.balloom_right1, Sprite.balloom_right2, Sprite.balloom_right3, animate++, 60).getFxImage();
     }
-
+    public void stay(){
+        super.stay();
+        chooseDir();
+    }
 }

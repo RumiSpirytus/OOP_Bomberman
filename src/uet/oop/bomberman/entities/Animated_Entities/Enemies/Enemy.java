@@ -23,7 +23,10 @@ public abstract class Enemy extends AnimatedEntities {
         super(x, y, img);
         xStart = x;
         yStart = y;
-
+    }
+    public void stop(){
+        xStart = x;
+        yStart = y;
     }
 
     @Override
