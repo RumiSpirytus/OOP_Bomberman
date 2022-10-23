@@ -10,6 +10,9 @@ public class Ghost extends Enemy {
         speed = 1;
     }
 
+    /**
+     * Xuyen tuong tim bomber.
+     */
     @Override
     public void update() {
         if (!isAlive()) {
