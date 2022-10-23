@@ -33,6 +33,7 @@ public class Ghost extends Enemy {
                 moveDown();
                 spriteDown();
             }
+            canMove();
         }
         if (timeToVanish == 0) BombermanGame.enemies.remove(this);
     }

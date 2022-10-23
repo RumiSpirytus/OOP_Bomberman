@@ -15,20 +15,20 @@ import java.awt.*;
 
 public abstract class Enemy extends AnimatedEntities {
     protected int dir;
-    protected int timeToVanish = 60;
+    protected int timeToVanish = 10;
     protected int animate = 0;
-    protected int xEnemy;
-    protected int yEnemy;
+    protected int xStart;
+    protected int yStart;
     public Enemy(int x, int y, Image img) {
         super(x, y, img);
-        xEnemy = x;
-        yEnemy = y;
+        xStart = x;
+        yStart = y;
 
     }
 
     @Override
     public abstract void update() ;
-    {
+
 //        if(!isAlive()){
 //            timeToVanish--;
 //            img = Sprite.movingSprite(Sprite.mob_dead1, Sprite.mob_dead2,
@@ -54,35 +54,35 @@ public abstract class Enemy extends AnimatedEntities {
 //            calMove();
 //        }
 //        if(timeToVanish == 0 ) BombermanGame.enemies.remove(this);
-    }
-    public void calMove() {
-//        for (Enemy e : BombermanGame.enemies) {
-//            for (Bomb o : Bomber.bombs) {
-//                if (e.bound().intersects(o.bound())) {
-//                    e.stay();
-//                }
-//            }
-//        for (Enemy o : BombermanGame.enemies) {
-//                if (e.equals(o)) continue;
-//                if (e instanceof Ghost || o instanceof Ghost) continue;
-//                if (e.bound().intersects(o.bound())) {
-//                    if (e.collide(o)) {
-//                        e.move();
-//                    } else {
-//                        e.stay();
-//                    }
-//                }
-//            }
-//        for (Entity o : BombermanGame.Objects) {
-//                if (e.bound().intersects(o.bound())) {
-//                    if (e.collide(o)) {
-//                        e.move();
-//                    } else {
-//                        e.stay();
-//                    }
-//                }
-//            }
-//        }
+
+    public void canMove() {
+        for (Enemy e : BombermanGame.enemies) {
+            for (Bomb o : Bomber.bombs) {
+                if (e.bound().intersects(o.bound())) {
+                    e.stay();
+                }
+            }
+        for (Enemy o : BombermanGame.enemies) {
+                if (e.equals(o)) continue;
+                if (e instanceof Ghost || o instanceof Ghost) continue;
+                if (e.bound().intersects(o.bound())) {
+                    if (e.collide(o)) {
+                        e.move();
+                    } else {
+                        e.stay();
+                    }
+                }
+            }
+        for (Entity o : BombermanGame.Objects) {
+                if (e.bound().intersects(o.bound())) {
+                    if (e.collide(o)) {
+                        e.move();
+                    } else {
+                        e.stay();
+                    }
+                }
+            }
+        }
     }
     public abstract void chooseDir();
     public abstract void spriteLeft();
@@ -112,8 +112,8 @@ public abstract class Enemy extends AnimatedEntities {
     }
     public void collideAvoid(){
         super.stay();
-        x = xEnemy * Sprite.SCALED_SIZE;
-        y = yEnemy * Sprite.SCALED_SIZE;
+        x = xStart * Sprite.SCALED_SIZE;
+        y = yStart * Sprite.SCALED_SIZE;
     }
     public void collideCheck(){
         this.collide(BombermanGame.player);

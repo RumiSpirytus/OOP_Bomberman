@@ -29,7 +29,10 @@ public abstract class AnimatedEntities extends Entity {
     public double getSpeed() {
         return speed;
     }
-
+    public void move() {
+        x = nextX;
+        y = nextY;
+    }
     public void setSpeed(int speed) {
         this.speed = speed;
     }
@@ -50,10 +53,6 @@ public abstract class AnimatedEntities extends Entity {
         nextY = y + speed;
     };
 
-    public void move() {
-        x = nextX;
-        y = nextY;
-    }
 
     public void stay() {
         nextX = x;

@@ -16,41 +16,40 @@ public class Oneal extends Enemy {
     private static int swapKill = 1;
     @Override
     public void update() {
-        countKill++;
-        if(!isAlive()){
+        if (!isAlive()) {
             timeToVanish--;
         } else
+            collideCheck();
         {
-
-//            for (Enemy enemy : Oneal) {
-//                if (enemy instanceof Oneal && isAlive()) {
-//                    chooseDir();
-//                }
-//            }
+            if (dir == 0) {
+                moveLeft();
+                spriteLeft();
+            }
+            if (dir == 1) {
+                moveRight();
+                spriteRight();
+            }
+            if (dir == 2) {
+                moveUp();
+                spriteUp();
+            }
+            if (dir == 3) {
+                moveDown();
+                spriteDown();
+            }
+            canMove();
         }
-        if(timeToVanish == 0 ){
-            BombermanGame.enemies.remove(this);
-        }
+        if (timeToVanish == 0) BombermanGame.enemies.remove(this);
     }
 
     @Override
     public void chooseDir() {
-        if(countKill % 16 == 0 ){
-            if(swapKill == 1){
-                spriteLeft();
-                swapKill = 2;
-            } else if(swapKill == 2){
-                spriteRight();
-                swapKill = 3;
-            } else if(swapKill == 3){
-                spriteUp();
-                swapKill = 4;
-            } else if(swapKill == 4){
-                spriteDown();
-                swapKill = 1;
-            }
+            if (BombermanGame.player.getX() / Sprite.SCALED_SIZE - x / Sprite.SCALED_SIZE < 0) dir = 0;
+            if (BombermanGame.player.getX() / Sprite.SCALED_SIZE - x / Sprite.SCALED_SIZE > 0) dir = 1;
+            if (BombermanGame.player.getY() / Sprite.SCALED_SIZE - y / Sprite.SCALED_SIZE < 0) dir = 2;
+            if (BombermanGame.player.getY() / Sprite.SCALED_SIZE - y / Sprite.SCALED_SIZE > 0) dir = 3;
         }
-    }
+
 
     @Override
     public void spriteLeft() {

@@ -15,41 +15,44 @@ public class Balloon extends Enemy {
     public Balloon(int x, int y, Image img) {
         super(x, y, img);
         speed = 1;
+        layer = 1;
     }
-
-    @Override
-    public void update() {
-            if (!isAlive()) {
-                timeToVanish--;
-            } else
-                collideCheck();
-            {
-                if (dir == 0) {
-                    moveLeft();
-                    spriteLeft();
-                }
-                if (dir == 1) {
-                    moveRight();
-                    spriteRight();
-                }
-                if (dir == 2) {
-                    moveUp();
-                    spriteUp();
-                }
-                if (dir == 3) {
-                    moveDown();
-                    spriteDown();
-                }
-            }
-            if(timeToVanish == 0 ) BombermanGame.enemies.remove(this);
-
-    }
-
     int direction = 0;
     public void chooseDir() {
         Random random = new Random();
         direction = random.nextInt(4);
     }
+
+    @Override
+    public void update() {
+            if (!isAlive() ) {
+                img = Sprite.balloom_dead.getFxImage();
+                img = Sprite.movingSprite(Sprite.mob_dead1, Sprite.mob_dead2, Sprite.mob_dead3, animate, 50).getFxImage();
+                timeToVanish--;
+            } else {
+                collideCheck();
+                if (direction == 0) {
+                    super.moveLeft();
+                    spriteLeft();
+                }
+                if (direction == 1) {
+                    super.moveRight();
+                    spriteRight();
+                }
+                if (direction == 2) {
+                    super.moveUp();
+                    spriteUp();
+                }
+                if (direction == 3) {
+                    super.moveDown();
+                    spriteDown();
+                }
+                canMove();
+            }
+            if(timeToVanish == 0 ) BombermanGame.enemies.remove(this);
+
+    }
+
 
     public void spriteLeft() {
         img = Sprite.movingSprite(Sprite.balloom_left1, Sprite.balloom_left2, Sprite.balloom_left3, animate++, 60).getFxImage();
