@@ -19,18 +19,20 @@ public abstract class Enemy extends AnimatedEntities {
     protected int animate = 0;
     protected int xStart;
     protected int yStart;
+
     public Enemy(int x, int y, Image img) {
         super(x, y, img);
         xStart = x;
         yStart = y;
     }
-    public void stop(){
+
+    public void stop() {
         xStart = x;
         yStart = y;
     }
 
     @Override
-    public abstract void update() ;
+    public abstract void update();
 
 //        if(!isAlive()){
 //            timeToVanish--;
@@ -65,18 +67,22 @@ public abstract class Enemy extends AnimatedEntities {
                     e.stay();
                 }
             }
-        for (Enemy o : BombermanGame.enemies) {
+            for (Enemy o : BombermanGame.enemies) {
                 if (e.equals(o)) continue;
                 if (e instanceof Ghost || o instanceof Ghost) continue;
                 if (e.bound().intersects(o.bound())) {
                     if (e.collide(o)) {
+                        chooseDir();
                         e.move();
                     } else {
                         e.stay();
                     }
                 }
             }
-        for (Entity o : BombermanGame.Objects) {
+            for (Entity o : BombermanGame.Objects) {
+                if(o instanceof Brick){
+                    if (e instanceof Ghost ) continue;
+                }
                 if (e.bound().intersects(o.bound())) {
                     if (e.collide(o)) {
                         e.move();
@@ -87,41 +93,50 @@ public abstract class Enemy extends AnimatedEntities {
             }
         }
     }
+
     public abstract void chooseDir();
+
     public abstract void spriteLeft();
+
     public abstract void spriteRight();
+
     public abstract void spriteUp();
+
     public abstract void spriteDown();
 
     @Override
     public boolean collide(Entity e) {
-        if( e instanceof Flame) {
+        if (e instanceof Flame) {
             if (this.alive) {
                 //sound
             }
             this.alive = false;
             return true;
         }
-            if(e.bound().intersects(this.bound()) && e instanceof Bomber){
-                return e.collide(this);
-            }
-            if(e instanceof Wall || e instanceof Brick){
-                return e.collide(this);
-            }
+        if (e.bound().intersects(this.bound()) && e instanceof Bomber) {
+            return e.collide(this);
+        }
+        if (e instanceof Wall || e instanceof Brick) {
+            return e.collide(this);
+        }
         return !(e instanceof Enemy);
     }
-    public void stay(){
+
+    public void stay() {
         super.stay();
     }
-    public void collideAvoid(){
+
+    public void collideAvoid() {
         super.stay();
         x = xStart * Sprite.SCALED_SIZE;
         y = yStart * Sprite.SCALED_SIZE;
     }
-    public void collideCheck(){
+
+    public void collideCheck() {
         this.collide(BombermanGame.player);
     }
-    public Rectangle bound(){
+
+    public Rectangle bound() {
         return new Rectangle(nextX, nextY, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE);
     }
 }

@@ -67,4 +67,13 @@ public class Ghost extends Enemy {
         img = Sprite.movingSprite(Sprite.ghost_right1, Sprite.ghost_right2, Sprite.ghost_right3, animate++, 60).getFxImage();
     }
 
+    public void stay() {
+        super.stay();
+        chooseDir();
+    }
+    public void bomberLocation(){
+        super.stay();
+        x = xStart * Sprite.SCALED_SIZE;
+        y = yStart* Sprite.SCALED_SIZE;
+    }
 }
