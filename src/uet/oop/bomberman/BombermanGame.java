@@ -9,6 +9,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -50,14 +51,13 @@ public class BombermanGame extends Application {
     public static final int WIDTH = 31;
     public static final int HEIGHT = 17;
 
-
-    public static int level = 1;
+    public static int level = 2;
     public static CreateMap map;
     public static int[][] idObjects;
     private GraphicsContext gc;
     private Canvas canvas;
 
-    public static boolean running;
+    public static boolean running = true;
 
 
     private long lastTime;
@@ -74,8 +74,8 @@ public class BombermanGame extends Application {
 
     public static Scene mainStage;
 
-    public static Text t_level, t_bomb, t_time;
-    //public static Sound sound;
+    public static Text t_level, t_bomb, t_enemy, t_gameover;
+
 
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
@@ -88,13 +88,14 @@ public class BombermanGame extends Application {
         map = new CreateMap(level);
         map.Map();
 
-        canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * (HEIGHT+1));
+        canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
         // Tao root container
         Group root = new Group();
 
         root.getChildren().add(canvas);
         menu(root);
+
         // Tao scene
         Scene scene = new Scene(root);
 
@@ -120,22 +121,28 @@ public class BombermanGame extends Application {
 
         });
 
+        //checkPlayer();
+
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
-                //if (running) {
+                if (running) {
                 render();
                 update();
                 //time();
                 updateMenu();
-                //}
+
+                } else {
+                    gameOver();
+                }
+
             }
         };
         timer.start();
 
 
-            Sound soundtrack = new Sound("title_screen");
-            soundtrack.loop();
+//            Sound soundtrack = new Sound("title_screen");
+//            soundtrack.loop();
 
         player = new Bomber(1, 1, Sprite.player_right.getFxImage(), speed);
         //entities.add(player);
@@ -157,18 +164,10 @@ public class BombermanGame extends Application {
         for (int i = 0; i < enemies.size(); i++) {
             enemies.get(i).update();
         }
-//        List<Bomb> bombs = player.getBombs();
-//        //entities.forEach(Entity::update);
-//        Objects.forEach(Entity::update);
-//        bombs.forEach(Entity::update);
-//        flames.forEach(Entity::update);
-//        enemies.forEach(Entity::update);
 
     }
 
-    public void getPlayermatrix() {
 
-    }
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -189,27 +188,50 @@ public class BombermanGame extends Application {
 
     public static void menu(Group root) {
 
-        t_level = new Text(31*16, 18*32 ,"Level: 1");
-        t_level.setFont(Font.font("Arial", FontWeight.BOLD, 25));
+        t_level = new Text(31*16, 17.5*32 ,"Level: 1");
+        t_level.setFont(Font.font("Arial", FontWeight.BOLD, 18));
         t_level.setFill(Color.BLACK);
 
-        t_bomb = new Text(31*10, 18*32,"Bomb: 1");
-        t_bomb.setFont(Font.font("Arial", FontWeight.BOLD, 25));
-        t_level.setFill(Color.BLACK);
+        t_bomb = new Text(31*10, 17.5*32,"Bomb: 1");
+        t_bomb.setFont(Font.font("Arial", FontWeight.BOLD, 18));
+        t_bomb.setFill(Color.BLACK);
 
-        t_time = new Text(31*21, 18*32,"Times: 120");
-        t_time.setFont(Font.font("Arial", FontWeight.BOLD, 25));
-        t_time.setFill(Color.BLACK);
+        t_enemy = new Text(31*21, 17.5*32,"Enemy: ");
+        t_enemy.setFont(Font.font("Arial", FontWeight.BOLD, 18));
+        t_enemy.setFill(Color.BLACK);
+
+        t_gameover = new Text(0, 0,"gameover");
+        t_gameover.setFont(Font.font("Arial", FontWeight.BOLD, 1));
+        t_gameover.setFill(Color.WHITE);
+
 
         root.getChildren().add(t_level);
         root.getChildren().add(t_bomb);
-        root.getChildren().add(t_time);
+        root.getChildren().add(t_enemy);
+        root.getChildren().add(t_gameover);
     }
 
     public static void updateMenu() {
         t_level.setText("Level: " + level);
         t_bomb.setText("Bomb: " + player.getBombRemain());
+        t_enemy.setText("Enemy: " + enemies.size());
 
+
+    }
+
+    public static void gameOver() {
+        t_gameover.setText("GAME OVER!");
+        t_gameover.setFont(Font.font("Serif", FontWeight.BOLD, 50));
+        t_gameover.setX(32*10);
+        t_gameover.setY(32*9);
+    }
+
+
+
+    public static void checkPlayer() {
+        if (player.isAlive() == false) {
+            running = false;
+        }
     }
 
 

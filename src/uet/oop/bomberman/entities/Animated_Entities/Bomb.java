@@ -47,8 +47,8 @@ public class Bomb extends Entity {
 
     public void explode() {
         //System.out.println("hehe");
-        Sound bombExplode = new Sound("bombExplode");
-        bombExplode.play();
+//        Sound bombExplode = new Sound("bombExplode");
+//        bombExplode.play();
         Flame flame = new Flame(x, y);
         flame.setRadius(radius);
         flame.flameExplode();
