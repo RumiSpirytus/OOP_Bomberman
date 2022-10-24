@@ -7,11 +7,9 @@ import uet.oop.bomberman.graphics.Sprite;
 
 public class Bomb extends Entity {
 
-    int timeToExplode = 120;
-    //int animate = 0;
+    int timeToExplode = 200;
+    int animate = 0;
     int radius;
-
-    int count = 0;
 
 
 
@@ -33,19 +31,11 @@ public class Bomb extends Entity {
         if (timeToExplode < 0) {
             //Bomber.bombs.remove(this);
             explode();
-//
-//            this.x = -32;
-//            this.y = -32;
         }
-        //if (this.alive) {
+
         img = Sprite.movingSprite(Sprite.bomb, Sprite.bomb_1,
                     Sprite.bomb_2, this.animate++, 60).getFxImage();
 
-
-            //if (count % 16 == 0) {
-            //    alive = false;
-            //}
-        //}
     }
     @Override
     public boolean collide(Entity e) {

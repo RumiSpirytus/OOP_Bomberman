@@ -10,6 +10,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import uet.oop.bomberman.entities.Animated_Entities.*;
 import uet.oop.bomberman.entities.Animated_Entities.Enemies.*;
@@ -68,7 +72,9 @@ public class BombermanGame extends Application {
 
     public static char[][] mapMatrix = new char[HEIGHT][WIDTH];
 
-    public static Stage mainStage = null;
+    public static Scene mainStage;
+
+    public static Text t_level, t_bomb, t_time;
     //public static Sound sound;
 
     public static void main(String[] args) {
@@ -78,27 +84,25 @@ public class BombermanGame extends Application {
     @Override
     public void start(Stage primaryStage) {
         // am thanh
-        Sound soundtrack = new Sound("title_screen");
-        soundtrack.loop();
-
-//        if (!player.isAlive()) {
-//            soundtrack.stop();
-//        }
 
         map = new CreateMap(level);
         map.Map();
 
-        canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
+        canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * (HEIGHT+1));
         gc = canvas.getGraphicsContext2D();
         // Tao root container
         Group root = new Group();
+
         root.getChildren().add(canvas);
+        menu(root);
         // Tao scene
         Scene scene = new Scene(root);
 
         // Them scene vao stage
         primaryStage.setScene(scene);
+        //primaryStage.setTitle("Hello World");
         primaryStage.show();
+
 
 
 
@@ -123,18 +127,15 @@ public class BombermanGame extends Application {
                 render();
                 update();
                 //time();
-                //updateMenu();
+                updateMenu();
                 //}
             }
         };
         timer.start();
 
-        //createMap2();
 
-
-        //scene.setOnKeyPressed(event -> player.KeyReleasedEvent(event.getCode()));
-        //lastTime = System.currentTimeMillis();
-
+            Sound soundtrack = new Sound("title_screen");
+            soundtrack.loop();
 
         player = new Bomber(1, 1, Sprite.player_right.getFxImage(), speed);
         //entities.add(player);
@@ -185,6 +186,44 @@ public class BombermanGame extends Application {
         flames.forEach(g -> g.render(gc));
 
     }
+
+    public static void menu(Group root) {
+
+        t_level = new Text(31*16, 18*32 ,"Level: 1");
+        t_level.setFont(Font.font("Arial", FontWeight.BOLD, 25));
+        t_level.setFill(Color.BLACK);
+
+        t_bomb = new Text(31*10, 18*32,"Bomb: 1");
+        t_bomb.setFont(Font.font("Arial", FontWeight.BOLD, 25));
+        t_level.setFill(Color.BLACK);
+
+        t_time = new Text(31*21, 18*32,"Times: 120");
+        t_time.setFont(Font.font("Arial", FontWeight.BOLD, 25));
+        t_time.setFill(Color.BLACK);
+
+        root.getChildren().add(t_level);
+        root.getChildren().add(t_bomb);
+        root.getChildren().add(t_time);
+    }
+
+    public static void updateMenu() {
+        t_level.setText("Level: " + level);
+        t_bomb.setText("Bomb: " + player.getBombRemain());
+
+    }
+
+
+
+//    private void endGame(String string) {
+//        Group gameRoot = new Group();
+//        Text textOver = new Text(250, 240, string);
+//
+//        textOver.setFont(Font.font("Arial", FontWeight.BOLD, 80));
+//        textOver.setFill(Color.WHITE);
+//
+//        gameRoot.getChildren().add(textOver);
+//        mainStage = new Scene(gameRoot, Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT, Color.BLACK);
+//    }
 
     
 }

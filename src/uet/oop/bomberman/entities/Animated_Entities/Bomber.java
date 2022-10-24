@@ -26,6 +26,7 @@ public class Bomber extends AnimatedEntities {
     private int timeToVanish = 30;
     protected int tem = 16;
     int count = 30;
+    int timeputbom;
 
     int t_r = 0;
     int t_l = 0;
@@ -144,13 +145,6 @@ public class Bomber extends AnimatedEntities {
                     KeyReleasedEvent(dir);
                 }
             }
-//
-//            if (bombSet == true) {
-//                //detectPlaceBomb();
-//                placeBomb();
-//                checkBomb();
-//
-//            }
             calculateMove();
         } else {
             if (timeToVanish > 0) {
@@ -162,6 +156,8 @@ public class Bomber extends AnimatedEntities {
 //                player = new Bomber(1, 1, Sprite.player_right.getFxImage(), speed);
             }
         }
+        if (timeputbom < 0) timeputbom = 100;
+        else timeputbom--;
         placeBomb();
         checkBomb();
 
@@ -207,9 +203,10 @@ public class Bomber extends AnimatedEntities {
 
     public void placeBomb() {
         //if (bombSet && timePutBombs > 0) {
-        if (bombSet) {
-            if (bombRemain > 0 && count > 0) {
-                System.out.println(bombRemain);
+        if (bombSet && timeputbom < 100) {
+            if (bombRemain > 0) {
+                System.out.println(timeputbom);
+                //System.out.println(bombRemain);
                 Sound placeBomb = new Sound("placeBomb");
                 placeBomb.play();
                 //System.out.println(canvasToBomb(x) + " " + canvasToBomb(y));
@@ -220,8 +217,8 @@ public class Bomber extends AnimatedEntities {
                 bombRemain--;
                 count--;
                 bombs.add(bomb);
+                timeputbom = 150;
 
-                System.out.println(count);
             }
             //timePutBombs--;
         }
@@ -266,4 +263,7 @@ public class Bomber extends AnimatedEntities {
     }
 
 
+    public int getBombRemain() {
+        return bombRemain;
+    }
 }
