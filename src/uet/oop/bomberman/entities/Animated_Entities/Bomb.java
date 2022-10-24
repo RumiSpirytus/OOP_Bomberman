@@ -7,9 +7,9 @@ import uet.oop.bomberman.graphics.Sprite;
 
 public class Bomb extends Entity {
 
-    int timeToExplode = 200;
+    int timeToExplode = 100;
     int animate = 0;
-    int radius;
+    public static int radius;
 
 
 

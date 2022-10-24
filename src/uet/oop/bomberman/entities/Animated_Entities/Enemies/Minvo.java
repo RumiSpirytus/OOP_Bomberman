@@ -12,6 +12,7 @@ public class Minvo extends Enemy {
 
     public Minvo(int x, int y, Image img) {
         super(x, y, img);
+        layer = 1;
         speed = 3;
     }
     int direction;
@@ -21,7 +22,7 @@ public class Minvo extends Enemy {
         if (isAlive() ) {
             collideCheck();
             switch (direction) {
-                case 0:
+                case 3:
                     spriteLeft();
                     break;
                 case 1:
@@ -30,7 +31,7 @@ public class Minvo extends Enemy {
                 case 2:
                     spriteUp();
                     break;
-                case 3:
+                case 0:
                     spriteDown();
                     break;
             }
