@@ -247,5 +247,5 @@ public class BombermanGame extends Application {
 //        mainStage = new Scene(gameRoot, Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT, Color.BLACK);
 //    }
 
-    
+
 }

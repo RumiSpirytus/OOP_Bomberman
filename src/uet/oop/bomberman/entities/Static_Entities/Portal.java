@@ -28,8 +28,8 @@ public class Portal extends Item {
         // TODO Auto-generated method stub
         if (e instanceof Bomber
                 && BombermanGame.enemies.isEmpty()) {
-            Sound nextLevel = new Sound("nextLevel");
-            nextLevel.play();
+//            Sound nextLevel = new Sound("nextLevel");
+//            nextLevel.play();
             level++;
             map = new CreateMap(level);
             BombermanGame.map.Map();

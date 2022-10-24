@@ -14,7 +14,7 @@ public class Kondoria extends AnimatedEntities {
 
     @Override
     public void moveRight() {
-
+        super.moveRight();
     }
 
     @Override
