@@ -3,6 +3,7 @@ package uet.oop.bomberman.entities.Animated_Entities;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.Sound_Bomberman.Sound;
 import uet.oop.bomberman.entities.Animated_Entities.Enemies.Enemy;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.Static_Entities.*;
@@ -24,7 +25,7 @@ public class Bomber extends AnimatedEntities {
     private boolean bombSet = false;
     private int timeToVanish = 30;
     protected int tem = 16;
-    int count = 0;
+    int count = 30;
 
     int t_r = 0;
     int t_l = 0;
@@ -153,6 +154,8 @@ public class Bomber extends AnimatedEntities {
             calculateMove();
         } else {
             if (timeToVanish > 0) {
+                Sound bomberDead = new Sound("bomberDead");
+                bomberDead.play();
                 timeToVanish--;
                 img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, animate++, 60).getFxImage();
 //            } else {
@@ -173,9 +176,9 @@ public class Bomber extends AnimatedEntities {
             return true;
         }
         if (e instanceof Enemy) {
-            for (Entity enemy : BombermanGame.enemies) {
-                //enemy.getAwayFromMe();
-            }
+//            for (Entity enemy : BombermanGame.enemies) {
+//                //enemy.getAwayFromMe();
+//            }
             this.alive = false;
             return false;
         }
@@ -205,26 +208,26 @@ public class Bomber extends AnimatedEntities {
     public void placeBomb() {
         //if (bombSet && timePutBombs > 0) {
         if (bombSet) {
-            if (bombRemain > 0) {
+            if (bombRemain > 0 && count > 0) {
                 System.out.println(bombRemain);
-                bombRemain--;
-
+                Sound placeBomb = new Sound("placeBomb");
+                placeBomb.play();
                 //System.out.println(canvasToBomb(x) + " " + canvasToBomb(y));
-                Bomb bomb = new Bomb(canvasToBomb(x), canvasToBomb(y), Sprite.bomb.getFxImage(), radius);
+                Bomb bomb = new Bomb(matrix(x), matrix(y), Sprite.bomb.getFxImage(), radius);
                 for (Bomb b : bombs) {
-                    if (canvasToBomb(x) == b.getX() && canvasToBomb(y) == b.getY()) return;
+                    if (matrix(x) == b.getX() && matrix(y) == b.getY()) return;
                 }
-                //Sound placeBomb = new Sound(Sound.placeBomb);
-                //placeBomb.play();
-
+                bombRemain--;
+                count--;
                 bombs.add(bomb);
-                //System.out.println(bombs.size());
+
+                System.out.println(count);
             }
             //timePutBombs--;
         }
     }
 
-    public int canvasToBomb(int a) {
+    public int matrix(int a) {
         return Math.round(a + 5) / Sprite.SCALED_SIZE;
     }
 

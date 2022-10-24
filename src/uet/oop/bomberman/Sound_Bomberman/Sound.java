@@ -5,18 +5,11 @@ import java.io.File;
 import java.io.IOException;
 
 public class Sound {
-    public static final String soundtrack = "soundtrack";
-    public static final String pickItem = "pickItem";
-    public static final String walking = "walking";
-    public static final String placeBomb = "placeBomb";
-    public static final String enemyDead = "enemyDead";
-    public static final String bombermanDead = "bombermanDead";
-    public static final String nextLevel = "nextLevel";
-    public static final String bombExplode = "bombExplode";
+
     private Clip clip;
 
     public Sound(String filename){
-        String path ="C:\\Users\\Nguyen Duc Thien\\OneDrive\\Desktop\\OOP_Bomberman\\bomberman-starter\\res\\Sound_bombay"
+        String path ="C:\\Users\\user\\tesst\\OOP_Bomberman6\\res\\Sound\\"
                 + filename + ".wav";
         try{
             AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(path));
@@ -36,4 +29,6 @@ public class Sound {
     public void stop(){
         clip.stop();
     }
+
+
 }

@@ -139,4 +139,8 @@ public abstract class Enemy extends AnimatedEntities {
     public Rectangle bound() {
         return new Rectangle(nextX, nextY, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE);
     }
+
+    public int matrix(int x) {
+        return x / Sprite.SCALED_SIZE;
+    }
 }

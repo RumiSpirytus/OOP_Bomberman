@@ -48,7 +48,7 @@ public class BombermanGame extends Application {
 
 
     public static int level = 1;
-    public static CreateMap map = new CreateMap(level);
+    public static CreateMap map;
     public static int[][] idObjects;
     private GraphicsContext gc;
     private Canvas canvas;
@@ -69,6 +69,7 @@ public class BombermanGame extends Application {
     public static char[][] mapMatrix = new char[HEIGHT][WIDTH];
 
     public static Stage mainStage = null;
+    //public static Sound sound;
 
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
@@ -77,10 +78,14 @@ public class BombermanGame extends Application {
     @Override
     public void start(Stage primaryStage) {
         // am thanh
-        //Sound soundtrack = new Sound(Sound.soundtrack);
-        // Tao Canvas
-        //loadLevel(level);
-        //map = new CreateMap();
+        Sound soundtrack = new Sound("title_screen");
+        soundtrack.loop();
+
+//        if (!player.isAlive()) {
+//            soundtrack.stop();
+//        }
+
+        map = new CreateMap(level);
         map.Map();
 
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
@@ -95,10 +100,7 @@ public class BombermanGame extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        //loadLevel(level);
 
-
-        //createMap2();
 
         scene.setOnKeyPressed(event -> {
             //if (player.isLife())
@@ -135,7 +137,6 @@ public class BombermanGame extends Application {
 
 
         player = new Bomber(1, 1, Sprite.player_right.getFxImage(), speed);
-
         //entities.add(player);
     }
 
@@ -184,4 +185,6 @@ public class BombermanGame extends Application {
         flames.forEach(g -> g.render(gc));
 
     }
+
+    
 }

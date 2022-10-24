@@ -1,12 +1,13 @@
 package uet.oop.bomberman.entities.Animated_Entities;
 
 import javafx.scene.image.Image;
+import uet.oop.bomberman.Sound_Bomberman.Sound;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Bomb extends Entity {
 
-    int timeToExplode = 100;
+    int timeToExplode = 120;
     //int animate = 0;
     int radius;
 
@@ -32,9 +33,9 @@ public class Bomb extends Entity {
         if (timeToExplode < 0) {
             //Bomber.bombs.remove(this);
             explode();
-
-            this.x = -32;
-            this.y = -32;
+//
+//            this.x = -32;
+//            this.y = -32;
         }
         //if (this.alive) {
         img = Sprite.movingSprite(Sprite.bomb, Sprite.bomb_1,
@@ -56,6 +57,8 @@ public class Bomb extends Entity {
 
     public void explode() {
         //System.out.println("hehe");
+        Sound bombExplode = new Sound("bombExplode");
+        bombExplode.play();
         Flame flame = new Flame(x, y);
         flame.setRadius(radius);
         flame.flameExplode();

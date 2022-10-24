@@ -4,6 +4,8 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.graphics.Sprite;
 
+import static uet.oop.bomberman.BombermanGame.player;
+
 public class Ghost extends Enemy {
     public Ghost(int x, int y, Image img) {
         super(x, y, img);
@@ -44,10 +46,10 @@ public class Ghost extends Enemy {
 
     @Override
     public void chooseDir() {
-        if (BombermanGame.player.getX() / Sprite.SCALED_SIZE - x / Sprite.SCALED_SIZE < 0) dir = 0;
-        if (BombermanGame.player.getX() / Sprite.SCALED_SIZE - x / Sprite.SCALED_SIZE > 0) dir = 1;
-        if (BombermanGame.player.getY() / Sprite.SCALED_SIZE - y / Sprite.SCALED_SIZE < 0) dir = 2;
-        if (BombermanGame.player.getY() / Sprite.SCALED_SIZE - y / Sprite.SCALED_SIZE > 0) dir = 3;
+        if (matrix(player.getX()) - matrix(x) < 0) dir = 0;
+        if (matrix(player.getX()) - matrix(x) > 0) dir = 1;
+        if (matrix(player.getY()) - matrix(y) < 0) dir = 2;
+        if (matrix(player.getY()) - matrix(y) > 0) dir = 3;
     }
 
     @Override
