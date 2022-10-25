@@ -25,7 +25,6 @@ public class Bomber extends AnimatedEntities {
     private boolean bombSet = false;
     private int timeToVanish = 30;
     protected int tem = 16;
-    int count = 30;
     int timeputbom;
 
     int t_r = 0;
@@ -101,11 +100,18 @@ public class Bomber extends AnimatedEntities {
         bombSet = false;
     }
 
-
+    int t = 10;
     @Override
     public void update() {
         //System.out.println(x + " " + y + " ");
         if (alive) {
+            if (dir != null) {
+                t++;
+                if (t % 16 == 0) {
+                    Sound soundtrack = new Sound("walking");
+                    soundtrack.play();
+                }
+            }
             if (dir == KeyCode.LEFT) {
                 moveLeft();
                 //System.out.println(t_l);
@@ -148,17 +154,15 @@ public class Bomber extends AnimatedEntities {
             calculateMove();
         } else {
             if (timeToVanish > 0) {
-//                Sound bomberDead = new Sound("bomberDead");
-//                bomberDead.play();
                 timeToVanish--;
-                img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2,
-                        Sprite.player_dead3, animate++, 60).getFxImage();
+                bomberdeath();
                 if (timeToVanish == 0) {
                     running = false;
                 }
 //            } else {
 //                player = new Bomber(1, 1, Sprite.player_right.getFxImage(), speed);
             }
+
         }
         if (timeputbom < 0) timeputbom = 100;
         else timeputbom--;
@@ -167,13 +171,19 @@ public class Bomber extends AnimatedEntities {
 
     }
 
+    public void bomberdeath () {
+        Sound bomberDead = new Sound("bomberDead");
+        bomberDead.play();
+        img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2,
+                Sprite.player_dead3, animate++, 30).getFxImage();
+
+    }
 
 
     @Override
     public boolean collide(Entity e) {
         if (e instanceof Flame) {
             this.alive = false;
-            //running = false;
             return true;
         }
         if (e instanceof Enemy) {
@@ -181,7 +191,6 @@ public class Bomber extends AnimatedEntities {
 //                //enemy.getAwayFromMe();
 //            }
             this.alive = false;
-            //running = false;
             return false;
         }
         if (e instanceof Item) {
@@ -211,19 +220,20 @@ public class Bomber extends AnimatedEntities {
         //if (bombSet && timePutBombs > 0) {
         if (bombSet && timeputbom < 100 && alive) {
             if (bombRemain > 0) {
-                System.out.println(timeputbom);
+                //System.out.println(timeputbom);
                 //System.out.println(bombRemain);
-//                Sound placeBomb = new Sound("placeBomb");
-//                placeBomb.play();
+                Sound placeBomb = new Sound("placeBomb");
+                placeBomb.play();
                 //System.out.println(canvasToBomb(x) + " " + canvasToBomb(y));
                 Bomb bomb = new Bomb(matrix(x), matrix(y), Sprite.bomb.getFxImage(), radius);
                 for (Bomb b : bombs) {
                     if (matrix(x) == b.getX() && matrix(y) == b.getY()) return;
                 }
                 bombRemain--;
-                count--;
                 bombs.add(bomb);
                 timeputbom = 150;
+
+
 
             }
             //timePutBombs--;
@@ -243,14 +253,6 @@ public class Bomber extends AnimatedEntities {
             }
         }
     }
-
-//    public static List<Bomb> getBombs() {
-//        return bombs;
-//    }
-//
-//    public static void setBombs(List<Bomb> bombs) {
-//        Bomber.bombs = bombs;
-//    }
 
     public void calculateMove() {
         for (int i = 0; i < BombermanGame.Objects.size(); i++) {
@@ -272,4 +274,6 @@ public class Bomber extends AnimatedEntities {
     public int getBombRemain() {
         return bombRemain;
     }
+
+
 }

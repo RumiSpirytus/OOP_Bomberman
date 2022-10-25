@@ -6,44 +6,25 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import uet.oop.bomberman.Sound_Bomberman.Sound;
 import uet.oop.bomberman.entities.Animated_Entities.*;
 import uet.oop.bomberman.entities.Animated_Entities.Enemies.*;
 import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.entities.Layer;
-import uet.oop.bomberman.entities.Static_Entities.BombItem;
-import uet.oop.bomberman.entities.Static_Entities.Brick;
-import uet.oop.bomberman.entities.Static_Entities.FlameItem;
-import uet.oop.bomberman.entities.Static_Entities.Grass;
-import uet.oop.bomberman.entities.Static_Entities.Portal;
-import uet.oop.bomberman.entities.Static_Entities.SpeedItem;
-import uet.oop.bomberman.entities.Static_Entities.Wall;
 
 import uet.oop.bomberman.graphics.CreateMap;
 import uet.oop.bomberman.graphics.Sprite;
-import uet.oop.bomberman.Sound_Bomberman.Sound;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.*;
-
-import javax.naming.event.ObjectChangeListener;
 
 //import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.time;
 import static uet.oop.bomberman.entities.Animated_Entities.Bomber.bombs;
 import static uet.oop.bomberman.entities.Animated_Entities.Flame.flames;
-import static uet.oop.bomberman.graphics.Sprite.*;
 
 
 public class BombermanGame extends Application {
@@ -58,7 +39,7 @@ public class BombermanGame extends Application {
     private Canvas canvas;
 
     public static boolean running = true;
-
+    public static boolean win = false;
 
     private long lastTime;
     public static int speed = 2;
@@ -72,9 +53,8 @@ public class BombermanGame extends Application {
 
     public static char[][] mapMatrix = new char[HEIGHT][WIDTH];
 
-    public static Scene mainStage;
-
-    public static Text t_level, t_bomb, t_enemy, t_gameover;
+    public static Text t_level, t_bomb, t_enemy, t_gameOver, t_count, t_win;
+    public static int t_size = 18;
 
 
     public static void main(String[] args) {
@@ -127,13 +107,16 @@ public class BombermanGame extends Application {
             @Override
             public void handle(long l) {
                 if (running) {
-                render();
-                update();
-                //time();
-                updateMenu();
-
-                } else {
-                    gameOver();
+                    render();
+                    update();
+                    updateMenu();
+                }
+                else {
+                    if (!win) {
+                        gameOver();
+                    } else {
+                        youWin();
+                    }
                 }
 
             }
@@ -154,7 +137,6 @@ public class BombermanGame extends Application {
         for (int i = 0; i < Objects.size(); i++) {
             Objects.get(i).update();
         }
-        //List<Bomb> bombs = player.getBombs();
         for (int i = 0; i < bombs.size(); i++) {
             bombs.get(i).update();
         }
@@ -175,44 +157,65 @@ public class BombermanGame extends Application {
         for (int i = Objects.size() - 1; i >= 0; i--) {
             Objects.get(i).render(gc);
         }
-        //Objects.forEach(g->g.render(gc));
-        //player.render(gc);
-        //List<Bomb> bombs = player.getBombs();
+        flames.forEach(g -> g.render(gc));
         bombs.forEach(g -> g.render(gc));
+
         player.render(gc);
         //entities.forEach(g -> g.render(gc));
         enemies.forEach(g -> g.render(gc));
-        flames.forEach(g -> g.render(gc));
+
 
     }
 
     public static void menu(Group root) {
 
-        t_level = new Text(31*16, 17.5*32 ,"Level: 1");
-        t_level.setFont(Font.font("Arial", FontWeight.BOLD, 18));
-        t_level.setFill(Color.BLACK);
+//        t_level = new Text(31*16, 17.5*32 ,"Level: 1");
+//        t_level.setFont(Font.font("Serif", FontWeight.BOLD, t_size));
+//        t_level.setFill(Color.BLACK);
+//
+//        t_bomb = new Text(31*10, 17.5*32,"Bomb: 1");
+//        t_bomb.setFont(Font.font("Serif", FontWeight.BOLD, t_size));
+//        t_bomb.setFill(Color.BLACK);
+//
+//        t_enemy = new Text(31*21, 17.5*32,"Enemy: ");
+//        t_enemy.setFont(Font.font("Serif", FontWeight.BOLD, t_size));
+//        t_enemy.setFill(Color.BLACK);
 
-        t_bomb = new Text(31*10, 17.5*32,"Bomb: 1");
-        t_bomb.setFont(Font.font("Arial", FontWeight.BOLD, 18));
+        t_count = new Text(32*22, 17.5*32,"Bombs: ");
+        t_count.setFont(Font.font("Serif", FontWeight.BOLD, t_size));
+        t_count.setFill(Color.BLACK);
+
+        t_bomb = new Text(32*12, 17.5*32,"Bomb: 1");
+        t_bomb.setFont(Font.font("Serif", FontWeight.BOLD, t_size));
         t_bomb.setFill(Color.BLACK);
 
-        t_enemy = new Text(31*21, 17.5*32,"Enemy: ");
-        t_enemy.setFont(Font.font("Arial", FontWeight.BOLD, 18));
+        t_level = new Text(32*17, 17.5*32 ,"Level: 1");
+        t_level.setFont(Font.font("Serif", FontWeight.BOLD, t_size));
+        t_level.setFill(Color.BLACK);
+
+        t_enemy = new Text(32*7, 17.5*32,"Enemy: ");
+        t_enemy.setFont(Font.font("Serif", FontWeight.BOLD, t_size));
         t_enemy.setFill(Color.BLACK);
 
-        t_gameover = new Text(0, 0,"gameover");
-        t_gameover.setFont(Font.font("Arial", FontWeight.BOLD, 1));
-        t_gameover.setFill(Color.WHITE);
+        t_gameOver = new Text(0, 0,"gameOver");
+        t_gameOver.setFont(Font.font("Serif", FontWeight.BOLD, 1));
+        t_gameOver.setFill(Color.RED);
 
+        t_win = new Text(0, 0,"You win!");
+        t_win.setFont(Font.font("Serif", FontWeight.BOLD, 1));
+        t_win.setFill(Color.RED);
 
+        root.getChildren().add(t_count);
         root.getChildren().add(t_level);
         root.getChildren().add(t_bomb);
         root.getChildren().add(t_enemy);
-        root.getChildren().add(t_gameover);
+        root.getChildren().add(t_gameOver);
+        root.getChildren().add(t_win);
     }
 
     public static void updateMenu() {
         t_level.setText("Level: " + level);
+        t_count.setText("Bombs: " + Bomb.getCount());
         t_bomb.setText("Bomb: " + player.getBombRemain());
         t_enemy.setText("Enemy: " + enemies.size());
 
@@ -220,10 +223,17 @@ public class BombermanGame extends Application {
     }
 
     public static void gameOver() {
-        t_gameover.setText("GAME OVER!");
-        t_gameover.setFont(Font.font("Serif", FontWeight.BOLD, 50));
-        t_gameover.setX(32*10);
-        t_gameover.setY(32*9);
+        t_gameOver.setText("GAME OVER!");
+        t_gameOver.setFont(Font.font("Serif", FontWeight.BOLD, 50));
+        t_gameOver.setX(32*10);
+        t_gameOver.setY(32*9);
+    }
+
+    public static void youWin() {
+        t_win.setText("YOU WIN!");
+        t_win.setFont(Font.font("Serif", FontWeight.BOLD, 50));
+        t_win.setX(32*11);
+        t_win.setY(32*9);
     }
 
 
@@ -234,18 +244,6 @@ public class BombermanGame extends Application {
         }
     }
 
-
-
-//    private void endGame(String string) {
-//        Group gameRoot = new Group();
-//        Text textOver = new Text(250, 240, string);
-//
-//        textOver.setFont(Font.font("Arial", FontWeight.BOLD, 80));
-//        textOver.setFill(Color.WHITE);
-//
-//        gameRoot.getChildren().add(textOver);
-//        mainStage = new Scene(gameRoot, Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT, Color.BLACK);
-//    }
 
 
 }
