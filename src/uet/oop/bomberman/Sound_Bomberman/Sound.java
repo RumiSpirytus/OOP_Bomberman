@@ -9,7 +9,7 @@ public class Sound {
     private Clip clip;
 
     public Sound(String filename){
-        String path ="C:\\Users\\user\\tesst\\OOP_Bomberman7\\res\\Sound\\"
+        String path ="C:\\Users\\Nguyen Duc Thien\\OneDrive\\Desktop\\Code_C\\OOP_Bomberman\\res\\Sound\\"
                 + filename + ".wav";
         try{
             AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(path));

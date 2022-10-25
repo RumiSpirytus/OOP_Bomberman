@@ -42,11 +42,7 @@ public class Balloon extends Enemy {
                         break;
                 }
                 canMove();
-//            } else if(animate < 30){
-//                animate++;
-//                img = Sprite.balloom_dead.getFxImage();
-//                img = Sprite.movingSprite(Sprite.mob_dead1, Sprite.mob_dead2, Sprite.mob_dead3,
-//                        animate, 20).getFxImage();
+//            }
             } else {
                 BombermanGame.enemies.remove(this);
             }

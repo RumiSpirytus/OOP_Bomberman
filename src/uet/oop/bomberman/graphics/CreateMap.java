@@ -1,5 +1,8 @@
 package uet.oop.bomberman.graphics;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.stage.Stage;
 import uet.oop.bomberman.entities.Animated_Entities.Enemies.*;
 import uet.oop.bomberman.entities.Layer;
 import uet.oop.bomberman.entities.Static_Entities.*;
@@ -45,8 +48,20 @@ public class CreateMap {
                     mapMatrix[i][j]=mapRow.charAt(j);
                 }
             }
+            while( level > 2){
+                logout(new Stage());
+            }
         }   catch(FileNotFoundException e){
             e.printStackTrace();
+        }
+    }
+    public static void logout(Stage stage) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Chuc mung");
+        alert.setHeaderText("Ban da choi xong game roi");
+
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            stage.close();
         }
     }
     public void Map() {

@@ -22,7 +22,7 @@ public class Minvo extends Enemy {
         if (isAlive() ) {
             collideCheck();
             switch (direction) {
-                case 3:
+                case 0:
                     spriteLeft();
                     break;
                 case 1:
@@ -31,7 +31,7 @@ public class Minvo extends Enemy {
                 case 2:
                     spriteUp();
                     break;
-                case 0:
+                case 3:
                     spriteDown();
                     break;
             }
