@@ -1,9 +1,9 @@
-package uet.oop.bomberman.entities.Animated_Entities;
+package uet.oop.bomberman.entities.animated_entities;
 
 import javafx.scene.image.Image;
-import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.entity;
 
-public abstract class AnimatedEntities extends Entity {
+public abstract class animatedEntities extends entity {
     protected int nextX = x;
     protected int nextY = y;
     protected int speed;
@@ -13,16 +13,16 @@ public abstract class AnimatedEntities extends Entity {
 //    protected int down = 0;
 //    protected int animate = 0;
 
-    public AnimatedEntities(int x, int y, Image img) {
+    public animatedEntities(int x, int y, Image img) {
         super(x, y, img);
     }
 
-    public AnimatedEntities(int x, int y, Image img, int speed) {
+    public animatedEntities(int x, int y, Image img, int speed) {
         super(x, y, img);
         this.speed = speed;
     }
 
-    public AnimatedEntities(int x, int y) {
+    public animatedEntities(int x, int y) {
         super(x,y);
     }
 
@@ -61,7 +61,7 @@ public abstract class AnimatedEntities extends Entity {
 
     public abstract void update();
 
-    public abstract boolean collide(Entity e);
+    public abstract boolean collide(entity e);
 
 
 }

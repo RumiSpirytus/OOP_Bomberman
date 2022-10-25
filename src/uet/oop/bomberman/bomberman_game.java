@@ -12,28 +12,27 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import uet.oop.bomberman.Sound_Bomberman.Sound;
-import uet.oop.bomberman.entities.Animated_Entities.*;
-import uet.oop.bomberman.entities.Animated_Entities.Enemies.*;
-import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.animated_entities.*;
+import uet.oop.bomberman.entities.animated_entities.enemies.*;
+import uet.oop.bomberman.entities.entity;
 
-import uet.oop.bomberman.graphics.CreateMap;
-import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.graphics.create_map;
+import uet.oop.bomberman.graphics.sprite;
 
 import java.util.*;
 
 //import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.time;
-import static uet.oop.bomberman.entities.Animated_Entities.Bomber.bombs;
-import static uet.oop.bomberman.entities.Animated_Entities.Flame.flames;
+import static uet.oop.bomberman.entities.animated_entities.bomber.bombs;
+import static uet.oop.bomberman.entities.animated_entities.flame.flames;
 
 
-public class BombermanGame extends Application {
+public class bomberman_game extends Application {
 
     public static final int WIDTH = 31;
     public static final int HEIGHT = 17;
 
     public static int level = 1;
-    public static CreateMap map;
+    public static create_map map;
     public static int[][] idObjects;
     private GraphicsContext gc;
     private Canvas canvas;
@@ -43,13 +42,13 @@ public class BombermanGame extends Application {
 
     private long lastTime;
     public static int speed = 1;
-    public static Bomber player;
+    public static bomber player;
 
-    public static Balloon balom;
+    public static balloon balom;
 
-    public static List<Entity> entities = new ArrayList<>();
-    public static List<Entity> Objects = new ArrayList<>();
-    public static List<Enemy> enemies = new ArrayList<>();
+    public static List<entity> entities = new ArrayList<>();
+    public static List<entity> Objects = new ArrayList<>();
+    public static List<enemy> enemies = new ArrayList<>();
 
     public static char[][] mapMatrix = new char[HEIGHT][WIDTH];
 
@@ -58,17 +57,17 @@ public class BombermanGame extends Application {
 
 
     public static void main(String[] args) {
-        Application.launch(BombermanGame.class);
+        Application.launch(bomberman_game.class);
     }
 
     @Override
     public void start(Stage primaryStage) {
         // am thanh
 
-        map = new CreateMap(level);
-        map.Map();
+        map = new create_map(level);
+        map.map();
 
-        canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
+        canvas = new Canvas(sprite.SCALED_SIZE * WIDTH, sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
         // Tao root container
         Group root = new Group();
@@ -127,7 +126,7 @@ public class BombermanGame extends Application {
 //            Sound soundtrack = new Sound("title_screen");
 //            soundtrack.loop();
 
-        player = new Bomber(1, 1, Sprite.player_right.getFxImage(), speed);
+        player = new bomber(1, 1, sprite.player_right.getFxImage(), speed);
         //entities.add(player);
     }
 
@@ -215,7 +214,7 @@ public class BombermanGame extends Application {
 
     public static void updateMenu() {
         t_level.setText("Level: " + level);
-        t_count.setText("Bombs: " + Bomb.getCount());
+        t_count.setText("Bombs: " + bomb.getCount());
         t_bomb.setText("Bomb: " + player.getBombRemain());
         t_enemy.setText("Enemy: " + enemies.size());
 

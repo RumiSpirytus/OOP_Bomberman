@@ -1,16 +1,15 @@
-package uet.oop.bomberman.entities.Animated_Entities.Enemies;
+package uet.oop.bomberman.entities.animated_entities.enemies;
 
 import javafx.scene.image.Image;
-import uet.oop.bomberman.BombermanGame;
-import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.bomberman_game;
+import uet.oop.bomberman.graphics.sprite;
 
 import java.util.Random;
 
-public class Minvo extends Enemy {
+public class minvo extends enemy {
 
 
-    public Minvo(int x, int y, Image img) {
+    public minvo(int x, int y, Image img) {
         super(x, y, img);
         layer = 1;
         speed = 3;
@@ -38,7 +37,7 @@ public class Minvo extends Enemy {
             canMove();
 //            }
         } else {
-            BombermanGame.enemies.remove(this);
+            bomberman_game.enemies.remove(this);
         }
     }
 
@@ -51,25 +50,25 @@ public class Minvo extends Enemy {
     @Override
     public void spriteLeft() {
         super.moveLeft();
-        img = Sprite.movingSprite(Sprite.minvo_left1, Sprite.minvo_left2, Sprite.minvo_left3, animate++, 60).getFxImage();
+        img = sprite.movingSprite(sprite.minvo_left1, sprite.minvo_left2, sprite.minvo_left3, animate++, 60).getFxImage();
     }
 
     @Override
     public void spriteRight() {
         super.moveRight();
-        img = Sprite.movingSprite(Sprite.minvo_right1, Sprite.minvo_right2, Sprite.minvo_right3, animate++, 60).getFxImage();
+        img = sprite.movingSprite(sprite.minvo_right1, sprite.minvo_right2, sprite.minvo_right3, animate++, 60).getFxImage();
     }
 
     @Override
     public void spriteUp() {
         super.moveUp();
-        img = Sprite.movingSprite(Sprite.minvo_left1, Sprite.minvo_left2, Sprite.minvo_left3, animate++, 60).getFxImage();
+        img = sprite.movingSprite(sprite.minvo_left1, sprite.minvo_left2, sprite.minvo_left3, animate++, 60).getFxImage();
     }
 
     @Override
     public void spriteDown() {
         super.moveDown();
-        img = Sprite.movingSprite(Sprite.minvo_right1, Sprite.minvo_right2, Sprite.minvo_right3, animate++, 60).getFxImage();
+        img = sprite.movingSprite(sprite.minvo_right1, sprite.minvo_right2, sprite.minvo_right3, animate++, 60).getFxImage();
     }
     public void stay(){
         super.stay();

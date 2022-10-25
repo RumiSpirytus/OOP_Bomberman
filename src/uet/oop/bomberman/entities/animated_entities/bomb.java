@@ -1,14 +1,14 @@
-package uet.oop.bomberman.entities.Animated_Entities;
+package uet.oop.bomberman.entities.animated_entities;
 
 import javafx.scene.image.Image;
-import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.bomberman_game;
 import uet.oop.bomberman.Sound_Bomberman.Sound;
-import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.entities.entity;
+import uet.oop.bomberman.graphics.sprite;
 
-import static uet.oop.bomberman.BombermanGame.running;
+import static uet.oop.bomberman.bomberman_game.running;
 
-public class Bomb extends Entity {
+public class bomb extends entity {
 
     int timeToExplode = 150;
     int animate = 0;
@@ -17,12 +17,12 @@ public class Bomb extends Entity {
     public static int count = 50;
 
 
-    public Bomb(int x, int y, Image img) {
+    public bomb(int x, int y, Image img) {
         super(x, y, img);
         layer = 2;
     }
 
-    public Bomb(int x, int y, Image img, int radius) {
+    public bomb(int x, int y, Image img, int radius) {
         super(x, y, img);
         layer = 2;
         this.radius = radius;
@@ -36,14 +36,14 @@ public class Bomb extends Entity {
             //Bomber.bombs.remove(this);
             explode();
         }
-        img = Sprite.movingSprite(Sprite.bomb, Sprite.bomb_1,
-                    Sprite.bomb_2, this.animate++, 60).getFxImage();
+        img = sprite.movingSprite(sprite.bomb, sprite.bomb_1,
+                    sprite.bomb_2, this.animate++, 60).getFxImage();
 
 
     }
     @Override
-    public boolean collide(Entity e) {
-        if (e instanceof Flame) {
+    public boolean collide(entity e) {
+        if (e instanceof flame) {
             this.timeToExplode = 0;
         }
         return true;
@@ -52,13 +52,13 @@ public class Bomb extends Entity {
     public void explode() {
         Sound bombExplode = new Sound("bombExplode");
         bombExplode.play();
-        Flame flame = new Flame(x, y);
+        flame flame = new flame(x, y);
         flame.setRadius(radius);
         flame.flameExplode();
         alive = false;
         count--;
         System.out.println(count);
-        if (count == 0 && BombermanGame.enemies.size() != 0) {
+        if (count == 0 && bomberman_game.enemies.size() != 0) {
             running = false;
         }
 

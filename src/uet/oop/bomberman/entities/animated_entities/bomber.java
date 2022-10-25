@@ -1,25 +1,25 @@
-package uet.oop.bomberman.entities.Animated_Entities;
+package uet.oop.bomberman.entities.animated_entities;
 
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.bomberman_game;
 import uet.oop.bomberman.Sound_Bomberman.Sound;
-import uet.oop.bomberman.entities.Animated_Entities.Enemies.Enemy;
-import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.entities.Static_Entities.*;
-import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.entities.animated_entities.enemies.enemy;
+import uet.oop.bomberman.entities.entity;
+import uet.oop.bomberman.entities.static_entities.*;
+import uet.oop.bomberman.graphics.sprite;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static uet.oop.bomberman.BombermanGame.*;
+import static uet.oop.bomberman.bomberman_game.*;
 
-public class Bomber extends AnimatedEntities {
+public class bomber extends animatedEntities {
 
     private KeyCode dir;
 
-    public static List<Bomb> bombs = new ArrayList<>();
+    public static List<bomb> bombs = new ArrayList<>();
     private int bombRemain;
     private int radius;
     private boolean bombSet = false;
@@ -35,7 +35,7 @@ public class Bomber extends AnimatedEntities {
 
 
 
-    public Bomber(int x, int y, Image img, int speed) {
+    public bomber(int x, int y, Image img, int speed) {
         super(x, y, img, speed);
         bombRemain = 1;
         radius = 1;
@@ -81,19 +81,19 @@ public class Bomber extends AnimatedEntities {
         if (dir == keyCode) {
             if (dir == KeyCode.LEFT) {
                 //System.out.println(x + " " + y + " ");
-                img = Sprite.player_down.getFxImage();
+                img = sprite.player_down.getFxImage();
             }
             if (dir == KeyCode.RIGHT) {
                 //System.out.println(x + " " + y + " ");
-                img = Sprite.player_down.getFxImage();
+                img = sprite.player_down.getFxImage();
             }
             if (dir == KeyCode.UP) {
                 //System.out.println(x + " " + y + " ");
-                img = Sprite.player_down.getFxImage();
+                img = sprite.player_down.getFxImage();
             }
             if (dir == KeyCode.DOWN) {
                 //System.out.println(x + " " + y + " ");
-                img = Sprite.player_down.getFxImage();
+                img = sprite.player_down.getFxImage();
             }
         }
         dir = null;
@@ -115,8 +115,8 @@ public class Bomber extends AnimatedEntities {
             if (dir == KeyCode.LEFT) {
                 moveLeft();
                 //System.out.println(t_l);
-                img = Sprite.movingSprite(Sprite.player_left, Sprite.player_left_1
-                        , Sprite.player_left_2, animate++, 20).getFxImage();
+                img = sprite.movingSprite(sprite.player_left, sprite.player_left_1
+                        , sprite.player_left_2, animate++, 20).getFxImage();
 
                 if (t_l % tem == 0) {
                     KeyReleasedEvent(dir);
@@ -126,8 +126,8 @@ public class Bomber extends AnimatedEntities {
             if (dir == KeyCode.RIGHT) {
                 //System.out.println(t_r);
                 moveRight();
-                img = Sprite.movingSprite(Sprite.player_right, Sprite.player_right_1
-                        , Sprite.player_right_2, animate++, 20).getFxImage();
+                img = sprite.movingSprite(sprite.player_right, sprite.player_right_1
+                        , sprite.player_right_2, animate++, 20).getFxImage();
 
                 if (t_r % tem == 0) {
                     KeyReleasedEvent(dir);
@@ -135,8 +135,8 @@ public class Bomber extends AnimatedEntities {
             }
             if (dir == KeyCode.UP) {
                 moveUp();
-                img = Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1
-                        , Sprite.player_up_2, animate++, 20).getFxImage();
+                img = sprite.movingSprite(sprite.player_up, sprite.player_up_1
+                        , sprite.player_up_2, animate++, 20).getFxImage();
 
                 if (t_u % tem == 0) {
                     KeyReleasedEvent(dir);
@@ -144,8 +144,8 @@ public class Bomber extends AnimatedEntities {
             }
             if (dir == KeyCode.DOWN) {
                 moveDown();
-                img = Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1
-                        , Sprite.player_down_2, animate++, 20).getFxImage();
+                img = sprite.movingSprite(sprite.player_down, sprite.player_down_1
+                        , sprite.player_down_2, animate++, 20).getFxImage();
 
                 if (t_d % tem == 0) {
                     KeyReleasedEvent(dir);
@@ -174,41 +174,41 @@ public class Bomber extends AnimatedEntities {
     public void bomberdeath () {
         Sound bomberDead = new Sound("bomberDead");
         bomberDead.play();
-        img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2,
-                Sprite.player_dead3, animate++, 30).getFxImage();
+        img = sprite.movingSprite(sprite.player_dead1, sprite.player_dead2,
+                sprite.player_dead3, animate++, 30).getFxImage();
 
     }
 
 
     @Override
-    public boolean collide(Entity e) {
-        if (e instanceof Flame) {
+    public boolean collide(entity e) {
+        if (e instanceof flame) {
             this.alive = false;
             return true;
         }
-        if (e instanceof Enemy) {
+        if (e instanceof enemy) {
 //            for (Entity enemy : BombermanGame.enemies) {
 //                //enemy.getAwayFromMe();
 //            }
             this.alive = false;
             return false;
         }
-        if (e instanceof Item) {
-            if (e instanceof SpeedItem) {
+        if (e instanceof item) {
+            if (e instanceof speed_item) {
                 e.collide(this);
                 speed++;
                 //tem = tem/2;
             }
-            if (e instanceof BombItem) {
+            if (e instanceof bomb_item) {
                 e.collide(this);
                 this.bombRemain++;
             }
-            if (e instanceof FlameItem) {
+            if (e instanceof flame_item) {
                 e.collide(this);
                 this.radius++;
             }
         }
-        if (e instanceof Brick || e instanceof Wall || e instanceof Portal) {
+        if (e instanceof brick || e instanceof wall || e instanceof portal) {
             return e.collide(this);
         }
         return true;
@@ -225,28 +225,25 @@ public class Bomber extends AnimatedEntities {
                 Sound placeBomb = new Sound("placeBomb");
                 placeBomb.play();
                 //System.out.println(canvasToBomb(x) + " " + canvasToBomb(y));
-                Bomb bomb = new Bomb(matrix(x), matrix(y), Sprite.bomb.getFxImage(), radius);
-                for (Bomb b : bombs) {
+                bomb bomb = new bomb(matrix(x), matrix(y), sprite.bomb.getFxImage(), radius);
+                for (uet.oop.bomberman.entities.animated_entities.bomb b : bombs) {
                     if (matrix(x) == b.getX() && matrix(y) == b.getY()) return;
                 }
                 bombRemain--;
                 bombs.add(bomb);
                 timeputbom = 150;
-
-
-
             }
             //timePutBombs--;
         }
     }
 
     public int matrix(int a) {
-        return Math.round(a + 5) / Sprite.SCALED_SIZE;
+        return Math.round(a + 5) / sprite.SCALED_SIZE;
     }
 
     public void checkBomb() {
         for (int i = 0; i < bombs.size(); i++) {
-            Bomb bomb = bombs.get(i);
+            bomb bomb = bombs.get(i);
             if (!bomb.isAlive()) {
                 bombs.remove(bomb);
                 bombRemain++;
@@ -255,9 +252,9 @@ public class Bomber extends AnimatedEntities {
     }
 
     public void calculateMove() {
-        for (int i = 0; i < BombermanGame.Objects.size(); i++) {
-            if (player.bound().intersects(BombermanGame.Objects.get(i).bound())) {
-                if (player.collide(BombermanGame.Objects.get(i))) {
+        for (int i = 0; i < bomberman_game.Objects.size(); i++) {
+            if (player.bound().intersects(bomberman_game.Objects.get(i).bound())) {
+                if (player.collide(bomberman_game.Objects.get(i))) {
                     player.move();
                 } else {
                     player.stay();
@@ -267,7 +264,7 @@ public class Bomber extends AnimatedEntities {
     }
 
     public Rectangle bound() {
-        return new Rectangle(nextX, nextY, Sprite.SCALED_SIZE - 6, Sprite.SCALED_SIZE - 2);
+        return new Rectangle(nextX, nextY, sprite.SCALED_SIZE - 6, sprite.SCALED_SIZE - 2);
     }
 
 

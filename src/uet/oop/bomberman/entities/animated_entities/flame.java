@@ -1,33 +1,32 @@
-package uet.oop.bomberman.entities.Animated_Entities;
+package uet.oop.bomberman.entities.animated_entities;
 
 import javafx.scene.image.Image;
-import uet.oop.bomberman.BombermanGame;
-import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.entities.Static_Entities.Brick;
-import uet.oop.bomberman.entities.Static_Entities.Wall;
-import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.bomberman_game;
+import uet.oop.bomberman.entities.entity;
+import uet.oop.bomberman.entities.static_entities.brick;
+import uet.oop.bomberman.entities.static_entities.wall;
+import uet.oop.bomberman.graphics.sprite;
 
 import java.awt.*;
-import java.nio.channels.spi.SelectorProvider;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Flame extends AnimatedEntities {
-    public Flame(int x, int y){
+public class flame extends animatedEntities {
+    public flame(int x, int y){
         super(x, y);
         layer = 2;
     }
-    public Flame(int x, int y, Image img, String direction){
+    public flame(int x, int y, Image img, String direction){
         super(x,y,img);
         this.direction = direction;
         layer = 2;
     }
-    public Flame(int x, int y, Image img){
+    public flame(int x, int y, Image img){
         super(x, y, img);
         layer = 2;
     }
     @Override
-    public boolean collide(Entity e) {
+    public boolean collide(entity e) {
         if(e.bound().intersects(this.bound())){
             return e.collide(this);
         }
@@ -42,7 +41,7 @@ public class Flame extends AnimatedEntities {
     private int down;
     private int timeToVanish = 20;
     private int animate = 0;
-    public static List<Flame> flames = new ArrayList<>();
+    public static List<flame> flames = new ArrayList<>();
 
     public void setRadius(int radius){
         this.radius = radius;
@@ -57,25 +56,25 @@ public class Flame extends AnimatedEntities {
     }
     public boolean getWall(Rectangle r ){
 
-        for(Entity e : BombermanGame.Objects){
-            if(r.intersects(e.bound()) && e instanceof Wall) return true;
+        for(entity e : bomberman_game.Objects){
+            if(r.intersects(e.bound()) && e instanceof wall) return true;
             //System.out.println("getWall");
         }
         return false;
     }
     public boolean getBrick(Rectangle r){
-        for(Entity e : BombermanGame.Objects){
-            if(r.intersects(e.bound()) && e instanceof Brick) return true;
+        for(entity e : bomberman_game.Objects){
+            if(r.intersects(e.bound()) && e instanceof brick) return true;
             //System.out.println("getBrick");
         }
         return false;
     }
     public void createFlame(){
-        Flame midFlame = new Flame(x,y);
+        flame midFlame = new flame(x,y);
         midFlame.direction = "mid";
         flames.add(midFlame);
         for(int i = 0 ; i<right; i++){
-            Flame flame = new Flame(x + Sprite.SCALED_SIZE * ( i + 1), y);
+            flame flame = new flame(x + sprite.SCALED_SIZE * ( i + 1), y);
             if( i == right - 1){
                 flame.direction = "rightLast";
             } else {
@@ -85,7 +84,7 @@ public class Flame extends AnimatedEntities {
         }
 
         for (int i = 0; i < left; i++) {
-            Flame flame = new Flame(x - Sprite.SCALED_SIZE * (i + 1), y);
+            flame flame = new flame(x - sprite.SCALED_SIZE * (i + 1), y);
             if (i == left - 1) {
                 flame.direction = "leftLast";
             } else {
@@ -95,7 +94,7 @@ public class Flame extends AnimatedEntities {
         }
 
         for (int i = 0; i < top; i++) {
-            Flame flame = new Flame(x, y - Sprite.SCALED_SIZE * (i + 1));
+            flame flame = new flame(x, y - sprite.SCALED_SIZE * (i + 1));
             if (i == top - 1) {
                 flame.direction = "topLast";
             } else {
@@ -105,7 +104,7 @@ public class Flame extends AnimatedEntities {
         }
 
         for (int i = 0; i < down; i++) {
-            Flame flame = new Flame(x, y + Sprite.SCALED_SIZE * (i + 1));
+            flame flame = new flame(x, y + sprite.SCALED_SIZE * (i + 1));
             if (i == down - 1) {
                 flame.direction = "downLast";
             } else {
@@ -115,15 +114,15 @@ public class Flame extends AnimatedEntities {
         }
     }
     public void collideCheck(){
-        for(int i = 0; i<BombermanGame.Objects.size(); i++){
-            this.collide(BombermanGame.Objects.get(i));
+        for(int i = 0; i< bomberman_game.Objects.size(); i++){
+            this.collide(bomberman_game.Objects.get(i));
         }
-        for(int i = 0; i<BombermanGame.enemies.size(); i++){
-            this.collide(BombermanGame.enemies.get(i));
+        for(int i = 0; i< bomberman_game.enemies.size(); i++){
+            this.collide(bomberman_game.enemies.get(i));
         }
-        this.collide(BombermanGame.player);
-        for (int i = 0; i < Bomber.bombs.size(); i++) {
-            this.collide((Bomber.bombs.get(i)));
+        this.collide(bomberman_game.player);
+        for (int i = 0; i < bomber.bombs.size(); i++) {
+            this.collide((bomber.bombs.get(i)));
         }
     }
     public void update(){
@@ -131,19 +130,19 @@ public class Flame extends AnimatedEntities {
         if (timeToVanish > 0) {
             timeToVanish--;
             if (direction.equals("mid"))
-                img = Sprite.movingSprite(Sprite.bomb_exploded, Sprite.bomb_exploded1, Sprite.bomb_exploded2, animate++, 20).getFxImage();
+                img = sprite.movingSprite(sprite.bomb_exploded, sprite.bomb_exploded1, sprite.bomb_exploded2, animate++, 20).getFxImage();
             if (direction.equals("topLast"))
-                img = Sprite.movingSprite(Sprite.explosion_vertical_top_last, Sprite.explosion_vertical_top_last1, Sprite.explosion_vertical_top_last2, animate++, 20).getFxImage();
+                img = sprite.movingSprite(sprite.explosion_vertical_top_last, sprite.explosion_vertical_top_last1, sprite.explosion_vertical_top_last2, animate++, 20).getFxImage();
             if (direction.equals("downLast"))
-                img = Sprite.movingSprite(Sprite.explosion_vertical_down_last, Sprite.explosion_vertical_down_last1, Sprite.explosion_vertical_down_last2, animate++, 20).getFxImage();
+                img = sprite.movingSprite(sprite.explosion_vertical_down_last, sprite.explosion_vertical_down_last1, sprite.explosion_vertical_down_last2, animate++, 20).getFxImage();
             if (direction.equals("rightLast"))
-                img = Sprite.movingSprite(Sprite.explosion_horizontal_right_last, Sprite.explosion_horizontal_right_last1, Sprite.explosion_horizontal_right_last2, animate++, 20).getFxImage();
+                img = sprite.movingSprite(sprite.explosion_horizontal_right_last, sprite.explosion_horizontal_right_last1, sprite.explosion_horizontal_right_last2, animate++, 20).getFxImage();
             if (direction.equals("leftLast"))
-                img = Sprite.movingSprite(Sprite.explosion_horizontal_left_last, Sprite.explosion_horizontal_left_last1, Sprite.explosion_horizontal_left_last2, animate++, 20).getFxImage();
+                img = sprite.movingSprite(sprite.explosion_horizontal_left_last, sprite.explosion_horizontal_left_last1, sprite.explosion_horizontal_left_last2, animate++, 20).getFxImage();
             if (direction.equals("vertical"))
-                img = Sprite.movingSprite(Sprite.explosion_vertical, Sprite.explosion_vertical1, Sprite.explosion_vertical2, animate++, 20).getFxImage();
+                img = sprite.movingSprite(sprite.explosion_vertical, sprite.explosion_vertical1, sprite.explosion_vertical2, animate++, 20).getFxImage();
             if (direction.equals("horizontal"))
-                img = Sprite.movingSprite(Sprite.explosion_horizontal, Sprite.explosion_horizontal1, Sprite.explosion_horizontal2, animate++, 20).getFxImage();
+                img = sprite.movingSprite(sprite.explosion_horizontal, sprite.explosion_horizontal1, sprite.explosion_horizontal2, animate++, 20).getFxImage();
         } else {
            // System.out.println("remove flame");
 //               this.x =  -32;
@@ -153,7 +152,7 @@ public class Flame extends AnimatedEntities {
     }
     private void Right() {
         for (int i = 0; i < radius; i++) {
-            Rectangle flame = bound(x + Sprite.SCALED_SIZE * (i + 1), y);
+            Rectangle flame = bound(x + sprite.SCALED_SIZE * (i + 1), y);
             if (getWall(flame)) {
                 right = i;
                 return;
@@ -168,7 +167,7 @@ public class Flame extends AnimatedEntities {
 
     private void Left() {
         for (int i = 0; i < radius; i++) {
-            Rectangle flame = bound(x - Sprite.SCALED_SIZE * (i + 1), y);
+            Rectangle flame = bound(x - sprite.SCALED_SIZE * (i + 1), y);
             if (getWall(flame)) {
                 left = i;
                 return;
@@ -183,7 +182,7 @@ public class Flame extends AnimatedEntities {
 
     private void Top() {
         for (int i = 0; i < radius; i++) {
-            Rectangle flame = bound(x, y - Sprite.SCALED_SIZE * (i + 1));
+            Rectangle flame = bound(x, y - sprite.SCALED_SIZE * (i + 1));
             if (getWall(flame)) {
                 top = i;
                 return;
@@ -198,7 +197,7 @@ public class Flame extends AnimatedEntities {
 
     private void Down() {
         for (int i = 0; i < radius; i++) {
-            Rectangle flame = bound(x, y + Sprite.SCALED_SIZE * (i + 1));
+            Rectangle flame = bound(x, y + sprite.SCALED_SIZE * (i + 1));
             if (getWall(flame)) {
                 down = i;
                 return;

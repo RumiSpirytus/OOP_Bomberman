@@ -1,13 +1,13 @@
-package uet.oop.bomberman.entities.Animated_Entities.Enemies;
+package uet.oop.bomberman.entities.animated_entities.enemies;
 
 import javafx.scene.image.Image;
-import uet.oop.bomberman.BombermanGame;
-import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.bomberman_game;
+import uet.oop.bomberman.graphics.sprite;
 
-import static uet.oop.bomberman.BombermanGame.player;
+import static uet.oop.bomberman.bomberman_game.player;
 
-public class Ghost extends Enemy {
-    public Ghost(int x, int y, Image img) {
+public class ghost extends enemy {
+    public ghost(int x, int y, Image img) {
         super(x, y, img);
         speed = 1;
     }
@@ -40,7 +40,7 @@ public class Ghost extends Enemy {
             }
             canMove();
         }
-        if (timeToVanish == 0) BombermanGame.enemies.remove(this);
+        if (timeToVanish == 0) bomberman_game.enemies.remove(this);
     }
 
 
@@ -54,22 +54,22 @@ public class Ghost extends Enemy {
 
     @Override
     public void spriteLeft() {
-        img = Sprite.movingSprite(Sprite.ghost_left1, Sprite.ghost_left2, Sprite.ghost_left3, animate++, 60).getFxImage();
+        img = sprite.movingSprite(sprite.ghost_left1, sprite.ghost_left2, sprite.ghost_left3, animate++, 60).getFxImage();
     }
 
     @Override
     public void spriteRight() {
-        img = Sprite.movingSprite(Sprite.ghost_right1, Sprite.ghost_right2, Sprite.ghost_right3, animate++, 60).getFxImage();
+        img = sprite.movingSprite(sprite.ghost_right1, sprite.ghost_right2, sprite.ghost_right3, animate++, 60).getFxImage();
     }
 
     @Override
     public void spriteUp() {
-        img = Sprite.movingSprite(Sprite.ghost_left1, Sprite.ghost_left2, Sprite.ghost_left3, animate++, 60).getFxImage();
+        img = sprite.movingSprite(sprite.ghost_left1, sprite.ghost_left2, sprite.ghost_left3, animate++, 60).getFxImage();
     }
 
     @Override
     public void spriteDown() {
-        img = Sprite.movingSprite(Sprite.ghost_right1, Sprite.ghost_right2, Sprite.ghost_right3, animate++, 60).getFxImage();
+        img = sprite.movingSprite(sprite.ghost_right1, sprite.ghost_right2, sprite.ghost_right3, animate++, 60).getFxImage();
     }
 
     public void stay() {
@@ -78,7 +78,7 @@ public class Ghost extends Enemy {
     }
     public void bomberLocation(){
         super.stay();
-        x = xStart * Sprite.SCALED_SIZE;
-        y = yStart* Sprite.SCALED_SIZE;
+        x = xStart * sprite.SCALED_SIZE;
+        y = yStart* sprite.SCALED_SIZE;
     }
 }

@@ -1,17 +1,17 @@
-package uet.oop.bomberman.entities.Static_Entities;
+package uet.oop.bomberman.entities.static_entities;
 
 import javafx.scene.image.Image;
-import uet.oop.bomberman.BombermanGame;
-import uet.oop.bomberman.entities.Animated_Entities.Flame;
-import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.bomberman_game;
+import uet.oop.bomberman.entities.animated_entities.flame;
+import uet.oop.bomberman.entities.entity;
+import uet.oop.bomberman.graphics.sprite;
 
-public class Brick extends Entity {
+public class brick extends entity {
 
     private int timeToVanish = 40;
     int animate = 0;
 
-    public Brick(int x, int y, Image img) {
+    public brick(int x, int y, Image img) {
         super(x, y, img);
         layer = 3;
     }
@@ -21,14 +21,14 @@ public class Brick extends Entity {
 
         if (!isAlive()) {
             timeToVanish--;
-            img = Sprite.movingSprite(Sprite.brick_exploded, Sprite.brick_exploded1,
-                    Sprite.brick_exploded2, animate++, 20).getFxImage();
+            img = sprite.movingSprite(sprite.brick_exploded, sprite.brick_exploded1,
+                    sprite.brick_exploded2, animate++, 20).getFxImage();
             if (timeToVanish == 0) {
                // System.out.println("remove brick");
                 //System.out.println(BombermanGame.player.getSpeed());
 //                this.x = -32;
 //                this.y = -32;
-                BombermanGame.Objects.remove(this);
+                bomberman_game.Objects.remove(this);
             }
             //System.out.println("hiihhi");
         }
@@ -37,9 +37,9 @@ public class Brick extends Entity {
     }
 
     @Override
-    public boolean collide(Entity e) {
+    public boolean collide(entity e) {
         // TODO Auto-generated method stub
-        if (e instanceof Flame) this.alive = false;
+        if (e instanceof flame) this.alive = false;
         //System.out.println("hiihhi");
         return false;
     }

@@ -9,16 +9,16 @@ import java.net.URL;
  * Tất cả sprite (hình ảnh game) được lưu trữ vào một ảnh duy nhất
  * Class này giúp lấy ra các sprite riêng từ 1 ảnh chung duy nhất đó
  */
-public class SpriteSheet {
+public class sprite_sheet {
 
 	private String _path;
 	public final int SIZE;
 	public int[] _pixels;
 	public BufferedImage image;
 
-	public static SpriteSheet tiles = new SpriteSheet("/textures/classic.png", 256);
+	public static sprite_sheet tiles = new sprite_sheet("/textures/classic.png", 256);
 	
-	public SpriteSheet(String path, int size) {
+	public sprite_sheet(String path, int size) {
 		_path = path;
 		SIZE = size;
 		_pixels = new int[SIZE * SIZE];
@@ -27,7 +27,7 @@ public class SpriteSheet {
 	
 	private void load() {
 		try {
-			URL a = SpriteSheet.class.getResource(_path);
+			URL a = sprite_sheet.class.getResource(_path);
 			image = ImageIO.read(a);
 			int w = image.getWidth();
 			int h = image.getHeight();
