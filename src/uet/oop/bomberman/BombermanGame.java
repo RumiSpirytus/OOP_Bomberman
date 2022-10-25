@@ -32,7 +32,7 @@ public class BombermanGame extends Application {
     public static final int WIDTH = 31;
     public static final int HEIGHT = 17;
 
-    public static int level = 2;
+    public static int level = 1;
     public static CreateMap map;
     public static int[][] idObjects;
     private GraphicsContext gc;
@@ -42,7 +42,7 @@ public class BombermanGame extends Application {
     public static boolean win = false;
 
     private long lastTime;
-    public static int speed = 2;
+    public static int speed = 1;
     public static Bomber player;
 
     public static Balloon balom;
