@@ -18,6 +18,7 @@ import uet.oop.bomberman.entities.entity;
 
 import uet.oop.bomberman.graphics.create_map;
 import uet.oop.bomberman.graphics.sprite;
+import uet.oop.bomberman.sound_bomberman.sound;
 
 import java.util.*;
 
@@ -31,21 +32,14 @@ public class bomberman_game extends Application {
     public static final int WIDTH = 31;
     public static final int HEIGHT = 17;
 
-    public static int level = 1;
+    public static int level = 2;
     public static create_map map;
-    public static int[][] idObjects;
     private GraphicsContext gc;
     private Canvas canvas;
 
     public static boolean running = true;
     public static boolean win = false;
-
-    private long lastTime;
-    public static int speed = 1;
     public static bomber player;
-
-    public static balloon balom;
-
     public static List<entity> entities = new ArrayList<>();
     public static List<entity> Objects = new ArrayList<>();
     public static List<enemy> enemies = new ArrayList<>();
@@ -91,13 +85,6 @@ public class bomberman_game extends Application {
             KeyCode direction = event.getCode();
             //System.out.print(player.getX() + " &&" + player.getY() + " ");
             player.KeyPressedEvent(direction);
-//            if (direction == KeyCode.SPACE) {
-//                    player.placeBomb();
-//                    player.checkBomb();
-//
-//            }
-
-
         });
 
         //checkPlayer();
@@ -109,6 +96,7 @@ public class bomberman_game extends Application {
                     render();
                     update();
                     updateMenu();
+                    //updateSoundtrack();
                 }
                 else {
                     if (!win) {
@@ -126,11 +114,12 @@ public class bomberman_game extends Application {
 //            Sound soundtrack = new Sound("title_screen");
 //            soundtrack.loop();
 
-        player = new bomber(1, 1, sprite.player_right.getFxImage(), speed);
+        player = new bomber(1, 1, sprite.player_right.getFxImage());
         //entities.add(player);
     }
 
     public void update() {
+
         player.update();
         //entities.forEach(Entity::update);
         for (int i = 0; i < Objects.size(); i++) {
@@ -145,6 +134,7 @@ public class bomberman_game extends Application {
         for (int i = 0; i < enemies.size(); i++) {
             enemies.get(i).update();
         }
+        updateSoundtrack();
 
     }
 
@@ -152,33 +142,18 @@ public class bomberman_game extends Application {
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        //player.render(gc);
         for (int i = Objects.size() - 1; i >= 0; i--) {
             Objects.get(i).render(gc);
         }
         flames.forEach(g -> g.render(gc));
         bombs.forEach(g -> g.render(gc));
-
         player.render(gc);
-        //entities.forEach(g -> g.render(gc));
         enemies.forEach(g -> g.render(gc));
 
 
     }
 
     public static void menu(Group root) {
-
-//        t_level = new Text(31*16, 17.5*32 ,"Level: 1");
-//        t_level.setFont(Font.font("Serif", FontWeight.BOLD, t_size));
-//        t_level.setFill(Color.BLACK);
-//
-//        t_bomb = new Text(31*10, 17.5*32,"Bomb: 1");
-//        t_bomb.setFont(Font.font("Serif", FontWeight.BOLD, t_size));
-//        t_bomb.setFill(Color.BLACK);
-//
-//        t_enemy = new Text(31*21, 17.5*32,"Enemy: ");
-//        t_enemy.setFont(Font.font("Serif", FontWeight.BOLD, t_size));
-//        t_enemy.setFill(Color.BLACK);
 
         t_count = new Text(32*22, 17.5*32,"Bombs: ");
         t_count.setFont(Font.font("Serif", FontWeight.BOLD, t_size));
@@ -235,14 +210,17 @@ public class bomberman_game extends Application {
         t_win.setY(32*9);
     }
 
+    int t_sound;
+    public void updateSoundtrack() {
+        t_sound++;
+        //System.out.println(t_sound);
+        if (t_sound == 4) {
+            sound soundtrack = new sound("title_screen");
+            soundtrack.play();
 
 
-    public static void checkPlayer() {
-        if (player.isAlive() == false) {
-            running = false;
         }
+        if (t_sound > 1100) t_sound = 0;
     }
-
-
 
 }

@@ -92,7 +92,7 @@ public class create_map {
                             enemies.add(new minvo(j, i, minvo_left1.getFxImage()));
                             break;
                         case '5':
-                            enemies.add(new doll(j, i, sprite.ghost_left1.getFxImage()));
+                            enemies.add(new doll(j, i, doll_left1.getFxImage()));
                             break;
                         case 'b':
                             Objects.add(new bomb_item(j,i, powerup_bombs.getFxImage()));

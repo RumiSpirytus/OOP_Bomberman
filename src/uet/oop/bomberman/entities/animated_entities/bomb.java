@@ -2,7 +2,7 @@ package uet.oop.bomberman.entities.animated_entities;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.bomberman_game;
-import uet.oop.bomberman.Sound_Bomberman.Sound;
+import uet.oop.bomberman.sound_bomberman.sound;
 import uet.oop.bomberman.entities.entity;
 import uet.oop.bomberman.graphics.sprite;
 
@@ -50,14 +50,14 @@ public class bomb extends entity {
     }
 
     public void explode() {
-        Sound bombExplode = new Sound("bombExplode");
+        sound bombExplode = new sound("bombExplode");
         bombExplode.play();
         flame flame = new flame(x, y);
         flame.setRadius(radius);
         flame.flameExplode();
         alive = false;
         count--;
-        System.out.println(count);
+        //System.out.println(count);
         if (count == 0 && bomberman_game.enemies.size() != 0) {
             running = false;
         }

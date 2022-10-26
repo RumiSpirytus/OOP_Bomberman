@@ -3,7 +3,7 @@ package uet.oop.bomberman.entities.animated_entities;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import uet.oop.bomberman.bomberman_game;
-import uet.oop.bomberman.Sound_Bomberman.Sound;
+import uet.oop.bomberman.sound_bomberman.sound;
 import uet.oop.bomberman.entities.animated_entities.enemies.enemy;
 import uet.oop.bomberman.entities.entity;
 import uet.oop.bomberman.entities.static_entities.*;
@@ -22,10 +22,13 @@ public class bomber extends animatedEntities {
     public static List<bomb> bombs = new ArrayList<>();
     private int bombRemain;
     private int radius;
+    private int speed = 2;
     private boolean bombSet = false;
     private int timeToVanish = 30;
     protected int tem = 16;
     int timeputbom;
+
+    private int life = 3;
 
     int t_r = 0;
     int t_l = 0;
@@ -35,14 +38,11 @@ public class bomber extends animatedEntities {
 
 
 
-    public bomber(int x, int y, Image img, int speed) {
-        super(x, y, img, speed);
+    public bomber(int x, int y, Image img) {
+        super(x, y, img);
         bombRemain = 1;
         radius = 1;
     }
-
-    public static int swapKill = 1;
-    private static int countKill = 0;
 
     @Override
     public void moveRight() {
@@ -104,11 +104,13 @@ public class bomber extends animatedEntities {
     @Override
     public void update() {
         //System.out.println(x + " " + y + " ");
+        if (timeputbom < 0) timeputbom = 100;
+        else timeputbom--;
         if (alive) {
             if (dir != null) {
                 t++;
                 if (t % 16 == 0) {
-                    Sound soundtrack = new Sound("walking");
+                    sound soundtrack = new sound("walking");
                     soundtrack.play();
                 }
             }
@@ -117,7 +119,6 @@ public class bomber extends animatedEntities {
                 //System.out.println(t_l);
                 img = sprite.movingSprite(sprite.player_left, sprite.player_left_1
                         , sprite.player_left_2, animate++, 20).getFxImage();
-
                 if (t_l % tem == 0) {
                     KeyReleasedEvent(dir);
                 }
@@ -155,28 +156,26 @@ public class bomber extends animatedEntities {
         } else {
             if (timeToVanish > 0) {
                 timeToVanish--;
-                bomberdeath();
-                if (timeToVanish == 0) {
-                    running = false;
-                }
-//            } else {
-//                player = new Bomber(1, 1, Sprite.player_right.getFxImage(), speed);
+                bomberDeath();
+
+            } else {
+                running = false;
+                //player = new bomber(1, 1, sprite.player_right.getFxImage());
             }
 
         }
-        if (timeputbom < 0) timeputbom = 100;
-        else timeputbom--;
         placeBomb();
         checkBomb();
 
     }
 
-    public void bomberdeath () {
-        Sound bomberDead = new Sound("bomberDead");
-        bomberDead.play();
+    public void bomberDeath() {
+//        sound bomberDead = new sound("bomberDead");
+//        if (timeToVanish == 28) {
+//            bomberDead.play();
+//        }
         img = sprite.movingSprite(sprite.player_dead1, sprite.player_dead2,
                 sprite.player_dead3, animate++, 30).getFxImage();
-
     }
 
 
@@ -187,17 +186,14 @@ public class bomber extends animatedEntities {
             return true;
         }
         if (e instanceof enemy) {
-//            for (Entity enemy : BombermanGame.enemies) {
-//                //enemy.getAwayFromMe();
-//            }
             this.alive = false;
             return false;
         }
         if (e instanceof item) {
             if (e instanceof speed_item) {
                 e.collide(this);
-                speed++;
-                //tem = tem/2;
+                speed*=2;
+                this.tem /=2;
             }
             if (e instanceof bomb_item) {
                 e.collide(this);
@@ -214,17 +210,18 @@ public class bomber extends animatedEntities {
         return true;
     }
 
-
+    public boolean checkAlive() {
+        if (this.life == 0) {
+            return false;
+        }
+        return true;
+    }
 
     public void placeBomb() {
-        //if (bombSet && timePutBombs > 0) {
         if (bombSet && timeputbom < 100 && alive) {
             if (bombRemain > 0) {
-                //System.out.println(timeputbom);
-                //System.out.println(bombRemain);
-                Sound placeBomb = new Sound("placeBomb");
+                sound placeBomb = new sound("placeBomb");
                 placeBomb.play();
-                //System.out.println(canvasToBomb(x) + " " + canvasToBomb(y));
                 bomb bomb = new bomb(matrix(x), matrix(y), sprite.bomb.getFxImage(), radius);
                 for (uet.oop.bomberman.entities.animated_entities.bomb b : bombs) {
                     if (matrix(x) == b.getX() && matrix(y) == b.getY()) return;
@@ -233,7 +230,6 @@ public class bomber extends animatedEntities {
                 bombs.add(bomb);
                 timeputbom = 150;
             }
-            //timePutBombs--;
         }
     }
 
@@ -272,5 +268,7 @@ public class bomber extends animatedEntities {
         return bombRemain;
     }
 
-
+    public int getLife() {
+        return life;
+    }
 }
