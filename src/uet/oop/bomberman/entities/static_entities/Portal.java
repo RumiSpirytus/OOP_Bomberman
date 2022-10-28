@@ -36,7 +36,7 @@ public class Portal extends Item {
             nextLevel.play();
             level++;
             if (level <= 2) {
-                Bomb.count = 70;
+                Bomb.Bombcount = 70;
                 player = new Bomber(1, 1, Sprite.player_right.getFxImage());
                 map = new CreateMap(level);
                 BombermanGame.map.map();

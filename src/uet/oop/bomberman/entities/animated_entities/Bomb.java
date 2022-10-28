@@ -14,7 +14,7 @@ public class Bomb extends Entity {
     int animate = 0;
     public static int radius;
 
-    public static int count = 50;
+    public static int Bombcount = 50;
 
 
     public Bomb(int x, int y, Image img) {
@@ -56,15 +56,15 @@ public class Bomb extends Entity {
         flame.setRadius(radius);
         flame.flameExplode();
         alive = false;
-        count--;
+        Bombcount--;
         //System.out.println(count);
-        if (count == 0 && BombermanGame.enemies.size() != 0) {
+        if (Bombcount == 0 && BombermanGame.enemies.size() != 0) {
             running = false;
         }
 
     }
 
     public static int getCount() {
-        return count;
+        return Bombcount;
     }
 }

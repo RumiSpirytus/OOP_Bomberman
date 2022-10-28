@@ -123,7 +123,7 @@ public class Menu {
     }
 
     public static void gameOver() {
-        if (!player.isAlive()) {
+        if (!player.isAlive() || Bomb.Bombcount  == 0) {
             Image newGame = new Image("textures/gameOver1.png");
             authorView.setImage(newGame);
 
