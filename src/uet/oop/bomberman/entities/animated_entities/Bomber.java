@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.sound_bomberman.Sound;
-import uet.oop.bomberman.entities.animated_entities.enemies.enemy;
+import uet.oop.bomberman.entities.animated_entities.enemies.Enemy;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.static_entities.*;
 import uet.oop.bomberman.graphics.Sprite;
@@ -185,7 +185,7 @@ public class Bomber extends Animated_Entities {
             this.alive = false;
             return true;
         }
-        if (e instanceof enemy) {
+        if (e instanceof Enemy) {
             this.alive = false;
             return false;
         }

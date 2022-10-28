@@ -45,7 +45,7 @@ public class BombermanGame extends Application {
     public static Bomber player;
     public static List<Entity> entities = new ArrayList<>();
     public static List<Entity> Objects = new ArrayList<>();
-    public static List<enemy> enemies = new ArrayList<>();
+    public static List<Enemy> enemies = new ArrayList<>();
 
     public static char[][] mapMatrix = new char[HEIGHT][WIDTH];
     private static ImageView statusGame;

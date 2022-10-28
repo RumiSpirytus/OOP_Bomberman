@@ -7,10 +7,10 @@ import uet.oop.bomberman.graphics.Sprite;
 import java.util.Random;
 
 
-public class balloon extends enemy {
+public class Balloon extends Enemy {
 
     protected double balloon_speed = 1;
-    public balloon(int x, int y, Image img) {
+    public Balloon(int x, int y, Image img) {
         super(x, y, img);
         speed = 1;
         layer = 1;

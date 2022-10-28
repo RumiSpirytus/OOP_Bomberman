@@ -6,8 +6,8 @@ import uet.oop.bomberman.graphics.Sprite;
 
 import static uet.oop.bomberman.BombermanGame.player;
 
-public class ghost extends enemy {
-    public ghost(int x, int y, Image img) {
+public class Ghost extends Enemy {
+    public Ghost(int x, int y, Image img) {
         super(x, y, img);
         speed = 1;
     }

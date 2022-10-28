@@ -4,10 +4,10 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.graphics.Sprite;
 
-public class oneal extends enemy {
+public class Oneal extends Enemy {
     public static int timeChange = 20;
 
-    public oneal(int x, int y, Image img) {
+    public Oneal(int x, int y, Image img) {
         super(x, y, img);
         speed = 1;
     }

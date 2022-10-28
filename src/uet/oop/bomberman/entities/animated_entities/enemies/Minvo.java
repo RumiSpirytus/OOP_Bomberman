@@ -6,10 +6,10 @@ import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.Random;
 
-public class minvo extends enemy {
+public class Minvo extends Enemy {
 
 
-    public minvo(int x, int y, Image img) {
+    public Minvo(int x, int y, Image img) {
         super(x, y, img);
         layer = 1;
         speed = 3;

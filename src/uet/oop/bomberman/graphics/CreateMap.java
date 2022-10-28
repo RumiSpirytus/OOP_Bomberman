@@ -80,20 +80,22 @@ public class CreateMap {
                             Objects.add(new Brick(j, i, brick.getFxImage()));
                             break;
                         case '1':
-                            enemies.add(new balloon(j, i, balloom_left1.getFxImage()));
+                            enemies.add(new Balloon(j, i, balloom_left1.getFxImage()));
                             break;
                         case '2':
-                            enemies.add(new oneal(j, i, oneal_left1.getFxImage()));
+                            enemies.add(new Oneal(j, i, oneal_left1.getFxImage()));
                             break;
                         case '4':
-                            enemies.add(new ghost(j, i, Sprite.ghost_left1.getFxImage()));
+                            enemies.add(new Ghost(j, i, Sprite.ghost_left1.getFxImage()));
                             break;
                         case '3':
-                            enemies.add(new minvo(j, i, minvo_left1.getFxImage()));
+                            enemies.add(new Minvo(j, i, minvo_left1.getFxImage()));
                             break;
                         case '5':
-                            enemies.add(new doll(j, i, doll_left1.getFxImage()));
+                            enemies.add(new Doll(j, i, doll_left1.getFxImage()));
                             break;
+                        case '6':
+                            enemies.add(new Kondoria(j,i, kondoria_left1.getFxImage()));
                         case 'b':
                             Objects.add(new Bomb_item(j,i, powerup_bombs.getFxImage()));
                             Objects.add(new Brick(j, i, brick.getFxImage()));

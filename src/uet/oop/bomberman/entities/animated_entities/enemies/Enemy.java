@@ -14,14 +14,14 @@ import uet.oop.bomberman.graphics.Sprite;
 
 import java.awt.*;
 
-public abstract class enemy extends Animated_Entities {
+public abstract class Enemy extends Animated_Entities {
     protected int dir;
     protected int timeToVanish = 10;
     protected int animate = 0;
     protected int xStart;
     protected int yStart;
 
-    public enemy(int x, int y, Image img) {
+    public Enemy(int x, int y, Image img) {
         super(x, y, img);
         xStart = x;
         yStart = y;
@@ -62,15 +62,15 @@ public abstract class enemy extends Animated_Entities {
 //        if(timeToVanish == 0 ) BombermanGame.enemies.remove(this);
 
     public void canMove() {
-        for (enemy e : BombermanGame.enemies) {
+        for (Enemy e : BombermanGame.enemies) {
             for (Bomb o : Bomber.Bombs) {
                 if (e.bound().intersects(o.bound())) {
                     e.stay();
                 }
             }
-            for (enemy o : BombermanGame.enemies) {
+            for (Enemy o : BombermanGame.enemies) {
                 if (e.equals(o)) continue;
-                if (e instanceof ghost || o instanceof ghost) continue;
+                if (e instanceof Ghost || o instanceof Ghost) continue;
                 if (e.bound().intersects(o.bound())) {
                     if (e.collide(o)) {
                         chooseDir();
@@ -82,7 +82,7 @@ public abstract class enemy extends Animated_Entities {
             }
             for (Entity o : BombermanGame.Objects) {
                 if(o instanceof Brick){
-                    if (e instanceof ghost) continue;
+                    if (e instanceof Ghost) continue;
                 }
                 if (e.bound().intersects(o.bound())) {
                     if (e.collide(o)) {
@@ -121,7 +121,7 @@ public abstract class enemy extends Animated_Entities {
         if (e instanceof Wall || e instanceof Brick) {
             return e.collide(this);
         }
-        return !(e instanceof enemy);
+        return !(e instanceof Enemy);
     }
 
     public void stay() {

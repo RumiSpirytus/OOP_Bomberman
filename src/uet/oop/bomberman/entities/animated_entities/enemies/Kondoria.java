@@ -6,31 +6,21 @@ import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.Random;
 
-public class doll extends enemy {
-
-
-    public doll(int x, int y, Image img) {
+public class Kondoria extends Enemy{
+    public Kondoria(int x, int y, Image img) {
         super(x, y, img);
-        speed = 2;
-        layer = 1;
-    }
-    int direction = 0;
-    public void chooseDir() {
-        Random random = new Random();
-        direction = random.nextInt(2);
     }
 
     @Override
     public void update() {
         if (isAlive() ) {
             collideCheck();
-            //System.out.println(direction);
             switch (direction) {
                 case 0:
-                    spriteLeft();
+                    spriteDown();
                     break;
                 case 1:
-                    spriteRight();
+                    spriteUp();
                     break;
             }
             canMove();
@@ -39,30 +29,35 @@ public class doll extends enemy {
             BombermanGame.enemies.remove(this);
         }
     }
-
-
-    public void spriteLeft() {
-        super.moveLeft();
-        img = Sprite.movingSprite(Sprite.doll_left1, Sprite.doll_left2, Sprite.doll_left3, animate++, 60).getFxImage();
-    }
-
-    public void spriteRight() {
-        super.moveRight();
-        img = Sprite.movingSprite(Sprite.doll_right1, Sprite.doll_right2, Sprite.doll_right3, animate++, 60).getFxImage();
+    int direction;
+    public void chooseDir() {
+        Random random = new Random();
+        direction = random.nextInt(2);
     }
 
     @Override
-    public void spriteUp() {
+    public void spriteLeft() {
+
+    }
+
+    @Override
+    public void spriteRight() {
 
     }
 
     @Override
     public void spriteDown() {
+        super.moveDown();
+        img = Sprite.movingSprite(Sprite.kondoria_right1, Sprite.kondoria_right2, Sprite.kondoria_right3, animate++, 60).getFxImage();
+    }
 
+    @Override
+    public void spriteUp() {
+        super.moveUp();
+        img = Sprite.movingSprite(Sprite.kondoria_right1, Sprite.kondoria_right2, Sprite.kondoria_right3, animate++, 60).getFxImage();
     }
     public void stay(){
         super.stay();
         chooseDir();
     }
 }
-
