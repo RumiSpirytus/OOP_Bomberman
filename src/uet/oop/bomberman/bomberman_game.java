@@ -32,7 +32,7 @@ public class bomberman_game extends Application {
     public static final int WIDTH = 31;
     public static final int HEIGHT = 17;
 
-    public static int level = 2;
+    public static int level = 1;
     public static create_map map;
     private GraphicsContext gc;
     private Canvas canvas;
@@ -134,7 +134,6 @@ public class bomberman_game extends Application {
         for (int i = 0; i < enemies.size(); i++) {
             enemies.get(i).update();
         }
-        updateSoundtrack();
 
     }
 

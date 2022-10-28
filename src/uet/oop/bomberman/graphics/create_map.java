@@ -70,10 +70,10 @@ public class create_map {
                 if (mapMatrix[i][j] == '#') {
                     Objects.add(new wall(j, i, wall.getFxImage()));
                 } else {
-                    Objects.add(new grass(j, i, grass.getFxImage()));
+                    Objects.add(new grass(j, i, grass1.getFxImage()));
                     switch (mapMatrix[i][j]) {
                         case '*':
-                            Objects.add(new brick(j, i, brick.getFxImage()));
+                            Objects.add(new brick(j, i, brick1.getFxImage()));
                             break;
                         case 'x':
                             Objects.add(new portal(j, i, portal.getFxImage()));

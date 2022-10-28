@@ -17,6 +17,8 @@ public class sprite_sheet {
 	public BufferedImage image;
 
 	public static sprite_sheet tiles = new sprite_sheet("/textures/classic.png", 256);
+	public static sprite_sheet grass1 = new sprite_sheet("/textures/grass.png", 25);
+	public static sprite_sheet brick1 = new sprite_sheet("/textures/brick2.png", 16);
 	
 	public sprite_sheet(String path, int size) {
 		_path = path;
