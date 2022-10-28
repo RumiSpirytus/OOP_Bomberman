@@ -12,6 +12,7 @@ import uet.oop.bomberman.graphics.sprite;
 import static uet.oop.bomberman.bomberman_game.*;
 
 public class portal extends item {
+    public static boolean next = false;
 
     public portal(int x, int y, Image img) {
         super(x, y, img);
@@ -30,6 +31,7 @@ public class portal extends item {
         // TODO Auto-generated method stub
         if (e instanceof bomber) {
                 //&& BombermanGame.enemies.isEmpty()) {
+            next = true;
             sound nextLevel = new sound("level_complete");
             nextLevel.play();
             level++;
@@ -38,12 +40,12 @@ public class portal extends item {
                 player = new bomber(1, 1, sprite.player_right.getFxImage());
                 map = new create_map(level);
                 bomberman_game.map.map();
+                next = false;
             }
             if (level > 2) {
                 running = false;
                 win = true;
             }
-
 
         }
         return false;

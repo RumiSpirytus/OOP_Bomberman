@@ -28,6 +28,7 @@ import java.util.*;
 //import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.time;
 import static uet.oop.bomberman.entities.animated_entities.bomber.bombs;
 import static uet.oop.bomberman.entities.animated_entities.flame.flames;
+import static uet.oop.bomberman.sound_bomberman.sound.playSoundtrack;
 
 
 public class bomberman_game extends Application {
@@ -100,7 +101,7 @@ public class bomberman_game extends Application {
                     render();
                     update();
                     updateMenu();
-                    //updateSoundtrack();
+                    playSoundtrack();
                 }
                 else {
                     if (!win) {
@@ -193,10 +194,12 @@ public class bomberman_game extends Application {
         statusGame.setOnMouseClicked(event -> {
             if (player.isAlive()) {
                 running = !running;
+
             } else {
                 running = true;
+                level = 1;
                 player = new bomber(1, 1, sprite.player_right.getFxImage());
-                map = new create_map(1);
+                map = new create_map(level);
                 bomberman_game.map.map();
             }
             updateMenu();

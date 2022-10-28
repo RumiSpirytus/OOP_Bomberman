@@ -170,10 +170,10 @@ public class bomber extends animatedEntities {
     }
 
     public void bomberDeath() {
-//        sound bomberDead = new sound("bomberDead");
-//        if (timeToVanish == 28) {
-//            bomberDead.play();
-//        }
+        sound bomberDead = new sound("bomberDead");
+        if (timeToVanish == 28) {
+            bomberDead.play();
+        }
         img = sprite.movingSprite(sprite.player_dead1, sprite.player_dead2,
                 sprite.player_dead3, animate++, 30).getFxImage();
     }
