@@ -55,7 +55,6 @@ public class Menu {
         statusGame.setX(-75);
         statusGame.setY(-10);
 
-
         statusGame.setOnMouseClicked(event -> {
             if (player.isAlive()) {
                 running = !running;
