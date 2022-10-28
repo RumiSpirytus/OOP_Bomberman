@@ -6,7 +6,10 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -45,9 +48,9 @@ public class bomberman_game extends Application {
     public static List<enemy> enemies = new ArrayList<>();
 
     public static char[][] mapMatrix = new char[HEIGHT][WIDTH];
-
+    private static ImageView statusGame;
     public static Text t_level, t_bomb, t_enemy, t_gameOver, t_count, t_win;
-    public static int t_size = 18;
+    public static int t_size = 16;
 
 
     public static void main(String[] args) {
@@ -62,6 +65,7 @@ public class bomberman_game extends Application {
         map.map();
 
         canvas = new Canvas(sprite.SCALED_SIZE * WIDTH, sprite.SCALED_SIZE * HEIGHT);
+        canvas.setTranslateY(32);
         gc = canvas.getGraphicsContext2D();
         // Tao root container
         Group root = new Group();
@@ -111,11 +115,11 @@ public class bomberman_game extends Application {
         timer.start();
 
 
-//            Sound soundtrack = new Sound("title_screen");
+//            sound soundtrack = new sound("title_screen");
 //            soundtrack.loop();
 
         player = new bomber(1, 1, sprite.player_right.getFxImage());
-        //entities.add(player);
+
     }
 
     public void update() {
@@ -154,21 +158,21 @@ public class bomberman_game extends Application {
 
     public static void menu(Group root) {
 
-        t_count = new Text(32*22, 17.5*32,"Bombs: ");
-        t_count.setFont(Font.font("Serif", FontWeight.BOLD, t_size));
-        t_count.setFill(Color.BLACK);
+        t_count = new Text(32*22, 23,"Bombs: ");
+        t_count.setFont(Font.font("Arial", FontWeight.BOLD, t_size));
+        t_count.setFill(Color.WHITE);
 
-        t_bomb = new Text(32*12, 17.5*32,"Bomb: 1");
-        t_bomb.setFont(Font.font("Serif", FontWeight.BOLD, t_size));
-        t_bomb.setFill(Color.BLACK);
+//        t_bomb = new Text(32*12, 23,"Bomb: 1");
+//        t_bomb.setFont(Font.font("Arial", FontWeight.BOLD, t_size));
+//        t_bomb.setFill(Color.WHITE);
 
-        t_level = new Text(32*17, 17.5*32 ,"Level: 1");
-        t_level.setFont(Font.font("Serif", FontWeight.BOLD, t_size));
-        t_level.setFill(Color.BLACK);
+        t_level = new Text(32*17, 23 ,"Level: 1");
+        t_level.setFont(Font.font("Arial", FontWeight.BOLD, t_size));
+        t_level.setFill(Color.WHITE);
 
-        t_enemy = new Text(32*7, 17.5*32,"Enemy: ");
-        t_enemy.setFont(Font.font("Serif", FontWeight.BOLD, t_size));
-        t_enemy.setFill(Color.BLACK);
+        t_enemy = new Text(32*12, 23,"Enemy: ");
+        t_enemy.setFont(Font.font("Arial", FontWeight.BOLD, t_size));
+        t_enemy.setFill(Color.WHITE);
 
         t_gameOver = new Text(0, 0,"gameOver");
         t_gameOver.setFont(Font.font("Serif", FontWeight.BOLD, 1));
@@ -178,20 +182,62 @@ public class bomberman_game extends Application {
         t_win.setFont(Font.font("Serif", FontWeight.BOLD, 1));
         t_win.setFill(Color.RED);
 
+        Image newGame = new Image("textures/newGame.png");
+        statusGame = new ImageView(newGame);
+        statusGame.setScaleX(0.4);
+        statusGame.setScaleY(0.4);
+        statusGame.setX(-75);
+        statusGame.setY(-10);
+
+
+        statusGame.setOnMouseClicked(event -> {
+            if (player.isAlive()) {
+                running = !running;
+            } else {
+                running = true;
+                player = new bomber(1, 1, sprite.player_right.getFxImage());
+                map = new create_map(1);
+                bomberman_game.map.map();
+            }
+            updateMenu();
+        });
+
+        Pane pane = new Pane();
+        pane.getChildren().addAll(t_count, t_level, t_enemy, statusGame);
+        pane.setMinSize(32*31, 0);
+        pane.setMaxSize(32*31, 32);
+        pane.setStyle("-fx-background-color: #474747");
+
+        root.getChildren().add(pane);
+
+       // root.getChildren().addAll(t_count, t_level, t_bomb, t_enemy, t_gameOver, t_win, statusGame);
+
         root.getChildren().add(t_count);
         root.getChildren().add(t_level);
-        root.getChildren().add(t_bomb);
-        root.getChildren().add(t_enemy);
-        root.getChildren().add(t_gameOver);
-        root.getChildren().add(t_win);
+//        root.getChildren().add(t_bomb);
+//        root.getChildren().add(t_enemy);
+//        root.getChildren().add(t_gameOver);
+//        root.getChildren().add(t_win);
     }
 
     public static void updateMenu() {
         t_level.setText("Level: " + level);
         t_count.setText("Bombs: " + bomb.getCount());
-        t_bomb.setText("Bomb: " + player.getBombRemain());
+        //t_bomb.setText("Bomb: " + player.getBombRemain());
         t_enemy.setText("Enemy: " + enemies.size());
 
+        if (player.isAlive())
+            if (running) {
+                Image pauseGame = new Image("textures/pauseGame.png");
+                statusGame.setImage(pauseGame);
+            } else {
+                Image playGame = new Image("textures/playGame.png");
+                statusGame.setImage(playGame);
+            }
+        else {
+            Image newGame = new Image("textures/newGame.png");
+            statusGame.setImage(newGame);
+        }
 
     }
 
@@ -209,17 +255,6 @@ public class bomberman_game extends Application {
         t_win.setY(32*9);
     }
 
-    int t_sound;
-    public void updateSoundtrack() {
-        t_sound++;
-        //System.out.println(t_sound);
-        if (t_sound == 4) {
-            sound soundtrack = new sound("title_screen");
-            soundtrack.play();
 
-
-        }
-        if (t_sound > 1100) t_sound = 0;
-    }
 
 }

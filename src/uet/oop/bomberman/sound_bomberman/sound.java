@@ -30,15 +30,7 @@ public class sound {
         clip.stop();
     }
 
-    int t = 1890;
-    public void updateSoundtrack() {
-        t++;
-        sound soundtrack = new sound("title_screen");
-        if (t % 1900 == 0) {
-            soundtrack.play();
-            t = 0;
-        }
-    }
+
 
 
 }

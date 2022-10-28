@@ -35,9 +35,9 @@ public class sprite {
 	|--------------------------------------------------------------------------
 	 */
 	public static sprite player_up = new sprite(DEFAULT_SIZE, 0, 0, sprite_sheet.tiles, 12, 16);
-	public static sprite player_down = new sprite(DEFAULT_SIZE, 2, 0, sprite_sheet.tiles, 12, 15);
-	public static sprite player_left = new sprite(DEFAULT_SIZE, 3, 0, sprite_sheet.tiles, 10, 15);
-	public static sprite player_right = new sprite(DEFAULT_SIZE, 1, 0, sprite_sheet.tiles, 10, 16);
+	public static sprite player_down = new sprite(DEFAULT_SIZE, 2, 0, sprite_sheet.tiles, 12, 16);
+	public static sprite player_left = new sprite(DEFAULT_SIZE, 3, 0, sprite_sheet.tiles, 12, 16);
+	public static sprite player_right = new sprite(DEFAULT_SIZE, 1, 0, sprite_sheet.tiles, 12, 16);
 	
 	public static sprite player_up_1 = new sprite(DEFAULT_SIZE, 0, 1, sprite_sheet.tiles, 12, 16);
 	public static sprite player_up_2 = new sprite(DEFAULT_SIZE, 0, 2, sprite_sheet.tiles, 12, 15);

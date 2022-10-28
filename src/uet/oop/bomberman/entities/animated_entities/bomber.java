@@ -28,7 +28,7 @@ public class bomber extends animatedEntities {
     protected int tem = 16;
     int timeputbom;
 
-    private int life = 3;
+
 
     int t_r = 0;
     int t_l = 0;
@@ -81,15 +81,15 @@ public class bomber extends animatedEntities {
         if (dir == keyCode) {
             if (dir == KeyCode.LEFT) {
                 //System.out.println(x + " " + y + " ");
-                img = sprite.player_down.getFxImage();
+                img = sprite.player_left.getFxImage();
             }
             if (dir == KeyCode.RIGHT) {
                 //System.out.println(x + " " + y + " ");
-                img = sprite.player_down.getFxImage();
+                img = sprite.player_right.getFxImage();
             }
             if (dir == KeyCode.UP) {
                 //System.out.println(x + " " + y + " ");
-                img = sprite.player_down.getFxImage();
+                img = sprite.player_up.getFxImage();
             }
             if (dir == KeyCode.DOWN) {
                 //System.out.println(x + " " + y + " ");
@@ -210,12 +210,7 @@ public class bomber extends animatedEntities {
         return true;
     }
 
-    public boolean checkAlive() {
-        if (this.life == 0) {
-            return false;
-        }
-        return true;
-    }
+
 
     public void placeBomb() {
         if (bombSet && timeputbom < 100 && alive) {
@@ -260,7 +255,7 @@ public class bomber extends animatedEntities {
     }
 
     public Rectangle bound() {
-        return new Rectangle(nextX, nextY, sprite.SCALED_SIZE - 6, sprite.SCALED_SIZE - 2);
+        return new Rectangle(nextX, nextY, sprite.SCALED_SIZE - 6, sprite.SCALED_SIZE - 2 );
     }
 
 
@@ -268,7 +263,4 @@ public class bomber extends animatedEntities {
         return bombRemain;
     }
 
-    public int getLife() {
-        return life;
-    }
 }
