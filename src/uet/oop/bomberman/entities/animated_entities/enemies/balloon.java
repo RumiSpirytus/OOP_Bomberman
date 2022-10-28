@@ -1,8 +1,8 @@
 package uet.oop.bomberman.entities.animated_entities.enemies;
 
 import javafx.scene.image.Image;
-import uet.oop.bomberman.bomberman_game;
-import uet.oop.bomberman.graphics.sprite;
+import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.Random;
 
@@ -42,29 +42,29 @@ public class balloon extends enemy {
                 canMove();
 //            }
             } else {
-                bomberman_game.enemies.remove(this);
+                BombermanGame.enemies.remove(this);
             }
     }
 
 
     public void spriteLeft() {
         super.moveLeft();
-        img = sprite.movingSprite(sprite.balloom_left1, sprite.balloom_left2, sprite.balloom_left3, animate++, 60).getFxImage();
+        img = Sprite.movingSprite(Sprite.balloom_left1, Sprite.balloom_left2, Sprite.balloom_left3, animate++, 60).getFxImage();
     }
 
     public void spriteRight() {
         super.moveRight();
-        img = sprite.movingSprite(sprite.balloom_right1, sprite.balloom_right2, sprite.balloom_right3, animate++, 60).getFxImage();
+        img = Sprite.movingSprite(Sprite.balloom_right1, Sprite.balloom_right2, Sprite.balloom_right3, animate++, 60).getFxImage();
     }
 
     public void spriteUp() {
         super.moveUp();
-        img = sprite.movingSprite(sprite.balloom_left1, sprite.balloom_left2, sprite.balloom_left3, animate++, 60).getFxImage();
+        img = Sprite.movingSprite(Sprite.balloom_left1, Sprite.balloom_left2, Sprite.balloom_left3, animate++, 60).getFxImage();
     }
 
     public void spriteDown() {
         super.moveDown();
-        img = sprite.movingSprite(sprite.balloom_right1, sprite.balloom_right2, sprite.balloom_right3, animate++, 60).getFxImage();
+        img = Sprite.movingSprite(Sprite.balloom_right1, Sprite.balloom_right2, Sprite.balloom_right3, animate++, 60).getFxImage();
     }
     public void stay(){
         super.stay();

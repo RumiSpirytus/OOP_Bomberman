@@ -10,9 +10,9 @@ import javafx.scene.text.Text;
 
 import javax.swing.*;
 
-import static uet.oop.bomberman.bomberman_game.*;
+import static uet.oop.bomberman.BombermanGame.*;
 
-public class menu extends JPanel {
+public class Menu extends JPanel {
     private static ImageView statusGame;
     public Text t_level, t_bomb, t_enemy, t_gameOver, t_count, t_win;
 

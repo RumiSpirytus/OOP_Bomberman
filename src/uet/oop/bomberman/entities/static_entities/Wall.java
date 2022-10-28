@@ -1,11 +1,11 @@
 package uet.oop.bomberman.entities.static_entities;
 
 import javafx.scene.image.Image;
-import uet.oop.bomberman.entities.entity;
+import uet.oop.bomberman.entities.Entity;
 
-public class wall extends entity {
+public class Wall extends Entity {
 
-    public wall(int x, int y, Image img) {
+    public Wall(int x, int y, Image img) {
         super(x, y, img);
         layer = 4;
     }
@@ -16,7 +16,7 @@ public class wall extends entity {
     }
 
     @Override
-    public boolean collide(entity e) {
+    public boolean collide(Entity e) {
         return false;
     }
 }

@@ -17,35 +17,34 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import uet.oop.bomberman.entities.animated_entities.*;
 import uet.oop.bomberman.entities.animated_entities.enemies.*;
-import uet.oop.bomberman.entities.entity;
+import uet.oop.bomberman.entities.Entity;
 
-import uet.oop.bomberman.graphics.create_map;
-import uet.oop.bomberman.graphics.sprite;
-import uet.oop.bomberman.sound_bomberman.sound;
+import uet.oop.bomberman.graphics.CreateMap;
+import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.*;
 
 //import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.time;
-import static uet.oop.bomberman.entities.animated_entities.bomber.bombs;
-import static uet.oop.bomberman.entities.animated_entities.flame.flames;
-import static uet.oop.bomberman.sound_bomberman.sound.playSoundtrack;
+import static uet.oop.bomberman.entities.animated_entities.Bomber.Bombs;
+import static uet.oop.bomberman.entities.animated_entities.Flame.Flames;
+import static uet.oop.bomberman.sound_bomberman.Sound.playSoundtrack;
 
 
-public class bomberman_game extends Application {
+public class BombermanGame extends Application {
 
     public static final int WIDTH = 31;
     public static final int HEIGHT = 17;
 
     public static int level = 1;
-    public static create_map map;
+    public static CreateMap map;
     private GraphicsContext gc;
     private Canvas canvas;
 
     public static boolean running = true;
     public static boolean win = false;
-    public static bomber player;
-    public static List<entity> entities = new ArrayList<>();
-    public static List<entity> Objects = new ArrayList<>();
+    public static Bomber player;
+    public static List<Entity> entities = new ArrayList<>();
+    public static List<Entity> Objects = new ArrayList<>();
     public static List<enemy> enemies = new ArrayList<>();
 
     public static char[][] mapMatrix = new char[HEIGHT][WIDTH];
@@ -55,17 +54,17 @@ public class bomberman_game extends Application {
 
 
     public static void main(String[] args) {
-        Application.launch(bomberman_game.class);
+        Application.launch(BombermanGame.class);
     }
 
     @Override
     public void start(Stage primaryStage) {
         // am thanh
 
-        map = new create_map(level);
+        map = new CreateMap(level);
         map.map();
 
-        canvas = new Canvas(sprite.SCALED_SIZE * WIDTH, sprite.SCALED_SIZE * HEIGHT);
+        canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         canvas.setTranslateY(32);
         gc = canvas.getGraphicsContext2D();
         // Tao root container
@@ -119,7 +118,7 @@ public class bomberman_game extends Application {
 //            sound soundtrack = new sound("title_screen");
 //            soundtrack.loop();
 
-        player = new bomber(1, 1, sprite.player_right.getFxImage());
+        player = new Bomber(1, 1, Sprite.player_right.getFxImage());
 
     }
 
@@ -130,11 +129,11 @@ public class bomberman_game extends Application {
         for (int i = 0; i < Objects.size(); i++) {
             Objects.get(i).update();
         }
-        for (int i = 0; i < bombs.size(); i++) {
-            bombs.get(i).update();
+        for (int i = 0; i < Bombs.size(); i++) {
+            Bombs.get(i).update();
         }
-        for (int i = 0; i < flames.size(); i++) {
-            flames.get(i).update();
+        for (int i = 0; i < Flames.size(); i++) {
+            Flames.get(i).update();
         }
         for (int i = 0; i < enemies.size(); i++) {
             enemies.get(i).update();
@@ -149,8 +148,8 @@ public class bomberman_game extends Application {
         for (int i = Objects.size() - 1; i >= 0; i--) {
             Objects.get(i).render(gc);
         }
-        flames.forEach(g -> g.render(gc));
-        bombs.forEach(g -> g.render(gc));
+        Flames.forEach(g -> g.render(gc));
+        Bombs.forEach(g -> g.render(gc));
         player.render(gc);
         enemies.forEach(g -> g.render(gc));
 
@@ -198,9 +197,9 @@ public class bomberman_game extends Application {
             } else {
                 running = true;
                 level = 1;
-                player = new bomber(1, 1, sprite.player_right.getFxImage());
-                map = new create_map(level);
-                bomberman_game.map.map();
+                player = new Bomber(1, 1, Sprite.player_right.getFxImage());
+                map = new CreateMap(level);
+                BombermanGame.map.map();
             }
             updateMenu();
         });
@@ -225,7 +224,7 @@ public class bomberman_game extends Application {
 
     public static void updateMenu() {
         t_level.setText("Level: " + level);
-        t_count.setText("Bombs: " + bomb.getCount());
+        t_count.setText("Bombs: " + Bomb.getCount());
         //t_bomb.setText("Bomb: " + player.getBombRemain());
         t_enemy.setText("Enemy: " + enemies.size());
 

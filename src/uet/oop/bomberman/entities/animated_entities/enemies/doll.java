@@ -1,8 +1,8 @@
 package uet.oop.bomberman.entities.animated_entities.enemies;
 
 import javafx.scene.image.Image;
-import uet.oop.bomberman.bomberman_game;
-import uet.oop.bomberman.graphics.sprite;
+import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.Random;
 
@@ -36,19 +36,19 @@ public class doll extends enemy {
             canMove();
 
         } else {
-            bomberman_game.enemies.remove(this);
+            BombermanGame.enemies.remove(this);
         }
     }
 
 
     public void spriteLeft() {
         super.moveLeft();
-        img = sprite.movingSprite(sprite.doll_left1, sprite.doll_left2, sprite.doll_left3, animate++, 60).getFxImage();
+        img = Sprite.movingSprite(Sprite.doll_left1, Sprite.doll_left2, Sprite.doll_left3, animate++, 60).getFxImage();
     }
 
     public void spriteRight() {
         super.moveRight();
-        img = sprite.movingSprite(sprite.doll_right1, sprite.doll_right2, sprite.doll_right3, animate++, 60).getFxImage();
+        img = Sprite.movingSprite(Sprite.doll_right1, Sprite.doll_right2, Sprite.doll_right3, animate++, 60).getFxImage();
     }
 
     @Override

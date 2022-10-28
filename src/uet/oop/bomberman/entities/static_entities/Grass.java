@@ -1,11 +1,11 @@
 package uet.oop.bomberman.entities.static_entities;
 
 import javafx.scene.image.Image;
-import uet.oop.bomberman.entities.entity;
+import uet.oop.bomberman.entities.Entity;
 
-public class grass extends entity {
+public class Grass extends Entity {
 
-    public grass(int x, int y, Image img) {
+    public Grass(int x, int y, Image img) {
         super(x, y, img);
         layer = 0;
     }
@@ -14,7 +14,7 @@ public class grass extends entity {
     public void update() {
 
     }
-    public boolean collide(entity e){
+    public boolean collide(Entity e){
         return true;
     }
 }

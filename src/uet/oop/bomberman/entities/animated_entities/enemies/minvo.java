@@ -1,8 +1,8 @@
 package uet.oop.bomberman.entities.animated_entities.enemies;
 
 import javafx.scene.image.Image;
-import uet.oop.bomberman.bomberman_game;
-import uet.oop.bomberman.graphics.sprite;
+import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.Random;
 
@@ -37,7 +37,7 @@ public class minvo extends enemy {
             canMove();
 //            }
         } else {
-            bomberman_game.enemies.remove(this);
+            BombermanGame.enemies.remove(this);
         }
     }
 
@@ -50,25 +50,25 @@ public class minvo extends enemy {
     @Override
     public void spriteLeft() {
         super.moveLeft();
-        img = sprite.movingSprite(sprite.minvo_left1, sprite.minvo_left2, sprite.minvo_left3, animate++, 60).getFxImage();
+        img = Sprite.movingSprite(Sprite.minvo_left1, Sprite.minvo_left2, Sprite.minvo_left3, animate++, 60).getFxImage();
     }
 
     @Override
     public void spriteRight() {
         super.moveRight();
-        img = sprite.movingSprite(sprite.minvo_right1, sprite.minvo_right2, sprite.minvo_right3, animate++, 60).getFxImage();
+        img = Sprite.movingSprite(Sprite.minvo_right1, Sprite.minvo_right2, Sprite.minvo_right3, animate++, 60).getFxImage();
     }
 
     @Override
     public void spriteUp() {
         super.moveUp();
-        img = sprite.movingSprite(sprite.minvo_left1, sprite.minvo_left2, sprite.minvo_left3, animate++, 60).getFxImage();
+        img = Sprite.movingSprite(Sprite.minvo_left1, Sprite.minvo_left2, Sprite.minvo_left3, animate++, 60).getFxImage();
     }
 
     @Override
     public void spriteDown() {
         super.moveDown();
-        img = sprite.movingSprite(sprite.minvo_right1, sprite.minvo_right2, sprite.minvo_right3, animate++, 60).getFxImage();
+        img = Sprite.movingSprite(Sprite.minvo_right1, Sprite.minvo_right2, Sprite.minvo_right3, animate++, 60).getFxImage();
     }
     public void stay(){
         super.stay();

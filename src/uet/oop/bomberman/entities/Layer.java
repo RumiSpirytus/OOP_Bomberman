@@ -2,10 +2,10 @@ package uet.oop.bomberman.entities;
 
 import java.util.Comparator;
 
-public class layer implements Comparator<entity> {
+public class Layer implements Comparator<Entity> {
 
     @Override
-    public int compare(entity o1, entity o2) {
+    public int compare(Entity o1, Entity o2) {
         return Integer.compare(o2.getLayer(), o1.getLayer());
     }
 }

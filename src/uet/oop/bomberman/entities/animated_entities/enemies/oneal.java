@@ -1,8 +1,8 @@
 package uet.oop.bomberman.entities.animated_entities.enemies;
 
 import javafx.scene.image.Image;
-import uet.oop.bomberman.bomberman_game;
-import uet.oop.bomberman.graphics.sprite;
+import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.graphics.Sprite;
 
 public class oneal extends enemy {
     public static int timeChange = 20;
@@ -44,38 +44,38 @@ public class oneal extends enemy {
             canMove();
 //            }
         } else {
-            bomberman_game.enemies.remove(this);
+            BombermanGame.enemies.remove(this);
         }
     }
 
     @Override
     public void chooseDir() {
-        if (bomberman_game.player.getX() / sprite.SCALED_SIZE - x / sprite.SCALED_SIZE < 0 ) dir = 0;
-        if (bomberman_game.player.getX() / sprite.SCALED_SIZE - x / sprite.SCALED_SIZE > 0 ) dir = 1;
-        if (bomberman_game.player.getY() / sprite.SCALED_SIZE - y / sprite.SCALED_SIZE < 0 ) dir = 2;
-        if (bomberman_game.player.getY() / sprite.SCALED_SIZE - y / sprite.SCALED_SIZE > 0 ) dir = 3;
+        if (BombermanGame.player.getX() / Sprite.SCALED_SIZE - x / Sprite.SCALED_SIZE < 0 ) dir = 0;
+        if (BombermanGame.player.getX() / Sprite.SCALED_SIZE - x / Sprite.SCALED_SIZE > 0 ) dir = 1;
+        if (BombermanGame.player.getY() / Sprite.SCALED_SIZE - y / Sprite.SCALED_SIZE < 0 ) dir = 2;
+        if (BombermanGame.player.getY() / Sprite.SCALED_SIZE - y / Sprite.SCALED_SIZE > 0 ) dir = 3;
     }
 
 
     @Override
     public void spriteLeft() {
         super.moveLeft();
-        img = sprite.movingSprite(sprite.oneal_left1, sprite.oneal_left2, sprite.oneal_left3, animate++, 60).getFxImage();
+        img = Sprite.movingSprite(Sprite.oneal_left1, Sprite.oneal_left2, Sprite.oneal_left3, animate++, 60).getFxImage();
     }
 
     public void spriteRight() {
         super.moveRight();
-        img = sprite.movingSprite(sprite.oneal_right1, sprite.oneal_right2, sprite.oneal_right3, animate++, 60).getFxImage();
+        img = Sprite.movingSprite(Sprite.oneal_right1, Sprite.oneal_right2, Sprite.oneal_right3, animate++, 60).getFxImage();
     }
 
     public void spriteUp() {
         super.moveUp();
-        img = sprite.movingSprite(sprite.oneal_left1, sprite.oneal_left2, sprite.oneal_left3, animate++, 60).getFxImage();
+        img = Sprite.movingSprite(Sprite.oneal_left1, Sprite.oneal_left2, Sprite.oneal_left3, animate++, 60).getFxImage();
     }
 
     public void spriteDown() {
         super.moveDown();
-        img = sprite.movingSprite(sprite.oneal_right1, sprite.oneal_right2, sprite.oneal_right3, animate++, 60).getFxImage();
+        img = Sprite.movingSprite(Sprite.oneal_right1, Sprite.oneal_right2, Sprite.oneal_right3, animate++, 60).getFxImage();
     }
 
     public void stay() {
@@ -84,7 +84,7 @@ public class oneal extends enemy {
     }
     public void bomberLocation(){
         super.stay();
-        x = xStart * sprite.SCALED_SIZE;
-        y = yStart* sprite.SCALED_SIZE;
+        x = xStart * Sprite.SCALED_SIZE;
+        y = yStart* Sprite.SCALED_SIZE;
     }
 }

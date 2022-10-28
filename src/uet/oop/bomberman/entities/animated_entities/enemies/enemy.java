@@ -1,20 +1,20 @@
 package uet.oop.bomberman.entities.animated_entities.enemies;
 
 import javafx.scene.image.Image;
-import uet.oop.bomberman.bomberman_game;
-import uet.oop.bomberman.sound_bomberman.sound;
-import uet.oop.bomberman.entities.animated_entities.animatedEntities;
-import uet.oop.bomberman.entities.animated_entities.bomb;
-import uet.oop.bomberman.entities.animated_entities.bomber;
-import uet.oop.bomberman.entities.animated_entities.flame;
-import uet.oop.bomberman.entities.entity;
-import uet.oop.bomberman.entities.static_entities.brick;
-import uet.oop.bomberman.entities.static_entities.wall;
-import uet.oop.bomberman.graphics.sprite;
+import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.sound_bomberman.Sound;
+import uet.oop.bomberman.entities.animated_entities.Animated_Entities;
+import uet.oop.bomberman.entities.animated_entities.Bomb;
+import uet.oop.bomberman.entities.animated_entities.Bomber;
+import uet.oop.bomberman.entities.animated_entities.Flame;
+import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.static_entities.Brick;
+import uet.oop.bomberman.entities.static_entities.Wall;
+import uet.oop.bomberman.graphics.Sprite;
 
 import java.awt.*;
 
-public abstract class enemy extends animatedEntities {
+public abstract class enemy extends Animated_Entities {
     protected int dir;
     protected int timeToVanish = 10;
     protected int animate = 0;
@@ -62,13 +62,13 @@ public abstract class enemy extends animatedEntities {
 //        if(timeToVanish == 0 ) BombermanGame.enemies.remove(this);
 
     public void canMove() {
-        for (enemy e : bomberman_game.enemies) {
-            for (bomb o : bomber.bombs) {
+        for (enemy e : BombermanGame.enemies) {
+            for (Bomb o : Bomber.Bombs) {
                 if (e.bound().intersects(o.bound())) {
                     e.stay();
                 }
             }
-            for (enemy o : bomberman_game.enemies) {
+            for (enemy o : BombermanGame.enemies) {
                 if (e.equals(o)) continue;
                 if (e instanceof ghost || o instanceof ghost) continue;
                 if (e.bound().intersects(o.bound())) {
@@ -80,8 +80,8 @@ public abstract class enemy extends animatedEntities {
                     }
                 }
             }
-            for (entity o : bomberman_game.Objects) {
-                if(o instanceof brick){
+            for (Entity o : BombermanGame.Objects) {
+                if(o instanceof Brick){
                     if (e instanceof ghost) continue;
                 }
                 if (e.bound().intersects(o.bound())) {
@@ -106,19 +106,19 @@ public abstract class enemy extends animatedEntities {
     public abstract void spriteDown();
 
     @Override
-    public boolean collide(entity e) {
-        if (e instanceof flame) {
+    public boolean collide(Entity e) {
+        if (e instanceof Flame) {
             if (this.alive) {
-                sound enemyDead = new sound("enemyDead");
+                Sound enemyDead = new Sound("enemyDead");
                 enemyDead.play();
             }
             this.alive = false;
             return true;
         }
-        if (e.bound().intersects(this.bound()) && e instanceof bomber) {
+        if (e.bound().intersects(this.bound()) && e instanceof Bomber) {
             return e.collide(this);
         }
-        if (e instanceof wall || e instanceof brick) {
+        if (e instanceof Wall || e instanceof Brick) {
             return e.collide(this);
         }
         return !(e instanceof enemy);
@@ -130,19 +130,19 @@ public abstract class enemy extends animatedEntities {
 
     public void collideAvoid() {
         super.stay();
-        x = xStart * sprite.SCALED_SIZE;
-        y = yStart * sprite.SCALED_SIZE;
+        x = xStart * Sprite.SCALED_SIZE;
+        y = yStart * Sprite.SCALED_SIZE;
     }
 
     public void collideCheck() {
-        this.collide(bomberman_game.player);
+        this.collide(BombermanGame.player);
     }
 
     public Rectangle bound() {
-        return new Rectangle(nextX, nextY, sprite.SCALED_SIZE, sprite.SCALED_SIZE);
+        return new Rectangle(nextX, nextY, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE);
     }
 
     public int matrix(int x) {
-        return x / sprite.SCALED_SIZE;
+        return x / Sprite.SCALED_SIZE;
     }
 }
