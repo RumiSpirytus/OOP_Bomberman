@@ -9,7 +9,7 @@ public class Oneal extends Enemy {
 
     public Oneal(int x, int y, Image img) {
         super(x, y, img);
-        speed = 1;
+        speed = 2;
     }
 
     int directionOneal;

@@ -9,7 +9,7 @@ import static uet.oop.bomberman.BombermanGame.player;
 public class Ghost extends Enemy {
     public Ghost(int x, int y, Image img) {
         super(x, y, img);
-        speed = 1;
+        speed = 2;
     }
 
     /**
