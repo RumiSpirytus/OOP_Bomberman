@@ -41,10 +41,11 @@ public class Minvo extends Enemy {
         }
     }
 
-    @Override
-    public void chooseDir() {
-        Random random = new Random();
-        direction = random.nextInt(4);
+    public void chooseDir(){
+        if (BombermanGame.player.getX() / Sprite.SCALED_SIZE - x / Sprite.SCALED_SIZE < 0) direction = 0;
+        if (BombermanGame.player.getX() / Sprite.SCALED_SIZE - x / Sprite.SCALED_SIZE > 0) direction = 1;
+        if (BombermanGame.player.getY() / Sprite.SCALED_SIZE - y / Sprite.SCALED_SIZE < 0) direction = 2;
+        if (BombermanGame.player.getY() / Sprite.SCALED_SIZE - y / Sprite.SCALED_SIZE > 0) direction = 3;
     }
 
     @Override

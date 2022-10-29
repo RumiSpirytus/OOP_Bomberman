@@ -9,7 +9,7 @@ import java.util.Random;
 public class Kondoria extends Enemy{
     public Kondoria (int x, int y, Image img) {
         super(x, y, img);
-        speed = 3;
+        speed = 2;
         layer = 1;
     }
     int direction = 0;

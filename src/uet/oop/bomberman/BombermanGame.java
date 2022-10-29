@@ -36,7 +36,7 @@ public class BombermanGame extends Application {
 
     public static final int WIDTH = 31;
     public static final int HEIGHT = 17;
-    public static int level = 2;
+    public static int level = 1;
     public static CreateMap map;
     private GraphicsContext gc;
     private Canvas canvas;
