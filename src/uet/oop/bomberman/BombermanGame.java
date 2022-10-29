@@ -29,6 +29,7 @@ import static uet.oop.bomberman.entities.animated_entities.Bomber.Bombs;
 import static uet.oop.bomberman.entities.animated_entities.Flame.Flames;
 import static uet.oop.bomberman.graphics.Menu.*;
 import static uet.oop.bomberman.sound_bomberman.Sound.playSoundtrack;
+import static uet.oop.bomberman.sound_bomberman.Sound.playSoundtrack2;
 
 
 public class BombermanGame extends Application {
@@ -108,8 +109,8 @@ public class BombermanGame extends Application {
                 else {
                     if (!win) {
                         gameOver();
-//                    } else {
-//                       // youWin();
+                    } else {
+                        youWin();
                     }
                 }
 

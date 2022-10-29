@@ -11,6 +11,7 @@ import javafx.scene.text.Text;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.animated_entities.Bomb;
 import uet.oop.bomberman.entities.animated_entities.Bomber;
+import uet.oop.bomberman.entities.animated_entities.Bomb.*;
 
 import static uet.oop.bomberman.BombermanGame.*;
 
@@ -57,12 +58,21 @@ public class Menu {
 
         statusGame.setOnMouseClicked(event -> {
             if (player.isAlive()) {
-                running = !running;
+                if (win) {
+                    running = true;
+                    level = 1;
+                    player = new Bomber(1, 1, Sprite.player_right.getFxImage());
+                    map = new CreateMap(level);
+                    BombermanGame.map.map();
 
+                } else {
+                    running = !running;
+                }
             } else {
                 running = true;
                 level = 1;
                 player = new Bomber(1, 1, Sprite.player_right.getFxImage());
+                Bomb.Bombcount = 50;
                 map = new CreateMap(level);
                 BombermanGame.map.map();
             }
@@ -77,14 +87,6 @@ public class Menu {
 
         root.getChildren().add(pane);
 
-        // root.getChildren().addAll(t_count, t_level, t_bomb, t_enemy, t_gameOver, t_win, statusGame);
-
-        //root.getChildren().add(t_count);
-        //root.getChildren().add(t_level);
-//        root.getChildren().add(t_bomb);
-//        root.getChildren().add(t_enemy);
-//        root.getChildren().add(t_gameOver);
-//        root.getChildren().add(t_win);
         Image author = new Image("textures/gameStart.png");
         authorView = new ImageView(author);
         authorView.setX(0);
@@ -109,8 +111,13 @@ public class Menu {
                 Image pauseGame = new Image("textures/pauseGame.png");
                 statusGame.setImage(pauseGame);
             } else {
-                Image playGame = new Image("textures/playGame.png");
-                statusGame.setImage(playGame);
+                if (win) {
+                    Image newGame = new Image("textures/newGame.png");
+                    statusGame.setImage(newGame);
+                } else {
+                    Image playGame = new Image("textures/playGame.png");
+                    statusGame.setImage(playGame);
+                }
             }
         } else{
                 Image newGame = new Image("textures/newGame.png");
@@ -125,7 +132,13 @@ public class Menu {
         if (!player.isAlive() || Bomb.Bombcount  == 0) {
             Image newGame = new Image("textures/gameOver1.png");
             authorView.setImage(newGame);
+        }
+    }
 
+    public static void youWin() {
+        if (win) {
+            Image newGame = new Image("textures/gameWin.png");
+            authorView.setImage(newGame);
         }
     }
 

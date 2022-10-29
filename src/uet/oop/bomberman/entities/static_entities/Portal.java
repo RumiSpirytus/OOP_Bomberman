@@ -35,16 +35,18 @@ public class Portal extends Item {
             Sound nextLevel = new Sound("level_complete");
             nextLevel.play();
             level++;
-            if (level <= 2) {
+            if (level <= 3) {
                 Bomb.Bombcount = 70;
                 player = new Bomber(1, 1, Sprite.player_right.getFxImage());
                 map = new CreateMap(level);
                 BombermanGame.map.map();
                 next = false;
             }
-            if (level > 2) {
-                running = false;
+            if (level > 3) {
+                level = 1;
                 win = true;
+                running = false;
+
             }
 
         }

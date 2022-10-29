@@ -37,6 +37,8 @@ p - Bomber
 2 - Oneal
 3 - Minvo
 4 - Ghost
+5 - Doll
+6 - Kondoria
 
 Items:
 b - Bomb Item -> Brick 4

@@ -47,22 +47,22 @@ public class CreateMap {
                     mapMatrix[i][j]=mapRow.charAt(j);
                 }
             }
-            while( level > 2){
-                logout(new Stage());
-            }
+//            while( level > 2){
+//                logout(new Stage());
+//            }
         }   catch(FileNotFoundException e){
             e.printStackTrace();
         }
     }
-    public static void logout(Stage stage) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Chuc mung");
-        alert.setHeaderText("Ban da choi xong game roi");
-
-        if (alert.showAndWait().get() == ButtonType.OK) {
-            stage.close();
-        }
-    }
+//    public static void logout(Stage stage) {
+//        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//        alert.setTitle("Chuc mung");
+//        alert.setHeaderText("Ban da choi xong game roi");
+//
+//        if (alert.showAndWait().get() == ButtonType.OK) {
+//            stage.close();
+//        }
+//    }
     public void map() {
         loadLevel();
         for (int i = 0; i < HEIGHT; i++) {
@@ -70,10 +70,18 @@ public class CreateMap {
                 if (mapMatrix[i][j] == '#') {
                     Objects.add(new Wall(j, i, wall.getFxImage()));
                 } else {
-                    Objects.add(new Grass(j, i, grass1.getFxImage()));
+                    if (level == 1) {
+                        Objects.add(new Grass(j, i, grass.getFxImage()));
+                    } else {
+                        Objects.add(new Grass(j, i, grass1.getFxImage()));
+                    }
                     switch (mapMatrix[i][j]) {
                         case '*':
-                            Objects.add(new Brick(j, i, brick1.getFxImage()));
+                            if (level == 1 || level == 2) {
+                                Objects.add(new Brick(j, i, brick1.getFxImage()));
+                            } else {
+                                Objects.add(new Brick(j, i, brick.getFxImage()));
+                            }
                             break;
                         case 'x':
                             Objects.add(new Portal(j, i, portal.getFxImage()));
@@ -95,7 +103,7 @@ public class CreateMap {
                             enemies.add(new Doll(j, i, doll_left1.getFxImage()));
                             break;
                         case '6':
-                            enemies.add(new Kondoria(j,i, kondoria_left1.getFxImage()));
+                            enemies.add(new Kondoria(j, i, kondoria_left1.getFxImage()));
                         case 'b':
                             Objects.add(new Bomb_item(j,i, powerup_bombs.getFxImage()));
                             Objects.add(new Brick(j, i, brick.getFxImage()));
