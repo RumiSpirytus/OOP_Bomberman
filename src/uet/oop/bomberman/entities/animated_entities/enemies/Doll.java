@@ -12,7 +12,6 @@ public class Doll extends Enemy {
     public Doll(int x, int y, Image img) {
         super(x, y, img);
         speed = 2;
-        layer = 1;
     }
     int direction = 0;
     public void chooseDir() {

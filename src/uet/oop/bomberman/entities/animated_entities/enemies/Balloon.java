@@ -12,7 +12,6 @@ public class Balloon extends Enemy {
     public Balloon(int x, int y, Image img) {
         super(x, y, img);
         speed = 1;
-        layer = 1;
     }
     int direction = 0;
     public void chooseDir() {

@@ -15,10 +15,10 @@ Các chức năng chính:
 1. Gameplay giống bản classic
 2. Có âm thanh
 
-Hướng dẫn choi: 
+Hướng dẫn chơi: 
 1. Di chuyển bằng 4 phím mũi tên, khi chơi hết số bom mà không qua được màn thì thua
 2. Bấm Space để kích bổ bom
-3. Sử dụng các phím tắt trên màn để chỉnh Pause/New game tùy ý
+3. Sử dụng chuột để chỉnh Pause/New game
 
 
 Cây thừa kế:

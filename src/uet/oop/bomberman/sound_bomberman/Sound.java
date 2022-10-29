@@ -1,5 +1,7 @@
 package uet.oop.bomberman.sound_bomberman;
 
+import uet.oop.bomberman.graphics.Menu;
+
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
@@ -11,11 +13,10 @@ public class Sound {
 
     private Clip clip;
     public static Clip title;
-    //public static Clip title1;
     public static boolean isSoundTitle;
 
     public Sound(String filename){
-        String path ="C:\\Users\\Nguyen Duc Thien\\OneDrive\\Desktop\\Code_C\\OOP_Bomberman\\res\\Sound\\"
+        String path ="C:\\Users\\user\\tesst\\OOP_Bomberman8\\res\\Sound\\"
                 + filename + ".wav";
         try{
             AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(path));
@@ -61,6 +62,11 @@ public class Sound {
             title.close();
             isSoundTitle = false;
         }
+        if (!Menu.playMusic) {
+            title.close();
+            isSoundTitle = false;
+        }
+
     }
 
     public static void playSoundtrack2() {

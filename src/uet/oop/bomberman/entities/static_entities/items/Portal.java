@@ -39,6 +39,7 @@ public class Portal extends Item {
             level++;
             if (level <= 3 && level >1) {
                 running = false;
+                win = false;
                 Bomb.Bombcount = 50;
                 player = new Bomber(1, 1, Sprite.player_right.getFxImage());
                 map = new CreateMap(level);

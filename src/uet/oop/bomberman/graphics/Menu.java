@@ -15,11 +15,16 @@ import uet.oop.bomberman.entities.animated_entities.Bomb.*;
 import uet.oop.bomberman.entities.static_entities.items.Portal;
 import uet.oop.bomberman.sound_bomberman.Sound;
 
+import java.awt.*;
+
 import static uet.oop.bomberman.BombermanGame.*;
 
 public class Menu {
     private static ImageView statusGame;
+    private static ImageView statusMusic;
     private static Text t_level, t_bomb, t_enemy, t_gameOver, t_count, t_win;
+
+    public static boolean playMusic = true;
 
     public Menu() {
 
@@ -58,9 +63,31 @@ public class Menu {
         statusGame.setX(-75);
         statusGame.setY(-10);
 
+        Image newMusic = new Image("textures/musicplay.png");
+        statusMusic = new ImageView(newMusic);
+        statusMusic.setScaleX(0.1);
+        statusMusic.setScaleY(0.1);
+        statusMusic.setX(70);
+        statusMusic.setY(-86);
+
+        statusMusic.setOnMouseClicked(event -> {
+            if (player.isAlive()) {
+                playMusic = !playMusic;
+            }
+        });
+
         statusGame.setOnMouseClicked(event -> {
             if (player.isAlive()) {
+                if (win) {
+                    running = true;
+                    level = 1;
+                    player = new Bomber(1, 1, Sprite.player_right.getFxImage());
+                    Bomb.Bombcount = 50;
+                    map = new CreateMap(level);
+                    BombermanGame.map.map();
+                } else {
                     running = !running;
+                }
                 Portal.next = false;
             } else {
                 running = true;
@@ -74,7 +101,7 @@ public class Menu {
         });
 
         Pane pane = new Pane();
-        pane.getChildren().addAll(t_count, t_level, t_enemy, statusGame);
+        pane.getChildren().addAll(t_count, t_level, t_enemy, statusGame, statusMusic);
         pane.setMinSize(32*31, 0);
         pane.setMaxSize(32*31, 32);
         pane.setStyle("-fx-background-color: #474747");
@@ -94,7 +121,6 @@ public class Menu {
     public static void updateMenu() {
         t_level.setText("Level: " + level);
         t_count.setText("Bombs: " + Bomb.getCount());
-        //t_bomb.setText("Bomb: " + player.getBombRemain());
         t_enemy.setText("Enemy: " + enemies.size());
 
         Image transparent = new Image("textures/transparent.png");

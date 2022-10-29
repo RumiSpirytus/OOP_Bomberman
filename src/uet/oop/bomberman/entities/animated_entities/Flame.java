@@ -52,20 +52,17 @@ public class Flame extends Animated_Entities {
         Top();
         Down();
         createFlame();
-        //System.out.println("huhu");
     }
     public boolean getWall(Rectangle r ){
 
         for(Entity e : BombermanGame.Objects){
             if(r.intersects(e.bound()) && e instanceof Wall) return true;
-            //System.out.println("getWall");
         }
         return false;
     }
     public boolean getBrick(Rectangle r){
         for(Entity e : BombermanGame.Objects){
             if(r.intersects(e.bound()) && e instanceof Brick) return true;
-            //System.out.println("getBrick");
         }
         return false;
     }

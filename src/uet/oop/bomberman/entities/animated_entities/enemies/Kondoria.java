@@ -15,7 +15,7 @@ public class Kondoria extends Enemy{
     int direction = 0;
     public void chooseDir() {
         Random random = new Random();
-        direction = random.nextInt(4);
+        direction = random.nextInt(2);
     }
 
     @Override
@@ -29,12 +29,6 @@ public class Kondoria extends Enemy{
                 case 1:
                     spriteDown();
                     break;
-                case 2:
-                    spriteLeft();
-                    break;
-                case 3:
-                    spriteRight();
-                    break;
             }
             canMove();
 //            }
@@ -45,13 +39,11 @@ public class Kondoria extends Enemy{
 
 
     public void spriteLeft() {
-        super.moveLeft();
-        img = Sprite.movingSprite(Sprite.kondoria_left1, Sprite.kondoria_left2, Sprite.kondoria_left3, animate++, 60).getFxImage();
+
     }
 
     public void spriteRight() {
-        super.moveRight();
-        img = Sprite.movingSprite(Sprite.kondoria_right1, Sprite.kondoria_right2, Sprite.kondoria_right3, animate++, 60).getFxImage();
+
     }
 
     public void spriteUp() {
