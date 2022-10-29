@@ -104,6 +104,7 @@ public class CreateMap {
                             break;
                         case '6':
                             enemies.add(new Kondoria(j, i, kondoria_left1.getFxImage()));
+                            break;
                         case 'b':
                             Objects.add(new Bomb_item(j,i, powerup_bombs.getFxImage()));
                             Objects.add(new Brick(j, i, brick.getFxImage()));

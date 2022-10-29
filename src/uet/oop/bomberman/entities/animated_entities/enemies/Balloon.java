@@ -9,7 +9,6 @@ import java.util.Random;
 
 public class Balloon extends Enemy {
 
-    protected double balloon_speed = 1;
     public Balloon(int x, int y, Image img) {
         super(x, y, img);
         speed = 1;
