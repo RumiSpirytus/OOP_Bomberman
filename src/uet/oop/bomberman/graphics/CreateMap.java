@@ -1,11 +1,12 @@
 package uet.oop.bomberman.graphics;
 
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.stage.Stage;
 import uet.oop.bomberman.entities.animated_entities.enemies.*;
 import uet.oop.bomberman.entities.Layer;
 import uet.oop.bomberman.entities.static_entities.*;
+import uet.oop.bomberman.entities.static_entities.items.Bomb_item;
+import uet.oop.bomberman.entities.static_entities.items.Flame_item;
+import uet.oop.bomberman.entities.static_entities.items.Portal;
+import uet.oop.bomberman.entities.static_entities.items.Speed_item;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;

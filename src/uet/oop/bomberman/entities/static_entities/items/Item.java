@@ -1,4 +1,4 @@
-package uet.oop.bomberman.entities.static_entities;
+package uet.oop.bomberman.entities.static_entities.items;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
@@ -7,7 +7,7 @@ import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.sound_bomberman.Sound;
 
 
-public class Item extends Entity {
+public abstract class Item extends Entity {
 
     public Item(int x, int y, Image img) {
         super(x, y, img);

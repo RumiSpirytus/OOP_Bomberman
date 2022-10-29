@@ -12,6 +12,8 @@ import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.animated_entities.Bomb;
 import uet.oop.bomberman.entities.animated_entities.Bomber;
 import uet.oop.bomberman.entities.animated_entities.Bomb.*;
+import uet.oop.bomberman.entities.static_entities.items.Portal;
+import uet.oop.bomberman.sound_bomberman.Sound;
 
 import static uet.oop.bomberman.BombermanGame.*;
 
@@ -58,16 +60,8 @@ public class Menu {
 
         statusGame.setOnMouseClicked(event -> {
             if (player.isAlive()) {
-                if (win) {
-                    running = true;
-                    level = 1;
-                    player = new Bomber(1, 1, Sprite.player_right.getFxImage());
-                    map = new CreateMap(level);
-                    BombermanGame.map.map();
-
-                } else {
                     running = !running;
-                }
+                Portal.next = false;
             } else {
                 running = true;
                 level = 1;
@@ -115,6 +109,10 @@ public class Menu {
                     Image newGame = new Image("textures/newGame.png");
                     statusGame.setImage(newGame);
                 } else {
+                    if (Portal.next) {
+                        Image newGame = new Image("textures/gameNext.png");
+                        authorView.setImage(newGame);
+                    }
                     Image playGame = new Image("textures/playGame.png");
                     statusGame.setImage(playGame);
                 }
@@ -127,6 +125,8 @@ public class Menu {
 
 
     }
+
+
 
     public static void gameOver() {
         if (!player.isAlive() || Bomb.Bombcount  == 0) {

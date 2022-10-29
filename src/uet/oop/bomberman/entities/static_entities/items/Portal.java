@@ -1,7 +1,9 @@
-package uet.oop.bomberman.entities.static_entities;
+package uet.oop.bomberman.entities.static_entities.items;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.entities.static_entities.items.Item;
+import uet.oop.bomberman.graphics.Menu;
 import uet.oop.bomberman.sound_bomberman.Sound;
 import uet.oop.bomberman.entities.animated_entities.Bomb;
 import uet.oop.bomberman.entities.animated_entities.Bomber;
@@ -23,8 +25,8 @@ public class Portal extends Item {
     public void update() {
         // TODO Auto-generated method stub
 
-    }
 
+    }
 
     @Override
     public boolean collide(Entity e) {
@@ -35,12 +37,13 @@ public class Portal extends Item {
             Sound nextLevel = new Sound("level_complete");
             nextLevel.play();
             level++;
-            if (level <= 3) {
-                Bomb.Bombcount = 70;
+            if (level <= 3 && level >1) {
+                running = false;
+                Bomb.Bombcount = 50;
                 player = new Bomber(1, 1, Sprite.player_right.getFxImage());
                 map = new CreateMap(level);
                 BombermanGame.map.map();
-                next = false;
+
             }
             if (level > 3) {
                 level = 1;

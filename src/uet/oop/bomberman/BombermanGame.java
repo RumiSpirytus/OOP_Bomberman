@@ -36,13 +36,11 @@ public class BombermanGame extends Application {
 
     public static final int WIDTH = 31;
     public static final int HEIGHT = 17;
-    public static int level = 1;
+    public static int level = 2;
     public static CreateMap map;
     private GraphicsContext gc;
     private Canvas canvas;
-    public static Stage mainstage = null;
-
-    public static boolean running;
+   public static boolean running;
     public static boolean win = false;
     public static Bomber player;
     public static List<Entity> entities = new ArrayList<>();
@@ -109,7 +107,8 @@ public class BombermanGame extends Application {
                 else {
                     if (!win) {
                         gameOver();
-                    } else {
+                    }
+                    if (win) {
                         youWin();
                     }
                 }

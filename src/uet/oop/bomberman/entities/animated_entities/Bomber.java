@@ -3,6 +3,7 @@ package uet.oop.bomberman.entities.animated_entities;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.entities.static_entities.items.*;
 import uet.oop.bomberman.sound_bomberman.Sound;
 import uet.oop.bomberman.entities.animated_entities.enemies.Enemy;
 import uet.oop.bomberman.entities.Entity;

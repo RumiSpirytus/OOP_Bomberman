@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.IOException;
 
 import static uet.oop.bomberman.BombermanGame.*;
-import static uet.oop.bomberman.entities.static_entities.Portal.next;
+import static uet.oop.bomberman.entities.static_entities.items.Portal.next;
 
 public class Sound {
 
