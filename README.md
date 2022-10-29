@@ -24,6 +24,6 @@ Hướng dẫn choi:
 Cây thừa kế:
 
 
-![img.png](img.png)
+![img_1.png](img_1.png)
 
 https://strategywiki.org/wiki/Bomberman/How_to_play
